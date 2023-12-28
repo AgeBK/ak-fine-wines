@@ -1,0 +1,96 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+.campaign {
+  background-color: #000;
+  text-align: center;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+}
+
+.campaign a {
+  color: #fff;
+}
+
+.campaign .toGood {
+  color: #fff;
+}
+
+.campaign .tenOff {
+  font-size: 4rem;
+}
+
+.campaign h2 {
+  font-size: 2rem;
+  padding: 0;
+  margin: 0;
+}
+
+.campaign .shopNow {
+  background-color: #fff;
+  color: #000;
+  display: inline-block;
+  margin: 1rem 0;
+  padding: 1rem;
+}
+
+.campaignMini {
+  display: flex;
+  text-align: center;
+  background-color: #000;
+}
+
+.campaignMini > div {
+  flex: 1 1 0;
+  background-color: #fff;
+  margin: 3rem;
+}
+
+.campaignMini h3 {
+  font-size: 2rem;
+  margin: 1rem 0;
+}
+
+.campaignMini .twoForBlurb {
+  font-size: 1.2rem;
+}
+
+.topRated {
+}
+
+.slogan {
+  background-color: #000;
+  color: #fff;
+  text-align: center;
+  padding: 0.2rem;
+  font-size: 1.2rem;
+  font-weight: normal;
+  margin: 0;
+}
+/* 
+.category {
+  flex: 1;
+  margin: 0.8rem;
+}
+
+.category a h2 {
+  color: #286c93;
+  margin: 0.3rem 0;
+  font-size: 1.1rem;
+  font-weight: normal;
+}
+
+.category a h2:hover {
+  color: #000;
+}
+
+.imgCont {
+  border: 1px solid #d3d3d3;
+}
+
+.imgCont:hover {
+  border-color: #b2b0b0;
+} */

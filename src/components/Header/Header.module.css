@@ -1,0 +1,47 @@
+.header {
+  padding: 0.5rem 0;
+  position: fixed;
+  background: #fff;
+  width: 100%;
+  max-width: 1400px;
+  border-bottom: 1px solid #d3d3d3;
+  z-index: 1;
+}
+
+.headerRow {
+  display: flex;
+}
+
+.hdr {
+  flex-grow: 1;
+  font-size: 38px;
+  margin: 1rem 0;
+}
+
+.logo {
+  margin-left: 1rem;
+}
+
+.cartCont {
+  position: relative;
+}
+
+@media screen and (max-width: 500px) {
+  .header {
+    padding: 0.5rem;
+  }
+
+  .hdr {
+    font-size: 28px;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  .header {
+    padding: 0.3rem;
+  }
+
+  .hdr {
+    font-size: 22px;
+  }
+}

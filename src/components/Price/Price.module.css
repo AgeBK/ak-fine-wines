@@ -1,0 +1,25 @@
+.current {
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.normal {
+  position: relative;
+  color: gray;
+  font-size: 1.2rem;
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.normal::before {
+  background: rgb(145, 143, 143);
+  content: "";
+  display: block;
+  height: 2px;
+  left: 50%;
+  position: absolute;
+  top: 53%;
+  -webkit-transform: translate(-50%, -50%) rotate(-15deg);
+  transform: translate(-50%, -50%) rotate(-15deg);
+  width: 35px;
+}

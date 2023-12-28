@@ -1,0 +1,33 @@
+.sale {
+  background-color: #000;
+  color: #fff;
+  display: inline-block;
+  padding: 5px;
+  text-align: left;
+  cursor: pointer;
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  width: 50px;
+  text-align: center;
+}
+
+.priceDrop {
+  font-size: 1.1rem;
+}
+
+.seeAll,
+.sale:hover .priceDrop {
+  display: none;
+  background-color: #ffa500;
+  color: #000;
+}
+
+.sale:hover .seeAll {
+  display: block;
+}
+
+.twoFor {
+  display: flex;
+  flex-direction: column;
+}

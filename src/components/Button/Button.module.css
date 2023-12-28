@@ -1,0 +1,119 @@
+.cart {
+  /* background-color: #2e7c00; */
+  background-color: #000;
+  padding: 10px 20px;
+  color: #fff;
+  border-radius: 5px 15px;
+  margin-top: 0.5rem;
+  text-decoration: none;
+  text-align: center;
+  font-weight: bold;
+  font-size: 0.7rem;
+  cursor: pointer;
+  text-shadow: 0px 1px 1px rgba(0, 0, 0);
+  box-shadow: 1px 1px 4px rgba(0, 0, 0);
+  text-transform: uppercase;
+}
+
+.cart:hover {
+  background-color: #333;
+}
+
+.pills {
+  padding: 10px;
+  background-color: #eff0f4;
+  border: 1px solid #000;
+  border-radius: 16px;
+  display: inline-block;
+  position: relative;
+  margin-right: 20px;
+}
+
+.pills:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+.btn {
+  padding-right: 0.2rem;
+  background-color: #3ca400;
+  padding: 0.1rem 0.6rem;
+  color: #fff;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.link {
+  background-color: #fff;
+  border: none;
+  padding: 0;
+  color: #222;
+  text-decoration: underline;
+  font-size: 0.8rem;
+  border-radius: 0;
+  box-shadow: none;
+  text-shadow: none;
+}
+
+.link:hover {
+  color: #555;
+  background-color: #fff;
+}
+
+.scroll {
+  position: fixed;
+  bottom: 55px;
+  right: 20px;
+  border: 0;
+  opacity: 0.5;
+  background-color: transparent;
+}
+
+.resultsPP {
+  border-radius: 0;
+  padding: 5px;
+  background: #fff;
+  box-shadow: none;
+  text-shadow: none;
+  color: #000;
+  border: 1px solid #000;
+  border-right: 0;
+}
+
+.resultsPP:last-child {
+  border-right: 1px solid #000;
+}
+
+.resultsPP:hover,
+.resultsPP > span {
+  background: #000;
+  color: #fff;
+}
+
+/* button[disabled] {
+  background: red;
+} */
+
+.pageNumber {
+  padding: 5px;
+}
+
+/* .cart {
+  background-color: #2e7c00;
+  padding: 5px 15px;
+  color: #fff;
+  border-radius: 0.5rem;
+  margin-top: 0.5rem;
+  text-decoration: none;
+  text-align: center;
+  font-weight: bold;
+  font-size: 0.7rem;
+  text-shadow: 0px 1px 1px rgba(0, 0, 0);
+  box-shadow: 1px 1px 4px rgba(0, 0, 0);
+  text-transform: uppercase;
+} */
+
+.cart:hover {
+  background-color: #008000;
+}

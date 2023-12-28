@@ -1,0 +1,45 @@
+import Button from "../Button";
+import styles from "./PageNumber.module.css";
+
+function PageNumber({ data, paging, setPaging }) {
+  console.log(data.length);
+  console.log(paging.pageSize);
+  const { page, pageSize } = paging;
+
+  const totalPages = Math.ceil(data.length / pageSize);
+  const prevPage = page - 1;
+  let nextPage = page + 1;
+  return (
+    <div className={styles.pageNumCont}>
+      <Button
+        css="pageNumber"
+        onClick={() => setPaging({ page: prevPage, pageSize })}
+        disabled={page <= 1}
+      >
+        &lt;
+      </Button>
+      <span className={styles.pageCurrent}>{page}</span>
+      <span className={styles.divider}>of</span>
+      <span className={styles.pageTotal}>{totalPages}</span>
+      <Button
+        css="pageNumber"
+        onClick={() => setPaging({ page: nextPage, pageSize })}
+        disabled={page === totalPages}
+      >
+        &gt;
+      </Button>
+      {/* <input
+        type="text"
+        name="pageNum"
+        id="pageNum"
+        value={paging.page}
+        maxLength={2}
+      />
+      <label htmlFor="pageNum" className={styles.label}>
+        {totalPages}
+      </label> */}
+    </div>
+  );
+}
+
+export default PageNumber;

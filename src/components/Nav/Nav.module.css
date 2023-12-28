@@ -1,0 +1,47 @@
+.nav {
+  display: flex;
+  padding: 5px;
+  font-weight: bold;
+  border: 1px solid #000;
+}
+
+.nav div {
+  flex-grow: 1;
+  text-align: center;
+  cursor: pointer;
+  border-right: 1px solid #000;
+}
+
+.nav a {
+  display: block;
+}
+
+.nav div:last-child {
+  border-right: none;
+}
+
+.nav > .navItem img:nth-child(1) {
+  display: inline-block;
+}
+
+.nav > .navItem img:nth-child(2) {
+  display: none;
+}
+
+.nav > .navItem.hover img:nth-child(1) {
+  display: none;
+}
+
+.nav > .navItem.hover img:nth-child(2) {
+  display: inline-block;
+}
+
+.icon {
+  height: 32px;
+  width: 32px;
+}
+
+.variety {
+  display: inline-block;
+  margin-left: 5px;
+}

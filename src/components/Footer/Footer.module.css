@@ -1,0 +1,27 @@
+.container {
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+  border-top: 1px solid #d3d3d3;
+  margin-top: auto;
+}
+
+.ak {
+  flex: 1;
+  color: #555;
+}
+.list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+@media screen and (max-width: 650px) {
+  .container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .list li {
+    flex-grow: 1;
+  }
+}
