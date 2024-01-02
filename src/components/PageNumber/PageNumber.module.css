@@ -1,4 +1,8 @@
-.pageNumCont > * {
+.container {
+  font-size: 1.1rem;
+}
+
+.container > * {
   margin: 0 5px;
 }
 

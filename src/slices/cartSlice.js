@@ -26,17 +26,18 @@ export const cartSlice = createSlice({
     increment: (state, action) => {
       console.log("incremement");
       const {
-        payload: { productId, productName, price },
+        payload: { id, name, current, quantity },
       } = action;
       console.log(action);
-      console.log(productId, productName, price);
-      let qty = 1;
+      // const {productId, productName, price} = action.payload;
+      console.log(id, name, current, quantity);
+      let qty = quantity || 1;
 
       // Redux Toolkit allows us to write "mutating" logic in reducers. It
       // doesn't actually mutate the state because it uses the Immer library,
       // which detects changes to a "draft state" and produces a brand new
       // immutable state based off those changes
-      state.cart = { ...state.cart, [productId]: { productName, price, qty } };
+      state.cart = { ...state.cart, [id]: { name, current, qty } };
     },
     decrement: (state, action) => {
       state.value -= 1;

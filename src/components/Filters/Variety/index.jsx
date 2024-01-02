@@ -21,7 +21,7 @@ function VarietyFilter({ setFilters, filters, reset, initial }) {
 
   return (
     <>
-      <h3 className={styles.hdr}>Rating:</h3>
+      <h3 className={styles.hdr}>Variety:</h3>
       <ul className={styles.list}>
         {sortedArr.map(([text]) => (
           <li key={text}>

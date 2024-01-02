@@ -145,7 +145,7 @@
     "cartLimit": 60,
     "productUrl": "/white-wine/story-bay-semillon-sauv-blanc-750ml_9937995",
     "sellItemId": "9938422",
-    "variety": "Semillon Sauvignon Blanc"
+    "variety": "Sem Sauv Blanc"
   },
   {
     "id": "9894906",
@@ -231,8 +231,8 @@
   {
     "id": "9861510",
     "category": "White",
-    "name": "Hidden Gem Semillon Sauvignon Blanc 750mL",
-    "shortName": "Semillon Sauvignon Blanc 750mL",
+    "name": "Hidden Gem Sem Sauv Blanc 750mL",
+    "shortName": "Sem Sauv Blanc 750mL",
     "brand": "Hidden Gem",
     "isAvailable": true,
     "volumeMl": 750,
@@ -270,7 +270,7 @@
     "cartLimit": 60,
     "productUrl": "/white-wine/hidden-gem-semillon-sauvignon-blanc-750ml_9861510",
     "sellItemId": "9861532",
-    "variety": "Semillon Sauvignon Blanc"
+    "variety": "Sem Sauv Blanc"
   },
   {
     "id": "9861430",
@@ -1404,7 +1404,7 @@
     "cartLimit": 60,
     "productUrl": "/white-wine/devil-s-lair-hidden-cave-sauv-blanc-semillon-750ml_8702919",
     "sellItemId": "8702974",
-    "variety": "Semillon Sauvignon Blanc"
+    "variety": "Sem Sauv Blanc"
   },
   {
     "id": "8702486",
@@ -2779,8 +2779,8 @@
   {
     "id": "7866998",
     "category": "White",
-    "name": "Audrey Wilkinson Semillon Sauvignon Blanc 750mL",
-    "shortName": "Semillon Sauvignon Blanc 750mL",
+    "name": "Audrey Wilkinson Sem Sauv Blanc 750mL",
+    "shortName": "Sem Sauv Blanc 750mL",
     "brand": "Audrey Wilkinson",
     "isAvailable": true,
     "volumeMl": 750,
@@ -2811,7 +2811,7 @@
     "cartLimit": 60,
     "productUrl": "/white-wine/audrey-wilkinson-semillon-sauvignon-blanc-750ml_7866998",
     "sellItemId": "8322215",
-    "variety": "Semillon Sauvignon Blanc"
+    "variety": "Sem Sauv Blanc"
   },
   {
     "id": "7865907",
@@ -5665,7 +5665,7 @@
     "cartLimit": 60,
     "productUrl": "/white-wine/de-bortoli-sacred-hill-semillon-sauv-blanc-750ml_6566897",
     "sellItemId": "8295702",
-    "variety": "Semillon Sauvignon Blanc"
+    "variety": "Sem Sauv Blanc"
   },
   {
     "id": "6533821",
@@ -7700,7 +7700,7 @@
     "cartLimit": 60,
     "productUrl": "/white-wine/lindemans-early-harvest-semillon-sauv-blanc-750ml_4710653",
     "sellItemId": "8271883",
-    "variety": "Semillon Sauvignon Blanc"
+    "variety": "Sem Sauv Blanc"
   },
   {
     "id": "4669403",
@@ -7752,8 +7752,8 @@
   {
     "id": "4669378",
     "category": "White",
-    "name": "Yellow Tail Semillon Sauvignon Blanc 750mL",
-    "shortName": "Semillon Sauvignon Blanc 750mL",
+    "name": "Yellow Tail Sem Sauv Blanc 750mL",
+    "shortName": "Sem Sauv Blanc 750mL",
     "brand": "Yellow Tail",
     "isAvailable": true,
     "volumeMl": 750,
@@ -7794,7 +7794,7 @@
     "cartLimit": 60,
     "productUrl": "/white-wine/yellow-tail-semillon-sauvignon-blanc-750ml_4669378",
     "sellItemId": "8271690",
-    "variety": "Semillon Sauvignon Blanc"
+    "variety": "Sem Sauv Blanc"
   },
   {
     "id": "4657845",
@@ -10158,7 +10158,7 @@
     "cartLimit": 60,
     "productUrl": "/white-wine/cookoothama-sauvignon-blanc-semillon-750ml_532839",
     "sellItemId": "8256450",
-    "variety": "Semillon Sauvignon Blanc"
+    "variety": "Sem Sauv Blanc"
   },
   {
     "id": "532822",
@@ -11343,8 +11343,8 @@
   {
     "id": "481373",
     "category": "White",
-    "name": "Deep Woods Ivory Semillon Sauvignon Blanc 750mL",
-    "shortName": "Ivory Semillon Sauvignon Blanc 750mL",
+    "name": "Deep Woods Ivory Sem Sauv Blanc 750mL",
+    "shortName": "Ivory Sem Sauv Blanc 750mL",
     "brand": "Deep Woods",
     "isAvailable": true,
     "volumeMl": 750,
@@ -11382,7 +11382,7 @@
     "cartLimit": 60,
     "productUrl": "/white-wine/deep-woods-ivory-semillon-sauvignon-blanc-750ml_481373",
     "sellItemId": "8249501",
-    "variety": "Semillon Sauvignon Blanc"
+    "variety": "Sem Sauv Blanc"
   },
   {
     "id": "480352",
@@ -11667,8 +11667,8 @@
   {
     "id": "472876",
     "category": "White",
-    "name": "West Cape Howe Semillon Sauvignon Blanc 750mL",
-    "shortName": "Semillon Sauvignon Blanc 750mL",
+    "name": "West Cape Howe Sem Sauv Blanc 750mL",
+    "shortName": "Sem Sauv Blanc 750mL",
     "brand": "West Cape Howe",
     "isAvailable": true,
     "volumeMl": 750,
@@ -11706,7 +11706,7 @@
     "cartLimit": 12,
     "productUrl": "/white-wine/west-cape-howe-semillon-sauvignon-blanc-750ml_472876",
     "sellItemId": "8248553",
-    "variety": "Semillon Sauvignon Blanc"
+    "variety": "Sem Sauv Blanc"
   },
   {
     "id": "470582",
@@ -14002,8 +14002,8 @@
   {
     "id": "157803",
     "category": "White",
-    "name": "Fifth Leg Semillon Sauvignon Blanc 750mL",
-    "shortName": "Semillon Sauvignon Blanc 750mL",
+    "name": "Fifth Leg Sem Sauv Blanc 750mL",
+    "shortName": "Sem Sauv Blanc 750mL",
     "brand": "Fifth Leg",
     "isAvailable": true,
     "volumeMl": 750,
@@ -14034,7 +14034,7 @@
     "cartLimit": 60,
     "productUrl": "/white-wine/fifth-leg-semillon-sauvignon-blanc-750ml_157803",
     "sellItemId": "8237058",
-    "variety": "Semillon Sauvignon Blanc"
+    "variety": "Sem Sauv Blanc"
   },
   {
     "id": "155946",
@@ -14520,7 +14520,7 @@
     "cartLimit": 60,
     "productUrl": "/white-wine/houghton-sauvignon-blanc-semillon-750ml_131537",
     "sellItemId": "8235325",
-    "variety": "Semillon Sauvignon Blanc"
+    "variety": "Sem Sauv Blanc"
   },
   {
     "id": "131469",
@@ -14812,8 +14812,8 @@
   {
     "id": "125482",
     "category": "White",
-    "name": "Wolf Blass Red Label Semillon Sauvignon Blanc 750mL",
-    "shortName": "Red Label Semillon Sauvignon Blanc 750mL",
+    "name": "Wolf Blass Red Label Sem Sauv Blanc 750mL",
+    "shortName": "Red Label Sem Sauv Blanc 750mL",
     "brand": "Wolf Blass",
     "isAvailable": true,
     "volumeMl": 750,
@@ -14844,7 +14844,7 @@
     "cartLimit": 60,
     "productUrl": "/white-wine/wolf-blass-red-label-semillon-sauvignon-blanc-750ml_125482",
     "sellItemId": "8234730",
-    "variety": "Semillon Sauvignon Blanc"
+    "variety": "Sem Sauv Blanc"
   },
   {
     "id": "125383",
@@ -15400,8 +15400,8 @@
   {
     "id": "102681",
     "category": "White",
-    "name": "Jacob's Creek Semillon Sauvignon Blanc 750mL",
-    "shortName": "Semillon Sauvignon Blanc 750mL",
+    "name": "Jacob's Creek Sem Sauv Blanc 750mL",
+    "shortName": "Sem Sauv Blanc 750mL",
     "brand": "Jacob's Creek",
     "isAvailable": true,
     "volumeMl": 750,
@@ -15439,7 +15439,7 @@
     "cartLimit": 60,
     "productUrl": "/white-wine/jacob-s-creek-semillon-sauvignon-blanc-750ml_102681",
     "sellItemId": "8233920",
-    "variety": "Semillon Sauvignon Blanc"
+    "variety": "Sem Sauv Blanc"
   },
   {
     "id": "102667",
@@ -16066,7 +16066,7 @@
     "cartLimit": 60,
     "productUrl": "/white-wine/vasse-felix-classic-dry-white-750ml_89814",
     "sellItemId": "8233079",
-    "variety": "Semillon Sauvignon Blanc"
+    "variety": "Sem Sauv Blanc"
   },
   {
     "id": "89074",
@@ -16140,7 +16140,7 @@
     "cartLimit": 60,
     "productUrl": "/white-wine/voyager-estate-sauvignon-blanc-semillon-750ml_87803",
     "sellItemId": "8232859",
-    "variety": "Semillon Sauvignon Blanc"
+    "variety": "Sem Sauv Blanc"
   },
   {
     "id": "87629",
@@ -16258,7 +16258,7 @@
     "cartLimit": 60,
     "productUrl": "/white-wine/evans-tate-classic-margaret-river-sem-sauv-blan-750ml_86035",
     "sellItemId": "8232735",
-    "variety": "Semillon Sauvignon Blanc"
+    "variety": "Sem Sauv Blanc"
   },
   {
     "id": "85861",
@@ -16295,7 +16295,7 @@
     "cartLimit": 60,
     "productUrl": "/white-wine/cape-mentelle-sauvignon-blanc-semillon-750ml_85861",
     "sellItemId": "8232713",
-    "variety": "Semillon Sauvignon Blanc"
+    "variety": "Sem Sauv Blanc"
   },
   {
     "id": "85502",
@@ -16450,7 +16450,7 @@
     "cartLimit": 60,
     "productUrl": "/white-wine/brokenwood-cricket-pitch-sauvignon-blanc-semillon_78566",
     "sellItemId": "8232393",
-    "variety": "Semillon Sauvignon Blanc"
+    "variety": "Sem Sauv Blanc"
   },
   {
     "id": "77514",
@@ -18986,8 +18986,8 @@
   {
     "id": "17022",
     "category": "White",
-    "name": "Pierro LTC Semillon Sauvignon Blanc 750mL",
-    "shortName": "LTC Semillon Sauvignon Blanc 750mL",
+    "name": "Pierro LTC Sem Sauv Blanc 750mL",
+    "shortName": "LTC Sem Sauv Blanc 750mL",
     "brand": "Pierro",
     "isAvailable": true,
     "volumeMl": 750,
@@ -19018,7 +19018,7 @@
     "cartLimit": 60,
     "productUrl": "/white-wine/pierro-ltc-semillon-sauvignon-blanc-750ml_17022",
     "sellItemId": "8226958",
-    "variety": "Semillon Sauvignon Blanc"
+    "variety": "Sem Sauv Blanc"
   },
   {
     "id": "16841",
@@ -19384,8 +19384,8 @@
   {
     "id": "13253",
     "category": "White",
-    "name": "Pepper Tree Semillon Sauvignon Blanc 750mL",
-    "shortName": "Semillon Sauvignon Blanc 750mL",
+    "name": "Pepper Tree Sem Sauv Blanc 750mL",
+    "shortName": "Sem Sauv Blanc 750mL",
     "brand": "Pepper Tree",
     "isAvailable": true,
     "volumeMl": 750,
@@ -19416,7 +19416,7 @@
     "cartLimit": 60,
     "productUrl": "/white-wine/pepper-tree-semillon-sauvignon-blanc-750ml_13253",
     "sellItemId": "8226437",
-    "variety": "Semillon Sauvignon Blanc"
+    "variety": "Sem Sauv Blanc"
   },
   {
     "id": "13239",
@@ -25746,8 +25746,8 @@
   {
     "id": "5578981_ea",
     "category": "White",
-    "name": "Devil's Lair Honeybomb Semillon Sauvignon Blanc 750mL",
-    "shortName": "Honeybomb Semillon Sauvignon Blanc 750mL",
+    "name": "Devil's Lair Honeybomb Sem Sauv Blanc 750mL",
+    "shortName": "Honeybomb Sem Sauv Blanc 750mL",
     "brand": "Devil's Lair",
     "isAvailable": true,
     "volumeMl": 750,
@@ -25778,7 +25778,7 @@
     "cartLimit": 60,
     "productUrl": "/white-wine/devil-s-lair-honeybomb-semillon-sauvignon-blanc-750ml_5578981?uom=ea",
     "sellItemId": "5578981",
-    "variety": "Semillon Sauvignon Blanc"
+    "variety": "Sem Sauv Blanc"
   },
   {
     "id": "5578970_ea",
@@ -29977,8 +29977,8 @@
   {
     "id": "5365346_ea",
     "category": "White",
-    "name": "Bunnamagoo Semillon Sauvignon Blanc 750mL",
-    "shortName": "Semillon Sauvignon Blanc 750mL",
+    "name": "Bunnamagoo Sem Sauv Blanc 750mL",
+    "shortName": "Sem Sauv Blanc 750mL",
     "brand": "Bunnamagoo",
     "isAvailable": true,
     "volumeMl": 750,
@@ -30009,7 +30009,7 @@
     "cartLimit": 60,
     "productUrl": "/white-wine/bunnamagoo-semillon-sauvignon-blanc-750ml_5365346?uom=ea",
     "sellItemId": "5365346",
-    "variety": "Semillon Sauvignon Blanc"
+    "variety": "Sem Sauv Blanc"
   },
   {
     "id": "5365335_ea",
@@ -30900,7 +30900,7 @@
     "cartLimit": 60,
     "productUrl": "/white-wine/xanadu-circa-77-sauvignon-blanc-semillon-750ml_5293992?uom=ea",
     "sellItemId": "5293992",
-    "variety": "Semillon Sauvignon Blanc"
+    "variety": "Sem Sauv Blanc"
   },
   {
     "id": "5271388_ea",
@@ -37422,8 +37422,8 @@
   {
     "id": "4454724",
     "category": "White",
-    "name": "Abbey Vale Semillon Sauvignon Blanc 750mL",
-    "shortName": "Semillon Sauvignon Blanc 750mL",
+    "name": "Abbey Vale Sem Sauv Blanc 750mL",
+    "shortName": "Sem Sauv Blanc 750mL",
     "brand": "Abbey Vale",
     "isAvailable": true,
     "volumeMl": 750,
@@ -37454,7 +37454,7 @@
     "cartLimit": 60,
     "productUrl": "/white-wine/abbey-vale-semillon-sauvignon-blanc-750ml_4454724",
     "sellItemId": "4454735",
-    "variety": "Semillon Sauvignon Blanc"
+    "variety": "Sem Sauv Blanc"
   },
   {
     "id": "4448856",
@@ -58501,7 +58501,7 @@
     "cartLimit": 60,
     "productUrl": "/white-wine/choosy-beggars-sauvignon-blanc-semillon-750ml_2834859",
     "sellItemId": "2834859",
-    "variety": "Semillon Sauvignon Blanc"
+    "variety": "Sem Sauv Blanc"
   },
   {
     "id": "2833889",
@@ -58594,8 +58594,8 @@
   {
     "id": "2830155",
     "category": "White",
-    "name": "Hardys VR Semillon Sauvignon Blanc 1L",
-    "shortName": "VR Semillon Sauvignon Blanc 1L",
+    "name": "Hardys VR Sem Sauv Blanc 1L",
+    "shortName": "VR Sem Sauv Blanc 1L",
     "brand": "Hardys",
     "isAvailable": true,
     "volumeMl": 1000,
@@ -58626,7 +58626,7 @@
     "cartLimit": 60,
     "productUrl": "/white-wine/hardys-vr-semillon-sauvignon-blanc-1l_2830155",
     "sellItemId": "2830155",
-    "variety": "Semillon Sauvignon Blanc"
+    "variety": "Sem Sauv Blanc"
   },
   {
     "id": "2829338",
@@ -61052,7 +61052,7 @@
     "cartLimit": 60,
     "productUrl": "/white-wine/jamiesons-run-grazier-sem-sauv-blanc-750ml_2587148",
     "sellItemId": "2587148",
-    "variety": "Semillon Sauvignon Blanc"
+    "variety": "Sem Sauv Blanc"
   },
   {
     "id": "2564506",

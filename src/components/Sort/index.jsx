@@ -51,13 +51,13 @@ function Sort({ initial, setInitial }) {
   };
 
   return (
-    <>
+    <div className={styles.container}>
       <label htmlFor="sort" id="lblSort">
         <select
           id="sort"
           name="filters"
           onChange={sortDDL}
-          className={styles.container}
+          className={styles.select}
           aria-labelledby="lblSort"
           value={selected}
         >
@@ -68,7 +68,7 @@ function Sort({ initial, setInitial }) {
           ))}
         </select>
       </label>
-    </>
+    </div>
   );
 }
 

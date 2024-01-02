@@ -6,45 +6,78 @@
   text-align: left;
 }
 
-.hdr {
-  font-weight: normal;
+.productCont {
+  display: flex;
+}
+
+.productImg {
+  flex: 0 0 50%;
+  text-align: right;
+  margin-right: 80px;
+}
+
+.productMeta {
+  position: relative;
+}
+
+.cartTable {
+  position: absolute;
+  bottom: 0;
+}
+
+.brand {
+  font-size: 4rem;
+}
+
+.shortName {
   font-size: 2rem;
-  margin: 0.5rem 0;
+  margin-bottom: 50px;
 }
 
-.category {
-  color: #285cab;
+.chevronCont {
+  margin: 0 3px;
 }
 
-.priceCont {
+.chevron:after {
+  content: "\203A";
+  font-size: 24px;
+  font-weight: bold;
+  color: #555;
+}
+
+.listInfo {
   display: flex;
+  flex-wrap: wrap;
 }
 
-.priceCont > div {
-  flex-grow: 1;
+.listInfo li {
+  flex: 0 0 45%;
 }
 
-.infoCont {
-  display: flex;
-  align-items: center;
+.listInfo span:first-child {
+  margin-right: auto;
 }
 
-.imgCont {
-  margin-right: 1rem;
+.cartTable {
+  width: 100%;
+  padding: 10px;
+  background: #f3f3f3;
+  text-align: center;
 }
 
-.dimensions,
-.qty {
-  margin: 1rem 0;
-}
-
-.cm {
+.count {
+  font-size: 2rem;
   display: inline-block;
-  margin-left: 0.2rem;
+  margin: 0 15px;
+}
+
+.totalPrice {
+  font-size: 2.5rem;
+  font-weight: bold;
 }
 
 @media screen and (max-width: 600px) {
-  .container {
+  /* .container {
     padding: 1rem;
     text-align: center;
   }
@@ -64,5 +97,5 @@
 
   .desc {
     text-align: left;
-  }
+  } */
 }

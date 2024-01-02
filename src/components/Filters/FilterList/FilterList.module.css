@@ -1,0 +1,19 @@
+.container {
+  flex: 0 0 180px; /* don't grow, don't shrink, stay fixed at 180px */
+  margin: 20px;
+}
+
+.hdr {
+  font-size: 1.6rem;
+  /* margin-bottom: 20px; */
+  border-bottom: 1px solid #555;
+}
+
+.filterList > li {
+  padding: 15px 0;
+  border-bottom: 1px solid #555;
+}
+
+.filterList input[type="radio"] {
+  margin: 4px 10px 10px 0;
+}

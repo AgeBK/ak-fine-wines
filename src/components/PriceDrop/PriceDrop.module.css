@@ -12,22 +12,20 @@
   text-align: center;
 }
 
-.priceDrop {
-  font-size: 1.1rem;
+.twoFor {
+    height: 65px;
 }
 
 .seeAll,
 .sale:hover .priceDrop {
   display: none;
-  background-color: #ffa500;
-  color: #000;
 }
 
 .sale:hover .seeAll {
-  display: block;
-}
-
-.twoFor {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  background-color: #ffa500;
+  color: #000;
+  height: 100%;
 }

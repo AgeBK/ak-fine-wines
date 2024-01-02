@@ -23,3 +23,11 @@
   transform: translate(-50%, -50%) rotate(-15deg);
   width: 35px;
 }
+
+.product .current {
+  font-size: 2.5rem;
+}
+
+.product .normal {
+  font-size: 2rem;
+}

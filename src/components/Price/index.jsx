@@ -1,8 +1,9 @@
 import styles from "./Price.module.css";
 
-function Price({ current, normal }) {
+function Price({ current, normal, css }) {
   return (
-    <div className={styles.prices}>
+    // <div className={`${styles.prices} ${styles[css]}`}>
+    <div className={styles[css]}>
       {current !== normal && <span className={styles.normal}>${normal}</span>}
       <span className={styles.current}>${current}</span>
     </div>

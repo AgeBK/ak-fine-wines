@@ -10,7 +10,7 @@ function PageNumber({ data, paging, setPaging }) {
   const prevPage = page - 1;
   let nextPage = page + 1;
   return (
-    <div className={styles.pageNumCont}>
+    <div className={styles.container}>
       <Button
         css="pageNumber"
         onClick={() => setPaging({ page: prevPage, pageSize })}
