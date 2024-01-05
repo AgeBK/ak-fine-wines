@@ -9,9 +9,10 @@ import {
 } from "../../slices/cartSlice";
 import Button from "../Button";
 
-function AddToCart({ id, name, current, quantity }) {
+function AddToCart({ id, name, brand, shortName, price, quantity, deal }) {
   const dispatch = useDispatch();
-  const handleClick = () => dispatch(increment({ id, name, current, quantity }));
+  const handleClick = () =>
+    dispatch(increment({ id, name, brand, shortName, price, quantity, deal }));
 
   return (
     <Button css="cart" onClick={handleClick}>

@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { increment, selectCart } from "../../slices/cartSlice";
 import { hyphenate, deHyphenate } from "../../data/functions";
 import all from "../../data/allProducts.json";
 import { blurb } from "../../data/appData.json";
@@ -9,13 +7,13 @@ import AddToCart from "../AddToCart";
 import Img from "../Image";
 import Button from "../Button";
 import PriceDrop from "../PriceDrop";
+import ProductInfo from "./ProductInfo";
 import Price from "../Price";
 import styles from "./Product.module.css";
 
 function Product() {
   const [count, setCount] = useState(1);
   const { category: urlCategory, variety: urlVariety, id: urlId } = useParams();
-  const dispatch = useDispatch();
 
   console.log(urlCategory, urlVariety, urlId);
 
@@ -28,8 +26,10 @@ function Product() {
     name,
     shortName,
     brand,
-    ratings: { average },
-    price: { current, normal },
+    packaging,
+    unitOfMeasureLabel,
+    ratings: { average, total },
+    price: { current, normal, twoFor },
     promotion: { calloutText },
   } = product;
 
@@ -45,6 +45,9 @@ function Product() {
     textContent === "+" ? setCount(count + 1) : setCount(count - 1);
   };
 
+  const CartDeal = () =>
+    twoFor ? <div className={styles.cartTwoFor}>{calloutText}</div> : null;
+
   return (
     <article>
       <div className={styles.container}>
@@ -52,7 +55,7 @@ function Product() {
           <Link to="/" className={styles.category}>
             <Img
               image={`icons/home.png`}
-              imageStyle="homeIcon"
+              imageStyle=""
               imageAlt="AK Fine Wines"
             />
             Home
@@ -71,124 +74,92 @@ function Product() {
         </div>
         <section className={styles.productCont}>
           <div className={styles.productImg}>
-            {current !== normal ||
-              (calloutText && <PriceDrop calloutText={calloutText} />)}
             <Img
               image={`wine/${id}.jpg`}
-              imageStyle=""
+              imageStyle="productMain"
               imageAlt="AK Fine Wines"
-            />
+            />{" "}
+            {current !== normal ||
+              (calloutText && <PriceDrop calloutText={calloutText} />)}
+            {/* {twoFor && <div className={styles.twoFor}>{calloutText}</div>} */}
           </div>
 
           <div className={styles.productMeta}>
             <h1 className={styles.brand}>{brand}</h1>
             <h2 className={styles.shortName}>{shortName}</h2>
+            <div className={styles.productBlurb}>
+              {blurb[urlVariety] || blurb[urlCategory]}
+            </div>
+
             {average && Math.round(average) > 2 ? (
-              <Img
-                image={`bg/${Math.round(average)}starLge.png`}
-                imageStyle="block"
-                imageAlt="AK Fine Wines"
-              />
+              <>
+                <Img
+                  image={`bg/${Math.round(average)}starLge.png`}
+                  imageStyle=" "
+                  imageAlt="AK Fine Wines"
+                />
+                <div className={styles.totalRate}>{total} Reviews</div>
+              </>
             ) : null}
 
-            <Price current={current} normal={normal} css="product" />
-            <div className={styles.addCont}>
+            {/* <Price current={current} normal={normal} css="product" /> */}
+            <div className={styles.cartTableCont}>
               <div className={styles.cartTable}>
-                <div className={styles.totalPrice}>${current * count}</div>
-                <Button
-                  css="cartLge"
-                  onClick={handleCount}
-                  disabled={count < 1}
-                >
-                  -
-                </Button>
-                <span className={styles.count}>{count}</span>
-                <Button css="cartLge" onClick={handleCount}>
-                  +
-                </Button>
-                <br />
-                <AddToCart
-                  id={id}
-                  name={name}
-                  current={current}
-                  quantity={count}
-                />
+                <div className={styles.cartBottle}>
+                  {/* <div className={styles.packaging}>{packaging}</div> */}
+                  <div className={styles.price}>
+                    ${current}/{packaging}
+                  </div>
+                  <div className={styles.packImg}>
+                    <Img
+                      image={`icons/wineSil.png`}
+                      imageStyle="packaging"
+                      imageAlt={packaging}
+                    />
+                  </div>
+                </div>
+                <div className={styles.cartAmt}>
+                  <div className={styles.totalPrice}>${current * count}</div>
+                  <Button
+                    css="cartLge"
+                    onClick={handleCount}
+                    disabled={count < 1}
+                  >
+                    -
+                  </Button>
+                  <span className={styles.count}>{count}</span>
+                  <Button css="cartLge" onClick={handleCount}>
+                    +
+                  </Button>
+                </div>
+                <div className={styles.cartAdd}>
+                  <AddToCart
+                    id={id}
+                    name={name}
+                    brand={brand}
+                    shortName={shortName}
+                    price={current}
+                    quantity={count}
+                    deal={twoFor}
+                  />
+                </div>
               </div>
+              <CartDeal />
             </div>
           </div>
         </section>
-        <section className={styles.info}>
-          <ul className={styles.listInfo}>
-            <li>
-              <span>Style</span>
-              <span>Dessert &amp; Fortified Wines</span>
-            </li>
-            <li>
-              <span>Standard Drinks</span>
-              <span>10.0</span>
-            </li>
-            <li>
-              <span>Packaging</span>
-              <span>Bottle</span>
-            </li>
-            <li>
-              <span>Alcohol Content</span>
-              <span>17.50%</span>
-            </li>
-            <li>
-              <span>Closure</span>
-              <span>Screw cap</span>
-            </li>
-            <li>
-              <span>GTIN</span>
-              <span>9312088000164</span>
-            </li>
-            <li>
-              <span>Varieties</span>
-              <span>Other Red Varietal</span>
-            </li>
-            <li>
-              <span>Occasion</span>
-              <span>After Dinner</span>
-            </li>
-            <li>
-              <span>Organic</span>
-              <span>No</span>
-            </li>
-            <li>
-              <span>Food Pair</span>
-              <span>Desserts</span>
-            </li>
-            <li>
-              <span>Region</span>
-              <span>South Eastern Australia, Australia</span>
-            </li>
-            <li>
-              <span>Origin</span>
-              <span>Australia</span>
-            </li>
-            <li>
-              <span>Cellaring</span>
-              <span>Drink now</span>
-            </li>
-            <li>
-              <span>Product ID</span>
-              <span>182577</span>
-            </li>
-            <li>
-              <span>Brand</span>
-              <span>
-                <a
-                  title="View details for Wolf Blass"
-                  aria-label="View details for Wolf Blass"
-                  href="/brands/wolf-blass"
-                >
-                  Wolf Blass
-                </a>
-              </span>
-            </li>
-          </ul>
-        </section>
+        <ProductInfo
+          id={id}
+          category={category}
+          variety={variety}
+          brand={brand}
+          packaging={packaging}
+          unitOfMeasureLabel={unitOfMeasureLabel}
+          current={current}
+          normal={normal}
+          shortName={shortName}
+          urlCategory={urlCategory}
+        />
       </div>
     </article>
   );

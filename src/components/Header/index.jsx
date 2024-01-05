@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import Nav from "../Nav";
 import Img from "../../components/Image";
+import Cart from "../Cart";
 import styles from "./Header.module.css";
 
 const Header = () => {
@@ -19,7 +20,9 @@ const Header = () => {
         <h1 className={styles.hdr}>
           AK <span>FINE WINES</span>
         </h1>
-        <div className={styles.cartCont}></div>
+        <div className={styles.cartCont}>
+          <Cart />
+        </div>
       </div>
       <Nav />
     </header>

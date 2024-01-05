@@ -25,4 +25,24 @@ const deHyphenate = (text) => text.toLowerCase().replace(/-/gi, " ");
 //     });
 //     filtered = arrTwoFor;
 //   };
+
+// Add property to product object function (2 for deals)
+// const test = all.map((val) => {
+//     val.price.twoFor = "";
+//     if (
+//       val.promotion.calloutText &&
+//       val.promotion.calloutText.includes("2 for")
+//     ) {
+//       const twoForPrice = val.promotion.calloutText
+//         .split(" ")
+//         .pop()
+//         .replace("$", "");
+//       console.log(val.id);
+//       console.log(twoForPrice);
+//       val.price.twoFor = Number(twoForPrice);
+//     }
+//     return val;
+//   });
+
+//   console.log(test);
 export { hyphenate, deHyphenate };

@@ -43,6 +43,19 @@
   display: inline-block;
 }
 
+.packaging {
+  height: 3rem;
+  width: 1.5rem;
+}
+
+.cartOpen {
+  height: 5rem;
+}
+
+.cartOpenBtn {
+  width: 30px;
+}
+
 @media screen and (max-width: 500px) {
   .logo {
     width: 4rem;
@@ -52,5 +65,9 @@
   .product {
     width: 14rem;
     height: 14rem;
+  }
+
+  .productMain {
+    height: 390px;
   }
 }

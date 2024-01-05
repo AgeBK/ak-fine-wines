@@ -180,7 +180,7 @@ function Category() {
                 shortName,
                 brand,
                 ratings: { average },
-                price: { current, normal },
+                price: { current, normal, twoFor },
                 promotion: { calloutText },
               }) => {
                 return (
@@ -219,7 +219,15 @@ function Category() {
                     </Link>
                     <Price current={current} normal={normal} />
                     <div className={styles.addCont}>
-                      <AddToCart id={id} name={name} current={current} />
+                      <AddToCart
+                        id={id}
+                        name={name}
+                        brand={brand}
+                        shortName={shortName}
+                        price={current}
+                        quantity={1}
+                        deal={twoFor}
+                      />
                     </div>
                   </div>
                 );

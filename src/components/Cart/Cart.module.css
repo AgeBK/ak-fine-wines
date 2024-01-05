@@ -1,0 +1,21 @@
+.cartOuterContainer {
+  /* position: relative;
+  padding: 1rem;
+  font-size: 0.9rem; */
+  margin-top: 20px;
+}
+
+.container {
+  /* position: absolute;
+  right: 0.3rem; */
+  background-color: #fff;
+  width: auto;
+  cursor: pointer;
+  z-index: 2;
+}
+
+@media screen and (max-width: 500px) {
+  .container {
+    right: 1rem;
+  }
+}

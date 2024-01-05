@@ -39,13 +39,23 @@
 }
 
 .btn {
-  padding-right: 0.2rem;
+  /* padding-right: 5px; */
   background-color: #3ca400;
-  padding: 0.1rem 0.6rem;
+  padding: 3px 12px;
   color: #fff;
-  border-radius: 0.5rem;
+  border-radius: 16px;
   font-weight: bold;
   font-size: 1.2rem;
+}
+
+.removeBtn {
+  padding-right: 0.2rem;
+  background-color: #d3d3d3;
+  padding: 0.1rem 0.6rem;
+  color: #888;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  font-size: 0.9rem;
 }
 
 .link {
@@ -105,8 +115,18 @@
 }
 
 .cartLge {
-  font-size: 2rem;
-  width: 40px;
+  font-size: 1.2rem;
+  width: 30px;
+}
+
+.noStyle {
+	background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
 }
 
 /* .cart {

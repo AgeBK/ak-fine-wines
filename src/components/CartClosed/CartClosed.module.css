@@ -1,0 +1,43 @@
+.cartClosedCont {
+  background-color: #fff;
+  z-index: 1;
+  width: auto;
+  margin-right: 1rem;
+  position: relative;
+  display: flex;
+}
+
+.cartClosedContQty {
+  animation-name: bg;
+  animation-duration: 1s;
+  animation-timing-function: ease-out;
+}
+
+.totalPrice {
+  margin-top: 5px;
+  margin-left: 10px;
+  font-weight: bold;
+}
+
+@keyframes bg {
+  from {
+    font-weight: bold;
+    font-size: 1rem;
+  }
+  to {
+    font-weight: normal;
+    font-size: 0.7rem;
+  }
+}
+
+.cartImg {
+  height: 2rem;
+  width: 2rem;
+}
+
+.cartClosedQty {
+  font-size: 0.7rem;
+  position: absolute;
+  top: -15px;
+  left: 29px;
+}
