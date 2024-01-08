@@ -27,16 +27,15 @@ function Carousel() {
   arr.slice(startIndex, startIndex + length);
 
   useEffect(() => {
-    const id = setInterval(() => {
-      if (startIndex + length < arr2.length) {
-        console.log(startIndex);
-        setStartIndex((prev) => prev + 1);
-      } else {
-        setStartIndex(0);
-      }
-    }, 20000);
-
-    return () => clearInterval(id);
+    // const id = setInterval(() => {
+    //   if (startIndex + length < arr2.length) {
+    //     console.log(startIndex);
+    //     setStartIndex((prev) => prev + 1);
+    //   } else {
+    //     setStartIndex(0);
+    //   }
+    // }, 20000);
+    // return () => clearInterval(id);
   }, [startIndex, productListArr, arr2]);
 
   return (
@@ -45,15 +44,17 @@ function Carousel() {
         <ProductList arr={arr} css="carousel" />
       </div> */}
       <div className={styles.cont}>
-        {arr2.map((val, ind) => {
-          if (ind >= startIndex && ind < startIndex + length) {
+        {arr2.map(
+          (val, ind) => {
+            //if (ind >= startIndex && ind < startIndex + length) {
             return (
               <div className={styles.item} key={val}>
-                <ProductList arr={[arr[ind]]} css="carousel" />
+                {val}
               </div>
             );
           }
-        })}
+          //}
+        )}
       </div>
     </>
   );
