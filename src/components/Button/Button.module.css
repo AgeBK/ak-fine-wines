@@ -82,6 +82,7 @@
   border: 0;
   opacity: 0.5;
   background-color: transparent;
+  z-index: 1;
 }
 
 .resultsPP {
@@ -119,15 +120,43 @@
   width: 30px;
 }
 
-.noStyle {
-	background: none;
-	color: inherit;
-	border: none;
-	padding: 0;
-	font: inherit;
-	cursor: pointer;
-	outline: inherit;
+.cartAdd {
+  background: url("/src/assets/img/btn/plus1.png") no-repeat;
+  width: 30px;
+  height: 30px;
+  background-size: 30px 30px;
 }
+
+.cartAdd:hover {
+  background: url("/src/assets/img/btn/plus.png") no-repeat;
+  width: 30px;
+  height: 30px;
+  background-size: 30px 30px;
+}
+
+.cartMinus {
+  background: url("/src/assets/img/btn/minus1.png") no-repeat;
+  width: 30px;
+  height: 30px;
+  background-size: 30px 30px;
+}
+
+.cartMinus:hover {
+  background: url("/src/assets/img/btn/minus.png") no-repeat;
+  width: 30px;
+  height: 30px;
+  background-size: 30px 30px;
+}
+
+.pageNumber {
+  font-size: 30px;
+}
+
+.pageNumber:disabled {
+  color: #d3d3d3;
+}
+
+/* ; */
 
 /* .cart {
   background-color: #2e7c00;

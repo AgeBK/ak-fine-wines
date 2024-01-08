@@ -7,6 +7,8 @@ import {
   incrementIfOdd,
   selectCount,
 } from "../../slices/cartSlice";
+import ProductList from "../ProductList";
+import Carousel from "../Carousel";
 import { Link } from "react-router-dom";
 import Img from "../Image";
 import Button from "../Button";
@@ -45,11 +47,18 @@ function Home() {
 
   console.log(deals);
 
+  const productListArr = all
+    .filter(({ price: { current, normal } }) => current !== normal)
+    .sort(() => 0.5 - Math.random())
+    .slice(0, 10);
+  console.log(productListArr);
+
   return (
     <article>
       <h2 className={styles.slogan}>
         All of your fine wine needs at the best prices guaranteed!!
       </h2>
+      <Carousel />
       <div className={styles.campaign}>
         <a href="/ten-percent-off">
           {/* <h2 className={styles.toGood}>To good to be true!!!</h2> */}
@@ -107,40 +116,9 @@ function Home() {
         </div>
       </div>
 
-      <section className={styles.container}>
-        {test.map(
-          ({
-            id,
-            brand,
-            name,
-            category,
-            subCategory,
-            promotion: { calloutText },
-            price: { normal },
-          }) => {
-            return (
-              <div className={styles.category} key={id}>
-                <div className={styles.brand}>{brand}</div>
-                <div className={styles.name}>{name}</div>
-                <div className={styles.category}>{category}</div>
-                <div className={styles.subCategory}>{subCategory}</div>
-
-                <Link to="/">
-                  <div className={styles.imgCont}>
-                    <Img
-                      image={`wine/${id}.jpg`}
-                      imageStyle="default"
-                      imageAlt=""
-                    />
-                  </div>
-                  <h3>{category}</h3>
-                </Link>
-                <div className={styles.price}>{normal}</div>
-              </div>
-            );
-          }
-        )}
-      </section>
+      {/* <section className={styles.randomSpecials}>
+        <ProductList arr={productListArr} />
+      </section> */}
     </article>
   );
 }

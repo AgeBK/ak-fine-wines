@@ -1,13 +1,13 @@
 import Img from "../Image";
 import styles from "./CartClosed.module.css";
 
-function CartClosed({ totalPrice, totalQty, handleClick, handleKeyDown }) {
+function CartClosed({ totalPrice, totalQty, handleIsOpen, handleKeyDown }) {
   const cartImage = totalQty && totalPrice ? "cartNotEmpty" : "cartEmpty";
 
   return (
     <div
       className={styles.cartClosedCont}
-      onClick={handleClick}
+      onClick={handleIsOpen}
       onKeyDown={handleKeyDown}
       role="button"
       tabIndex={0}

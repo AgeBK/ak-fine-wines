@@ -70,6 +70,12 @@
   font-weight: normal;
   margin: 0;
 }
+
+.randomSpecials {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: hidden;
+}
 /* 
 .category {
   flex: 1;

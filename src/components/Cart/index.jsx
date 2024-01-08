@@ -25,14 +25,14 @@ function Cart() {
   const { totalPrice, totalQty } = cartDetails;
   console.log(totalPrice, totalQty);
 
-  const handleClick = () => setIsOpen(!isOpen);
+  const handleIsOpen = () => setIsOpen(!isOpen);
 
-  const handleKeyDown = ({ key }) => key === "Enter" && handleClick();
+  const handleKeyDown = ({ key }) => key === "Enter" && handleIsOpen();
 
   return (
     <div
       className={styles.cartOuterContainer}
-      // onClick={handleClick}
+      // onClick={handleIsOpen}
       // onKeyDown={handleKeyDown}
       // role="button"
       // tabIndex={0}
@@ -42,14 +42,14 @@ function Cart() {
           <CartOpen
             totalPrice={totalPrice}
             totalQty={totalQty}
-            handleClick={handleClick}
+            handleIsOpen={handleIsOpen}
             handleKeyDown={handleKeyDown}
           />
         ) : (
           <CartClosed
             totalPrice={totalPrice}
             totalQty={totalQty}
-            handleClick={handleClick}
+            handleIsOpen={handleIsOpen}
             handleKeyDown={handleKeyDown}
           />
         )}

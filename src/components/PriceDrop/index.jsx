@@ -3,11 +3,17 @@ import styles from "./PriceDrop.module.css";
 
 function PriceDrop({ calloutText }) {
   let arr = [];
+  let price = 0;
   if (calloutText && calloutText.includes("2 for")) {
     arr = calloutText.split(" ");
+
+    price = arr[2].replace("$", "");
   }
   return arr.length > 0 ? (
-    <Link to="/2-for-deals" className={`${styles.sale} ${styles.twoFor}`}>
+    <Link
+      to={`/two-for-${price}`}
+      className={`${styles.sale} ${styles.twoFor}`}
+    >
       <span className={`${styles.priceDrop} `}>
         {arr.map((val) => (
           <div className={styles.info} key={val}>

@@ -1,6 +1,8 @@
 const hyphenate = (text) => text.toLowerCase().replace(/ /gi, "-");
 const deHyphenate = (text) => text.toLowerCase().replace(/-/gi, " ");
 
+const randomProducts = (arr) => arr.sort(() => 0.5 - Math.random());
+
 // const pricefilter = ["0-10", "10-19", "20-29", "30-1000"];
 // const pricefilterObj = [
 //     { value: "less10", text: "0-10" },
@@ -45,4 +47,4 @@ const deHyphenate = (text) => text.toLowerCase().replace(/-/gi, " ");
 //   });
 
 //   console.log(test);
-export { hyphenate, deHyphenate };
+export { hyphenate, deHyphenate, randomProducts };

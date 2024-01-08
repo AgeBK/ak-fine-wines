@@ -8,8 +8,10 @@ function ScrollToTop() {
   const [isVisible, setIsVisible] = useState(false);
   const scroll = () => window.scrollTo(0, 0);
 
-  const handleScroll = () =>
+  const handleScroll = () => {
+    console.log("handleScroll"); // TODO: expensive?
     window.scrollY > 0 ? setIsVisible(true) : setIsVisible(false);
+  };
 
   useEffect(() => {
     scroll();
@@ -24,7 +26,11 @@ function ScrollToTop() {
     <>
       {isVisible && (
         <Button css="scroll" onClick={scroll}>
-          <Img image="arrow.png" imageStyle="scroll" imageAlt="Back to Top" />
+          <Img
+            image={`icons/top.png`}
+            imageStyle="scroll"
+            imageAlt="Back to Top"
+          />
         </Button>
       )}
     </>

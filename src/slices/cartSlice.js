@@ -18,12 +18,29 @@ const initialState = { cart: {}, deals: [] };
 //   }
 // );
 
+// TODO: error handling/JSONBin
+
 const processCart = (cart, deal) => {
   // const items = Object.values(cart);
   for (const cartItem in cart) {
     if (cart[cartItem].deal === deal) {
       cart[cartItem].dealPrice = deal / 2;
       console.log(cart[cartItem]);
+    }
+  }
+  return cart;
+};
+
+const checkCartDeals = (cart, prodDeal) => {
+  // const cart = { ...state.cart };
+  const dealCount = Object.values(cart).filter(({ deal }) => deal === prodDeal);
+  console.log(dealCount);
+  if (dealCount.length < 2) {
+    // remove deal from existing product
+    for (const cartItem in cart) {
+      if (cart[cartItem].deal === prodDeal) {
+        delete cart[cartItem].dealPrice;
+      }
     }
   }
   return cart;
@@ -39,24 +56,24 @@ export const cartSlice = createSlice({
       const {
         payload: { id, name, brand, shortName, price, quantity, deal }, // TODO: name is reserved??
       } = action;
-      console.log(action);
-      console.log(id, name, brand, shortName, price, quantity, deal);
+      // console.log(action);
+      // console.log(id, name, brand, shortName, price, quantity, deal);
 
       const { cart, deals } = state;
-
       let qty = cart[id] ? cart[id].qty + quantity : quantity;
-      console.log(qty);
 
       // Redux Toolkit allows us to write "mutating" logic in reducers. It
       // doesn't actually mutate the state because it uses the Immer library,
       // which detects changes to a "draft state" and produces a brand new
       // immutable state based off those changes
+
       state.cart = {
         ...state.cart,
         [id]: { name, brand, shortName, price, qty, deal },
       };
-      console.log(state.cart);
+      // console.log(state.cart);
 
+      // keep track of products in '2 for' deals
       if (deal) {
         if (deals.indexOf(deal) === -1) {
           deals.push(deal);
@@ -67,15 +84,20 @@ export const cartSlice = createSlice({
     },
     decrement: (state, action) => {
       const {
-        payload: { id },
+        payload: { id, all },
       } = action;
 
-      let prodQty = state.cart[id].qty;
-      if (prodQty > 1) {
-        const prod = state.cart[id];
-        state.cart = { ...state.cart, [id]: { ...prod, qty: --prodQty } };
-      } else {
+      const prod = state.cart[id];
+      let prodQty = prod.qty;
+      if (all || prodQty === 1) {
         delete state.cart[id];
+      } else {
+        state.cart = { ...state.cart, [id]: { ...prod, qty: --prodQty } };
+      }
+      //  check if the product was in a '2 for' deal
+      if (prod.deal) {
+        // check products in cart that have the same deal as the removed product
+        state.cart = checkCartDeals(state.cart, prod.deal);
       }
     },
     // // Use the PayloadAction type to declare the contents of `action.payload`

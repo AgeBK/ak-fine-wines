@@ -7,7 +7,7 @@ import Price from "../Price";
 import Button from "../Button";
 import styles from "./CartOpen.module.css";
 
-function CartOpen({ totalPrice, totalQty, handleClick }) {
+function CartOpen({ totalPrice, totalQty, handleIsOpen }) {
   // const { addToCart, cart, removeFromCart } = useContext(ComputerContext);
   const dispatch = useDispatch();
 
@@ -34,16 +34,12 @@ function CartOpen({ totalPrice, totalQty, handleClick }) {
       </div>
     ) : null;
 
-  const handleClose = () => {
-    console.log(e.target);
-    console.log(e.currentTarget);
-    e.target === e.currentTarget && handleClick(false);
-  };
+  const handleClose = () => handleIsOpen(false);
 
   const handleKeyDown = ({ key }) => key === "Enter" && handleClose();
 
-  const removeFromCart = (id) => {
-    dispatch(decrement({ id }));
+  const removeFromCart = (id, all) => {
+    dispatch(decrement({ id, all }));
   };
 
   const addToCart = ({
@@ -107,43 +103,31 @@ function CartOpen({ totalPrice, totalQty, handleClick }) {
                         onClick={() => {
                           removeFromCart(id, false);
                         }}
-                        css="noStyle"
-                      >
-                        <Img
-                          image={`btn/minus.png`}
-                          imageStyle="cartOpenBtn"
-                          imageAlt={name}
-                        />
-                      </Button>
+                        css="cartMinus"
+                      ></Button>
                       <span className={styles.amount}>{qty}</span>
                       <Button
                         onClick={() => {
                           addToCart({
                             id,
                             name,
+
                             brand,
                             shortName,
                             price,
-                            // quantity,
                             deal,
                             dealPrice,
                           });
                         }}
-                        css="noStyle"
-                      >
-                        <Img
-                          image={`btn/plus.png`}
-                          imageStyle="cartOpenBtn"
-                          imageAlt={name}
-                        />
-                      </Button>
+                        css="cartAdd"
+                      ></Button>
                     </span>
                   </div>
                 </div>
                 <div className={styles.details}>
                   <Button
                     onClick={() => {
-                      removeFromCart(id, false);
+                      removeFromCart(id, true);
                     }}
                     css="noStyle"
                   >

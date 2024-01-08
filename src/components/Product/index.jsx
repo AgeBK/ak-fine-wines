@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { hyphenate, deHyphenate } from "../../data/functions";
+import ProductList from "../ProductList";
+import { hyphenate, deHyphenate, randomProducts } from "../../data/functions";
 import all from "../../data/allProducts.json";
 import { blurb } from "../../data/appData.json";
 import AddToCart from "../AddToCart";
@@ -8,12 +9,17 @@ import Img from "../Image";
 import Button from "../Button";
 import PriceDrop from "../PriceDrop";
 import ProductInfo from "./ProductInfo";
-import Price from "../Price";
+// import Price from "../Price";
 import styles from "./Product.module.css";
 
 function Product() {
   const [count, setCount] = useState(1);
   const { category: urlCategory, variety: urlVariety, id: urlId } = useParams();
+
+  const sameVariety = randomProducts(
+    all.filter(({ variety }) => variety.toLowerCase() === urlVariety)
+  ).slice(0, 4);
+  console.log(sameVariety);
 
   console.log(urlCategory, urlVariety, urlId);
 
@@ -160,6 +166,10 @@ function Product() {
           shortName={shortName}
           urlCategory={urlCategory}
         />
+        <section className={styles.similar}>
+          <h2>Similar Products:</h2>
+          <ProductList arr={sameVariety} />
+        </section>  
       </div>
     </article>
   );

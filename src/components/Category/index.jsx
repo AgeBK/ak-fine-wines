@@ -5,7 +5,7 @@ import { Link, useParams } from "react-router-dom";
 import all from "../../data/allProducts.json";
 import { blurb } from "../../data/appData.json";
 import { hyphenate, deHyphenate } from "../../data/functions";
-
+import ProductList from "../ProductList";
 import AddToCart from "../AddToCart";
 import Img from "../Image";
 import Button from "../Button";
@@ -31,41 +31,56 @@ function Category() {
   console.log(filters);
   console.log(urlCategory, urlVariety);
 
+  const arr = [];
+  all.forEach(
+    ({ variety }) => arr.indexOf(variety) === -1 && arr.push(variety)
+  );
+  console.log(arr.sort());
+
   useEffect(() => {
     console.log("Category UE");
     let arr = [];
 
-    switch (urlCategory) {
-      case "two-for-deals":
-        arr = all.filter(
-          ({ promotion: { calloutText } }) =>
-            calloutText && calloutText.startsWith("2 for")
-        );
-        break;
-      case "sale-items":
-        arr = all.filter(
-          ({ price: { current, normal } }) => current !== normal
-        );
-        break;
-      case "white":
-      case "red":
-      case "sparkling":
-        arr = all
-          .filter(
+    if (urlVariety) {
+      arr = all.filter(
+        ({ variety }) => hyphenate(variety.toLowerCase()) === urlVariety
+      );
+    } else if (
+      urlCategory.includes("two-for") &&
+      urlCategory !== "two-for-deals"
+    ) {
+      const price = Number(urlCategory.split("-")[2]);
+      arr = all.filter(({ price: { twoFor } }) => twoFor === price);
+    } else {
+      switch (urlCategory) {
+        case "two-for-deals":
+          arr = all.filter(
+            ({ promotion: { calloutText } }) =>
+              calloutText && calloutText.startsWith("2 for")
+          );
+          break;
+        case "sale-items":
+          arr = all.filter(
+            ({ price: { current, normal } }) => current !== normal
+          );
+          break;
+        case "white":
+        case "red":
+        case "sparkling":
+          arr = all.filter(
             ({ category, isBundle, packaging }) =>
               category.toLowerCase() === urlCategory &&
               isBundle === false &&
               packaging !== "Cask"
-          )
-          .sort((a, b) => (a.ratings.average > b.ratings.average ? -1 : 1));
-        break;
-      default:
-        break;
+          );
+
+          break;
+        default:
+          break;
+      }
     }
 
-    if (urlVariety) {
-      arr = arr.filter(({ variety }) => variety.toLowerCase() === urlVariety);
-    }
+    arr.sort((a, b) => (a.ratings.average > b.ratings.average ? -1 : 1));
 
     console.log(arr);
     setFilters({ reset: true });
@@ -100,7 +115,7 @@ function Category() {
     setFiltered(arr);
   }, [filters, setFilters, initial]);
 
-  useEffect(() => {}, [paging]);
+  // useEffect(() => {}, [paging]);
 
   let data = filtered || initial;
 
@@ -144,15 +159,21 @@ function Category() {
     return null;
   };
 
-  const Blurb = () =>
-    blurb[urlCategory] ? (
-      <div className={styles.varietyBlurb}>{blurb[urlCategory]}</div>
-    ) : null;
+  const Blurb = () => {
+    const wineCategory = blurb[urlCategory];
+    const wineVariety = blurb[urlVariety];
+
+    return (
+      <>
+        <h2 className={styles.variety}>{urlVariety || urlCategory}</h2>
+        <div className={styles.varietyBlurb}>{wineVariety || wineCategory}</div>
+      </>
+    );
+  };
 
   return (
     <article>
       <section className={styles.hdrCont}>
-        <h2 className={styles.variety}>{urlCategory.replace(/-/g, " ")}</h2>
         <Blurb />
       </section>
 
@@ -170,70 +191,7 @@ function Category() {
             <div className={styles.sort}>Sort:</div>
             <Sort initial={initial} setInitial={setInitial} />
           </div>
-          <div className={styles.products}>
-            {pagedData?.map(
-              ({
-                id,
-                category,
-                variety,
-                name,
-                shortName,
-                brand,
-                ratings: { average },
-                price: { current, normal, twoFor },
-                promotion: { calloutText },
-              }) => {
-                return (
-                  <div className={styles.product} key={id}>
-                    <Link
-                      to={`/${category.toLowerCase()}/${hyphenate(
-                        variety.toLowerCase()
-                      )}/${id}`}
-                      className={styles.itemCont}
-                    >
-                      {current !== normal ||
-                        (calloutText && (
-                          <PriceDrop calloutText={calloutText} />
-                        ))}
-                      <Img
-                        image={`wine/${id}.jpg`}
-                        imageStyle="campaignMini"
-                        imageAlt="AK Fine Wines"
-                      />
-
-                      {/* // TODO:  */}
-                      {urlCategory === "two-for-deals" && (
-                        <h2 className={styles.deals}>{calloutText}</h2>
-                      )}
-                      <div className={styles.productMetaTODO}>
-                        <h2 className={styles.brand}>{brand}</h2>
-                        <h3 className={styles.shortName}>{shortName}</h3>
-                        {average && Math.round(average) > 2 ? (
-                          <Img
-                            image={`bg/${Math.round(average)}star.jpg`}
-                            imageStyle="block"
-                            imageAlt="AK Fine Wines"
-                          />
-                        ) : null}
-                      </div>
-                    </Link>
-                    <Price current={current} normal={normal} />
-                    <div className={styles.addCont}>
-                      <AddToCart
-                        id={id}
-                        name={name}
-                        brand={brand}
-                        shortName={shortName}
-                        price={current}
-                        quantity={1}
-                        deal={twoFor}
-                      />
-                    </div>
-                  </div>
-                );
-              }
-            )}
-          </div>
+          <ProductList arr={pagedData} />
           <div className={styles.categoryFooter}>
             <div className={styles.pageNumCont}>
               <PageNumber data={data} paging={paging} setPaging={setPaging} />

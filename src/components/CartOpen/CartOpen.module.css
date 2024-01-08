@@ -6,8 +6,9 @@
   background-color: #fff;
   cursor: default;
   border: 2px solid#000;
-  /* max-height: 95vh; */
+  max-height: 100vh;
   z-index: 2;
+  overflow-y: auto;
 }
 
 .totalItems {
@@ -35,7 +36,6 @@
 
 .item {
   display: flex;
-  /* justify-content: space-around; */
   padding: 1rem;
 }
 
@@ -50,18 +50,17 @@
 
 .hdr {
   text-align: center;
-  /* color: #285cab; */
   margin: 0;
   display: inline-block;
 }
 
 .details {
-  /* display: flex; */
   margin-bottom: 0.5rem;
 }
 
 .shortName {
   margin-bottom: 10px;
+  font-size: 0.9rem;
 }
 
 .price {
