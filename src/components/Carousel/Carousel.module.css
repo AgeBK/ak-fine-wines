@@ -11,6 +11,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  border: 1px solid #d3d3d3;
+  transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+  margin: 10px;
 }
 
 /* .item:nth-child(2n) {

@@ -13,7 +13,10 @@ function Carousel() {
   console.log(startIndex);
 
   const productListArr = all
-    .filter(({ price: { current, normal } }) => current !== normal)
+    .filter(
+      ({ isBundle, price: { current, normal } }) =>
+        current !== normal && isBundle === false
+    )
     .sort(() => 0.5 - Math.random())
     .slice(0, 10);
   //   let startIndex = 0;
@@ -31,7 +34,7 @@ function Carousel() {
       } else {
         setStartIndex(0);
       }
-    }, 10000);
+    }, 20000);
 
     return () => clearInterval(id);
   }, [startIndex, productListArr, arr2]);
