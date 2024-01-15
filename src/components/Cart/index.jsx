@@ -8,7 +8,7 @@ import styles from "./Cart.module.css";
 function Cart() {
   const [isOpen, setIsOpen] = useState(false);
   const cart = useSelector(selectCart);
-  console.log(cart);
+  // console.log(cart);
 
   const cartDetails = Object.values(cart).reduce(
     (acc, { qty, price, dealPrice }) => {
@@ -23,7 +23,7 @@ function Cart() {
   );
 
   const { totalPrice, totalQty } = cartDetails;
-  console.log(totalPrice, totalQty);
+  // console.log(totalPrice, totalQty);
 
   const handleIsOpen = () => setIsOpen(!isOpen);
 

@@ -1,64 +1,33 @@
-// import { useContext } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import {
-  decrement,
-  increment,
-  incrementByAmount,
-  incrementIfOdd,
-  selectCount,
-} from "../../slices/cartSlice";
-import ProductList from "../ProductList";
+import { homePageCarouselProducts } from "../../data/functions";
 import Carousel from "../Carousel";
 import { Link } from "react-router-dom";
 import Img from "../Image";
-import Button from "../Button";
 import styles from "./Home.module.css";
 import all from "../../data/allProducts.json";
 
 function Home() {
-  console.log("Home");
-  // create list of unique categories from data
-  const categoriesObj = all.reduce(
-    (acc, { productId, category, productPicUrl }) => {
-      acc = !acc[category]
-        ? { ...acc, [category]: { productId, category, productPicUrl } }
-        : acc;
-      return acc;
-    },
-    {}
-  );
-  console.log(categoriesObj);
-
-  const test = all.filter((val, ind) => ind < 5);
-  console.log(test);
-
-  const deals = all.reduce((acc, val) => {
-    const text = val.promotion.calloutText;
-    if (text) {
-      if (acc[text] !== undefined) {
-        const count = acc[text] + 1;
-        acc = { ...acc, [text]: count };
-      } else {
-        acc[text] = 1;
-      }
-    }
-    return acc;
-  }, {});
-
-  console.log(deals);
-
-  const productListArr = all
-    .filter(({ price: { current, normal } }) => current !== normal)
-    .sort(() => 0.5 - Math.random())
-    .slice(0, 10);
-  console.log(productListArr);
+  // console.log("Home");
+  // console.log(homePageCarouselProducts(all));
 
   return (
     <article>
       <h2 className={styles.slogan}>
         All of your fine wine needs at the best prices guaranteed!!
       </h2>
-      <Carousel />
+      <Link to="/ten-for-100">
+        <Img
+          image={"promotion/tenFor100.jpg"}
+          imageStyle="tenFor100"
+          imageAlt="AK Fine Wines"
+        />
+        <Img
+          image={"promotion/tenFor100Sml1.jpg"}
+          imageStyle="tenFor100sml"
+          imageAlt="AK Fine Wines"
+        />
+      </Link>
+      <h2 className={styles.topOffers}>Top offers of the week</h2>
+      <Carousel arr={homePageCarouselProducts(all)} />
       <div className={styles.campaign}>
         <a href="/ten-percent-off">
           {/* <h2 className={styles.toGood}>To good to be true!!!</h2> */}
@@ -71,35 +40,34 @@ function Home() {
       <div className={styles.campaignMini}>
         <div className={styles.offer}>
           <Link to="/two-for-deals">
-            <h3>2 for Deals</h3>
-            <div className={styles.twoForBlurb}>
-              2 great bottles - 1 amazing price
-            </div>
+            <h3 className={styles.hdr}>2 for Deals</h3>
+            <div className={styles.twoForBlurb}>2 great bottles</div>
+            <div className={styles.twoForBlurb}>1 amazing price</div>
             {/* <div className={styles.twoForBlurb}>1 amazing price</div> */}
             <Img
-              image={"wine/507509.jpg"}
+              image={"promotion/twoBotBlk1.jpg"}
               imageStyle="campaignMini"
-              imageAlt="AK Fine Wines"
+              imageAlt="two for deals"
             />
-            <h3 className={styles.shopNow}>SHOW NOW</h3>
+            <h3 className={styles.shopNow}>SHOP NOW</h3>
           </Link>
         </div>
         <div className={styles.offer}>
           <Link to="/10-and-less">
-            <h3>Get Down</h3>
+            <h3 className={styles.hdr}>Get Down</h3>
             <div className={styles.twoForBlurb}>$10 and less</div>
             <div className={styles.twoForBlurb}>
               Don&apos;t miss out on these
             </div>
             <Img
-              image={"promotion/gift.jpg"}
+              image={"promotion/multiBot.jpg"}
               imageStyle="campaignMini"
               imageAlt="AK Fine Wines"
             />
-            <h3 className={styles.shopNow}>SHOW NOW</h3>
+            <h3 className={styles.shopNow}>SHOP NOW</h3>
           </Link>
         </div>
-        <div className={styles.offer}>
+        {/* <div className={styles.offer}>
           <Link to="/10-for-100">
             <h3>Are you serious?</h3>
             <div className={styles.twoForBlurb}>10 for $100</div>
@@ -113,7 +81,7 @@ function Home() {
             />
             <h3 className={styles.shopNow}>SHOW NOW</h3>
           </Link>
-        </div>
+        </div> */}
       </div>
 
       {/* <section className={styles.randomSpecials}>

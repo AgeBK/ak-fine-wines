@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import styles from "./VarietyFilter.module.css";
 
-function VarietyFilter({ setFilters, filters, reset, initial }) {
+function VarietyFilter({ setFilters, filters, reset, initialData }) {
   const [varietyFilter, setVarietyFilter] = useState(null);
 
   const handleChange = ({ target: { value } }) => {
@@ -13,7 +13,7 @@ function VarietyFilter({ setFilters, filters, reset, initial }) {
     reset && setVarietyFilter(null);
   }, [reset]);
 
-  let varietys = initial.reduce((acc, { variety }) => {
+  let varietys = initialData.reduce((acc, { variety }) => {
     acc[variety] = (acc[variety] || 0) + 1;
     return acc;
   }, {});

@@ -1,17 +1,30 @@
 import { Link } from "react-router-dom";
 import styles from "./PriceDrop.module.css";
 
-function PriceDrop({ calloutText }) {
-  let arr = [];
-  let price = 0;
-  if (calloutText && calloutText.includes("2 for")) {
-    arr = calloutText.split(" ");
+function PriceDrop({ calloutText, onSpecial }) {
+  // console.log(calloutText);
+  // console.log(onSpecial);
+  // console.log("=========");
 
-    price = arr[2].replace("$", "");
+  const numToWord = { 2: "two", 6: "six", 10: "ten" };
+  let arr = [];
+  let amount = "";
+  let price = 0;
+  let isTenPercent = false;
+
+  if (calloutText) {
+    if (calloutText.includes("for")) {
+      arr = calloutText.split(" ");
+      amount = numToWord[arr[0]];
+      price = arr[2].replace("$", "");
+    } else if (calloutText.startsWith("10%")) {
+      isTenPercent = true;
+    }
   }
+
   return arr.length > 0 ? (
     <Link
-      to={`/two-for-${price}`}
+      to={`/${amount}-for-${price}`}
       className={`${styles.sale} ${styles.twoFor}`}
     >
       <span className={`${styles.priceDrop} `}>
@@ -27,6 +40,10 @@ function PriceDrop({ calloutText }) {
         All
       </span>
     </Link>
+  ) : isTenPercent ? (
+    <div className={styles.special}>
+      <Link to="/ten-percent-off">{calloutText} </Link>
+    </div>
   ) : (
     <Link to="/sale-items" className={styles.sale}>
       <span className={styles.priceDrop}>

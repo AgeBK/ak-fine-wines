@@ -1,63 +1,168 @@
-import { useContext, useState, useEffect, useMemo } from "react";
-import ProductList from "../ProductList";
-import { Link } from "react-router-dom";
-import Img from "../Image";
+import { useState, useEffect, useRef } from "react";
+import ProductItem from "../ProductItem";
 import Button from "../Button";
 import styles from "./Carousel.module.css";
 import all from "../../data/allProducts.json";
 
-function Carousel() {
+function Carousel({ arr }) {
   console.log("Carousel");
-  // create list of unique categories from data
-  const [startIndex, setStartIndex] = useState(0);
-  console.log(startIndex);
+  console.log(arr);
 
-  const productListArr = all
-    .filter(
-      ({ isBundle, price: { current, normal } }) =>
-        current !== normal && isBundle === false
-    )
-    .sort(() => 0.5 - Math.random())
-    .slice(0, 10);
-  //   let startIndex = 0;
-  const length = 4;
+  // const [arr, setProductListArr] = useState([]);
+  const [test, setTest] = useState(0);
+  const [pageIndex, setPageIndex] = useState(0);
+  const [items, setItems] = useState(0);
+  const ref = useRef(0);
+  const listLength = 12;
 
-  const arr2 = [1, 2, 3, 4, 5, 6, 7];
-  let arr = useMemo(() => [...productListArr], [productListArr]);
-  arr.slice(startIndex, startIndex + length);
+  const handleClick = (val) => setPageIndex((prev) => prev + val);
+
+  const handleChange = ({ target: { value } }) => setPageIndex(Number(value));
+
+  const calculateItems = () => {
+    if (ref.current && ref.current.offsetWidth) {
+      const {
+        current: { offsetWidth },
+      } = ref;
+      console.log(offsetWidth);
+
+      let items = 0;
+      if (offsetWidth >= 1200) {
+        items = 6;
+      } else if (offsetWidth >= 875) {
+        items = 4;
+      } else if (offsetWidth >= 650) {
+        items = 3;
+      } else if (offsetWidth >= 420) {
+        items = 2;
+      } else {
+        items = 0;
+      }
+      setItems(items);
+    }
+  };
 
   useEffect(() => {
-    // const id = setInterval(() => {
-    //   if (startIndex + length < arr2.length) {
-    //     console.log(startIndex);
-    //     setStartIndex((prev) => prev + 1);
-    //   } else {
-    //     setStartIndex(0);
-    //   }
-    // }, 20000);
-    // return () => clearInterval(id);
-  }, [startIndex, productListArr, arr2]);
+    calculateItems();
+
+    // check for resized window
+    window.addEventListener("resize", calculateItems);
+    return () => window.removeEventListener("resize", calculateItems);
+  }, [arr]);
+
+  const CarouselPaging = () => {
+    if (items) {
+      let html = [];
+      const totalPages = arr.length / items - 1;
+      for (let i = 0; i < listLength / items; i++) {
+        const id = `CarouselPaging${i}`;
+        html.push(
+          <>
+            <label htmlFor={id}>{`page ${i + 1}`}</label>
+            <input
+              type="radio"
+              name="carouselPaging"
+              id={id}
+              value={i}
+              onChange={handleChange}
+              checked={i === pageIndex}
+            />
+          </>
+        );
+      }
+      return (
+        <div className={styles.carouselPaging}>
+          <Button
+            css="pageNumber"
+            onClick={() => handleClick(-1)}
+            disabled={pageIndex <= 0}
+          >
+            &lt;
+          </Button>
+          {html}
+          <Button
+            css="pageNumber"
+            onClick={() => handleClick(1)}
+            disabled={pageIndex >= totalPages}
+          >
+            &gt;
+          </Button>
+        </div>
+      );
+    }
+    return null;
+  };
 
   return (
     <>
-      {/* <div className={styles.cont}>
-        <ProductList arr={arr} css="carousel" />
-      </div> */}
-      <div className={styles.cont}>
-        {arr2.map(
-          (val, ind) => {
-            //if (ind >= startIndex && ind < startIndex + length) {
-            return (
-              <div className={styles.item} key={val}>
-                {val}
-              </div>
-            );
+      <div className={styles.carousel} ref={ref}>
+        {arr.map(
+          (
+            {
+              id,
+              category,
+              variety,
+              name,
+              shortName,
+              brand,
+              ratings: { average },
+              price: { current, normal, twoFor },
+              promotion: { calloutText },
+            },
+            ind
+          ) => {
+            if (ind >= pageIndex * items && ind < pageIndex * items + items) {
+              return (
+                <ProductItem
+                  props={{
+                    id,
+                    category,
+                    variety,
+                    name,
+                    shortName,
+                    brand,
+                    average,
+                    current,
+                    normal,
+                    twoFor,
+                    calloutText,
+                  }}
+                  key={id}
+                  css={"carouselItems" + items}
+                />
+              );
+            }
           }
-          //}
         )}
       </div>
+      <CarouselPaging />
     </>
   );
 }
 
 export default Carousel;
+
+// useEffect(() => {
+//   // const id = setInterval(() => {
+//   //   if (pageIndex + length < arr.length) {
+//   //     console.log(pageIndex);
+//   //     setPageIndex((prev) => prev + 1);
+//   //   } else {
+//   //     setPageIndex(0);
+//   //   }
+//   // }, 8000);
+//   // return () => clearInterval(id);
+// }, [pageIndex, arr]);
+
+// const arr = all
+//   .filter(
+//     ({ isBundle, price: { current, normal } }) =>
+//       current !== normal && isBundle === false
+//   )
+//   .sort(() => 0.5 - Math.random())
+//   .slice(0, 12);
+//   let pageIndex = 0;
+// const length = 4;
+
+// const arr2 = [1, 2, 3, 4, 5, 6, 7];
+// let arr = useMemo(() => [...arr], [arr]);

@@ -1,20 +1,40 @@
-.cont {
+.carousel {
   display: flex;
   flex-wrap: nowrap;
-  overflow: hidden;
   max-width: 1400px;
   overflow: hidden;
+  justify-content: start;
 }
 
 .item {
-  min-width: 24%;
-  width: 24%;
+  min-width: 25%;
+  width: 25%;
   display: flex;
   align-items: center;
-  justify-content: center;
-  border: 1px solid #d3d3d3;
   transition: cubic-bezier(0.075, 0.82, 0.165, 1);
-  margin: 6px;
+  /* padding: 5px; */
+}
+
+.itemInner {
+  border: 1px solid #d3d3d3;
+}
+
+.carouselPaging {
+  text-align: center;
+}
+
+.carouselPaging > input[type="radio"] {
+  height: 18px;
+  width: 18px;
+}
+
+.carouselPaging > label {
+  position: absolute;
+  clip: rect(1px 1px 1px 1px);
+  border: 0;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
 }
 
 /* .item:nth-child(2n) {

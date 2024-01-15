@@ -1,27 +1,35 @@
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import ProductList from "../ProductList";
-import { hyphenate, deHyphenate, randomProducts } from "../../data/functions";
+import {
+  hyphenate,
+  deHyphenate,
+  randomProducts,
+  productPageCarouselProducts,
+} from "../../data/functions";
 import all from "../../data/allProducts.json";
-import { blurb } from "../../data/appData.json";
+import { blurb, reviews } from "../../data/appData.json";
 import AddToCart from "../AddToCart";
 import Img from "../Image";
 import Button from "../Button";
 import PriceDrop from "../PriceDrop";
 import ProductInfo from "./ProductInfo";
+import ProductList from "../ProductList";
+import Carousel from "../Carousel";
+
 // import Price from "../Price";
 import styles from "./Product.module.css";
 
 function Product() {
   const [count, setCount] = useState(1);
   const { category: urlCategory, variety: urlVariety, id: urlId } = useParams();
+  console.log(urlCategory, urlVariety, urlId);
 
   const sameVariety = randomProducts(
     all.filter(({ variety }) => variety.toLowerCase() === urlVariety)
   ).slice(0, 4);
   console.log(sameVariety);
 
-  console.log(urlCategory, urlVariety, urlId);
+  console.log(productPageCarouselProducts(all, urlVariety, 12));
 
   const product = all.find(({ id }) => id === urlId);
 
@@ -38,6 +46,8 @@ function Product() {
     price: { current, normal, twoFor },
     promotion: { calloutText },
   } = product;
+
+  const onSpecial = current !== normal ? current : null;
 
   const Chevron = () => (
     <span className={styles.chevronCont}>
@@ -85,8 +95,10 @@ function Product() {
               imageStyle="productMain"
               imageAlt="AK Fine Wines"
             />{" "}
-            {current !== normal ||
-              (calloutText && <PriceDrop calloutText={calloutText} />)}
+            {calloutText ||
+              (onSpecial && (
+                <PriceDrop calloutText={calloutText} onSpecial={onSpecial} /> // TODO:  check this
+              ))}
             {/* {twoFor && <div className={styles.twoFor}>{calloutText}</div>} */}
           </div>
 
@@ -166,10 +178,20 @@ function Product() {
           shortName={shortName}
           urlCategory={urlCategory}
         />
+        <div className={styles.reviews}>
+          <h2>Product Review:</h2>
+          {reviews[urlCategory]}
+          <div className={styles.source}>
+            <i>Source *Wine Monthly: August 2023 </i> - {variety} blends from
+            South Eastern Austraila
+          </div>
+        </div>
+
         <section className={styles.similar}>
           <h2>Similar Products:</h2>
-          <ProductList arr={sameVariety} />
-        </section>  
+          <Carousel arr={productPageCarouselProducts(all, urlVariety)} />
+          {/* <ProductList arr={sameVariety} /> */}
+        </section>
       </div>
     </article>
   );

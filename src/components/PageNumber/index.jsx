@@ -2,8 +2,8 @@ import Button from "../Button";
 import styles from "./PageNumber.module.css";
 
 function PageNumber({ data, paging, setPaging }) {
-  console.log(data.length);
-  console.log(paging.pageSize);
+  // console.log(data.length);
+  // console.log(paging.pageSize);
   const { page, pageSize } = paging;
 
   const totalPages = Math.ceil(data.length / pageSize);
@@ -28,16 +28,6 @@ function PageNumber({ data, paging, setPaging }) {
       >
         &gt;
       </Button>
-      {/* <input
-        type="text"
-        name="pageNum"
-        id="pageNum"
-        value={paging.page}
-        maxLength={2}
-      />
-      <label htmlFor="pageNum" className={styles.label}>
-        {totalPages}
-      </label> */}
     </div>
   );
 }

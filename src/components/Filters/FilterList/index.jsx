@@ -3,7 +3,7 @@ import RatingFilter from "../Rating";
 import VarietyFilter from "../Variety";
 import styles from "./FilterList.module.css";
 
-const FilterList = ({ initial, filters, setFilters, urlVariety }) => {
+const FilterList = ({ initialData, filters, setFilters, urlVariety }) => {
   return (
     <section className={styles.container}>
       <h2 className={styles.hdr}>Refine:</h2>
@@ -28,7 +28,7 @@ const FilterList = ({ initial, filters, setFilters, urlVariety }) => {
               setFilters={setFilters}
               filters={filters}
               reset={filters.reset}
-              initial={initial}
+              initialData={initialData}
             />
           </li>
         )}

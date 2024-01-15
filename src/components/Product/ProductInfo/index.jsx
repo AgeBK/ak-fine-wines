@@ -52,7 +52,7 @@ const ProductInfo = ({
         </li>
         <li>
           <span>Occasion</span>
-          <span>TODO:</span>
+          <span>Drinking :)</span>
         </li>
         <li>
           <span>Organic</span>

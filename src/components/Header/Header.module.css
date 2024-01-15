@@ -26,6 +26,36 @@
   position: relative;
 }
 
+.autoComplete {
+  width: 30%;
+  font-size: 14px;
+}
+
+.searchCont {
+  width: 40%;
+}
+
+.searchResults {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  z-index: 2;
+  background: #fff;
+  max-width: 400px;
+  max-height: 200px;
+  padding: 0 10px 10px;
+  border: 1px solid #d3d3d3;
+}
+
+.searchResults li {
+  margin-bottom: 2px;
+}
+
+.searchResults li:nth-child(even) {
+  background-color: #f6f6f6;
+}
+
 @media screen and (max-width: 500px) {
   .header {
     padding: 10px;
