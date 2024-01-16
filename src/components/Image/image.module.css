@@ -64,6 +64,10 @@
   display: none;
 }
 
+.autoComplete {
+  height: 50px;
+}
+
 @media screen and (max-width: 500px) {
   .logo {
     width: 4rem;
