@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { Autocomplete, TextField } from "@mui/material";
 import { createFilterOptions } from "@mui/material/Autocomplete";
-import useAutoComplete from "../../hooks/useAutoComplete";
+import parse from "autosuggest-highlight/parse";
+import match from "autosuggest-highlight/match";
+// import useAutoComplete from "../../hooks/useAutoComplete";
 import { Link } from "react-router-dom";
 import Nav from "../Nav";
 import Img from "../../components/Image";
@@ -22,25 +24,6 @@ const Header = () => {
 
   console.log(test);
 
-  const {
-    bindInput,
-    bindOptions,
-    bindOption,
-    isBusy,
-    suggestions,
-    selectedIndex,
-  } = useAutoComplete({
-    onChange: (value) => console.log(value),
-    source: (search) =>
-      all
-        .map(({ name, id }) => {
-          return { label: name, id };
-        })
-        .filter((val) =>
-          val.label.toLowerCase().includes(search.toLowerCase())
-        ),
-    // .slice(0, maxResults),
-  });
 
   useEffect(() => {
     let wineList = all.map(({ name, id, category, variety }) => {
@@ -50,16 +33,6 @@ const Header = () => {
     setInitial(wineList);
     setData(wineList);
   }, []);
-
-  // .slice(0, 1000);
-
-  // .sort();
-
-  // const handleChange = (e) => {
-  //   console.log(e.target.value);
-
-  //   //}
-  // };
 
   const handleClick = () => {
     setOverlay(true);
@@ -90,16 +63,35 @@ const Header = () => {
         <Autocomplete
           // disablePortal
           // autoComplete={true}
-          // autoHighlight={true}
+          autoHighlight={true}
+          open={open}
+          includeInputInList
           onChange={(e, value) => console.log(e.target, value.title)}
           className={styles.autoComplete}
           options={data}
           filterOptions={createFilterOptions({
             limit: 7,
           })}
-          renderOption={(props, { id, label, category, variety }) => {
+          renderOption={(
+            props,
+            { id, label, category, variety },
+            { inputValue }
+          ) => {
+            function boldString(label, inputValue) {
+              if (inputValue) {
+                console.log(label);
+                console.log(inputValue);
+                const strRegExp = new RegExp(inputValue, "gi");
+                return label.replace(
+                  strRegExp,
+                  "<b style=color:#000 !important;>" + inputValue + "</b>"
+                );
+              } else {
+                return label;
+              }
+            }
             return (
-              <li key={id} {...props}>
+              <li key={id} {...props} className={styles.listItem}>
                 <Link
                   to={`/${category.toLowerCase()}/${variety.toLowerCase()}/${id}`}
                 >
@@ -111,7 +103,12 @@ const Header = () => {
                         imageAlt={label}
                       />
                     </div>
-                    <div className={styles.itemLabel}>{label}</div>
+                    <div
+                      className={styles.itemLabel}
+                      dangerouslySetInnerHTML={{
+                        __html: boldString(label, inputValue),
+                      }}
+                    />
                   </div>
                 </Link>
               </li>
