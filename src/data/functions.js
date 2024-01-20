@@ -1,5 +1,9 @@
-const hyphenate = (text) => text.toLowerCase().replace(/ /gi, "-");
-const deHyphenate = (text) => text.toLowerCase().replace(/-/gi, " ");
+const hyphenate = (text) =>
+  typeof text === "string" && text.toLowerCase().replace(/ /gi, "-");
+
+const deHyphenate = (text) =>
+  typeof text === "string" && text.toLowerCase().replace(/-/gi, " ");
+
 const randomProducts = (arr) => arr.sort(() => 0.5 - Math.random());
 
 const homePageCarouselProducts = (arr) => {

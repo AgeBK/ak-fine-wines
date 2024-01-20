@@ -2,6 +2,7 @@
   height: 200px;
 }
 
+/* TODO: check just setting by height?? */
 .campaignMini {
   height: 150px;
 }
@@ -10,7 +11,7 @@
   height: 1rem;
   width: 1rem;
   background-color: #fff;
-  color: red;
+  color: red; /* TODO:  */
 }
 
 .home,
@@ -65,15 +66,17 @@
 }
 
 .autoComplete {
-  height: 50px;
+  width: 15px;
+}
+
+@media screen and (max-width: 900px) {
+  .logo {
+    width: 60px;
+    height: 60px;
+  }
 }
 
 @media screen and (max-width: 500px) {
-  .logo {
-    width: 4rem;
-    height: 4rem;
-  }
-
   .product {
     width: 14rem;
     height: 14rem;

@@ -4,7 +4,7 @@
   text-align: center; */
 }
 
-.hdrCont {
+.categoryBlurb {
   align-items: center;
   background-image: url(/src/assets/img/bg/bgBlurb.png);
   background-repeat: no-repeat;
@@ -49,7 +49,7 @@
   display: flex;
 }
 
-.productsCont {
+.categoryItems {
   /* display: flex;
   flex-wrap: wrap;*/
   text-align: center;
@@ -178,7 +178,7 @@
 } */
 
 @media screen and (max-width: 500px) {
-  .hdrCont {
+  .categoryBlurb {
     flex-direction: column;
   }
 

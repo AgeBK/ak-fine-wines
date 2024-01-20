@@ -1,0 +1,54 @@
+.container {
+  width: 50%;
+  background-color: #fff;
+  margin: 10px 20px 0 0;
+}
+
+.autoComplete {
+  z-index: 10;
+  position: relative;
+  background-color: #fff;
+}
+
+.overlay {
+  opacity: 0.5;
+  background: #000;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  position: fixed;
+}
+
+.listItem:nth-child(even) {
+  background-color: #f6f6f6;
+}
+
+.listItem:hover {
+  color: #000;
+  background-color: #d3d3d3;
+  cursor: pointer;
+}
+
+.itemCont {
+  display: flex;
+  align-items: center;
+}
+
+.itemImg {
+  min-width: 60px;
+  width: 60px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.itemLabel {
+  margin-left: 30px;
+}
+
+.itemLabel:hover {
+  /* font-weight: bold;
+  font-size: 1.1rem;
+  color: #000; */
+}

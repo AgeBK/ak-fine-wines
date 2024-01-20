@@ -57,7 +57,7 @@ function Carousel({ arr }) {
       for (let i = 0; i < listLength / items; i++) {
         const id = `CarouselPaging${i}`;
         html.push(
-          <>
+          <span key={id}>
             <label htmlFor={id}>{`page ${i + 1}`}</label>
             <input
               type="radio"
@@ -67,7 +67,7 @@ function Carousel({ arr }) {
               onChange={handleChange}
               checked={i === pageIndex}
             />
-          </>
+          </span>
         );
       }
       return (

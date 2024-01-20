@@ -4,8 +4,8 @@ import all from "../../data/allProducts.json";
 import { blurb } from "../../data/appData.json";
 import { hyphenate, deHyphenate } from "../../data/functions";
 import ProductList from "../ProductList";
-import Button from "../Button";
 import Sort from "../Sort";
+import Pills from "../Pills";
 import PageNumber from "../PageNumber";
 import ResultsPP from "../ResultsPP";
 import styles from "./Category.module.css";
@@ -19,16 +19,15 @@ function Category() {
   const [filters, setFilters] = useState({});
   const [paging, setPaging] = useState({ page: 1, pageSize: 40 });
   const { category: urlCategory, variety: urlVariety } = useParams();
-
-  // const arr = [];
-  // all.forEach(
-  //   ({ variety }) => arr.indexOf(variety) === -1 && arr.push(variety)
-  // );
+  console.log(urlCategory, urlVariety);
+  console.log(location.search);
 
   useEffect(() => {
     console.log("Category UE");
+    const sp = new URLSearchParams(location.pathname.substring(1));
     let arr = [];
 
+    // firstly check if theres a variety(sub category) to filter by
     if (urlVariety) {
       // filter by wine variety or wine brand
       arr = all.filter(
@@ -36,12 +35,19 @@ function Category() {
           hyphenate(variety.toLowerCase()) === urlVariety ||
           brand.toLowerCase() === urlVariety
       );
+    } else if (sp.has("search")) {
+      // filter by search param
+      const query = sp.get("search");
+      arr = all.filter(({ name }) =>
+        name.toLowerCase().includes(query.toLowerCase())
+      );
+      console.log(arr);
     } else if (
       // filter by 2 for XX deals
-      urlCategory.includes("two-for") &&
+      urlCategory.startsWith("two-for") &&
       urlCategory !== "two-for-deals"
     ) {
-      const price = Number(urlCategory.split("-")[2]); // TODO: two for XX didn't load any items twice
+      const price = Number(urlCategory.split("-")[2]); // TODO: two for XX didn't load any items twice, check
       arr = all.filter(({ price: { twoFor } }) => twoFor === price);
     } else {
       switch (urlCategory) {
@@ -77,7 +83,6 @@ function Category() {
               isBundle === false &&
               packaging !== "Cask"
           );
-
           break;
         default:
           break;
@@ -125,41 +130,11 @@ function Category() {
     paging.page * paging.pageSize
   );
 
-  // console.log(pagedData);
-
   const handleRemoveFilter = (val) => {
     console.log(val);
     val === "all"
       ? setFilters({ reset: true })
       : setFilters({ ...filters, [val]: null, reset: true });
-  };
-
-  const Pills = () => {
-    const arr = [];
-    const { price, rating, variety } = filters;
-    price && arr.push("price"); // TODO:
-    rating && arr.push("rating");
-    variety && arr.push("variety");
-
-    if (arr.length) {
-      let html = [];
-      html.push(
-        arr.map((val) => (
-          <Button css="pills" onClick={() => handleRemoveFilter(val)} key={val}>
-            {val} <span className={styles.close}>X</span>
-          </Button>
-        ))
-      );
-      return (
-        <div className={styles.pillCont}>
-          {html}
-          <Button css="link" onClick={() => handleRemoveFilter("all")}>
-            Clear all
-          </Button>
-        </div>
-      );
-    }
-    return null;
   };
 
   const Blurb = () => {
@@ -176,22 +151,18 @@ function Category() {
     return (
       <>
         <h2 className={styles.variety}>
-          {urlVariety || deHyphenate(urlCategory)}
-        </h2>
-        {/* {wineCategory ||
-          (wineVariety && ( */}
+          {deHyphenate(urlVariety) || deHyphenate(urlCategory)}
+        </h2> 
         <div className={styles.varietyBlurb}>{wineVariety || wineCategory}</div>
-        {/* ))} */}
       </>
     );
   };
 
   return (
     <article>
-      <section className={styles.hdrCont}>
+      <section className={styles.categoryBlurb}>
         <Blurb />
       </section>
-
       <div className={styles.categoryCont}>
         <FilterList
           initialData={initialData}
@@ -199,9 +170,9 @@ function Category() {
           setFilters={setFilters}
           urlVariety={urlVariety}
         />
-        <section className={styles.productsCont}>
+        <section className={styles.categoryItems}>
           <div className={styles.detailsCont}>
-            <Pills />
+            <Pills filters={filters} handleRemoveFilter={handleRemoveFilter} />
             <span className={styles.results}>({data.length}) Available</span>
             <div className={styles.sort}>Sort:</div>
             <Sort initialData={initialData} setInitialData={setInitialData} />

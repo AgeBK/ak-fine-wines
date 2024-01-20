@@ -12,7 +12,6 @@
   display: flex;
   align-items: center;
   transition: cubic-bezier(0.075, 0.82, 0.165, 1);
-  /* padding: 5px; */
 }
 
 .itemInner {
@@ -23,12 +22,12 @@
   text-align: center;
 }
 
-.carouselPaging > input[type="radio"] {
+.carouselPaging input[type="radio"] {
   height: 18px;
   width: 18px;
 }
 
-.carouselPaging > label {
+.carouselPaging label {
   position: absolute;
   clip: rect(1px 1px 1px 1px);
   border: 0;
