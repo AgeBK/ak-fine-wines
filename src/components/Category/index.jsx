@@ -22,6 +22,32 @@ function Category() {
   console.log(urlCategory, urlVariety);
   console.log(location.search);
 
+  // only promotions that start with a number
+  const promotions = all.map((val) => {
+    const { calloutText } = val.promotion;
+    val.price.percentOff = 0;
+    val.price.tenFor = 0;
+
+    if (calloutText) {
+      if (calloutText.startsWith("10%")) {
+        val.price.percentOff = 10;
+      }
+      if (calloutText.startsWith("10 for $100")) {
+        val.price.tenFor = 100;
+      }
+    }
+
+    delete val.price.acrossAnySix;
+    delete val.price.memberOnlyPrice;
+    delete val.unitOfMeasure;
+    delete val.cartLimit;
+    delete val.productUrl;
+
+    return val;
+  });
+
+  console.log(promotions);
+
   useEffect(() => {
     console.log("Category UE");
     const sp = new URLSearchParams(location.pathname.substring(1));
@@ -152,7 +178,7 @@ function Category() {
       <>
         <h2 className={styles.variety}>
           {deHyphenate(urlVariety) || deHyphenate(urlCategory)}
-        </h2> 
+        </h2>
         <div className={styles.varietyBlurb}>{wineVariety || wineCategory}</div>
       </>
     );

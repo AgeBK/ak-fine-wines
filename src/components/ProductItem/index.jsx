@@ -7,6 +7,7 @@ import Price from "../Price";
 import styles from "./ProductItem.module.css";
 
 const ProductItem = ({ props, css }) => {
+  console.log("ProductItem");
   const {
     id,
     category,
@@ -18,10 +19,23 @@ const ProductItem = ({ props, css }) => {
     current,
     normal,
     twoFor,
+    percentOff,
+    tenFor,
     calloutText,
   } = props;
 
-  // console.log(calloutText);
+  console.log(twoFor, percentOff, tenFor);
+
+  let deal = 0;
+  let discountCode =
+    calloutText && calloutText.includes(":") ? calloutText.split(":")[1] : null;
+  if (twoFor) {
+    deal = { twoFor };
+  } else if (tenFor) {
+    deal = { tenFor };
+  } else if (percentOff) {
+    deal = { percentOff };
+  }
 
   // console.log(css); // TODO: lots of undefined?
 
@@ -69,7 +83,8 @@ const ProductItem = ({ props, css }) => {
           shortName={shortName}
           price={current}
           quantity={1}
-          deal={twoFor}
+          deal={deal}
+          discountCode={discountCode}
         />
       </div>
     </div>

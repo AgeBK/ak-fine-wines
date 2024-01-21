@@ -7,8 +7,12 @@
   cursor: default;
   border: 2px solid#000;
   max-height: 100vh;
-  z-index: 2;
+  z-index: 11;
   overflow-y: auto;
+}
+
+.cart:hover {
+  z-index: 99;
 }
 
 .totalItems {

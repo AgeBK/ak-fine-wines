@@ -1,14 +1,21 @@
-// import { useContext } from "react";
+import { useState } from "react";
 // import { ComputerContext } from "../../context";
 import { useSelector, useDispatch } from "react-redux";
-import { increment, decrement, selectCart } from "../../slices/cartSlice";
+import {
+  increment,
+  decrement,
+  selectCart,
+  applyDiscounts,
+  applyDiscountCode,
+} from "../../slices/cartSlice";
 import Img from "../Image";
 import Price from "../Price";
 import Button from "../Button";
 import styles from "./CartOpen.module.css";
 
-function CartOpen({ totalPrice, totalQty, handleIsOpen }) {
+function CartOpen({ totalPrice, totalQty, handleClose }) {
   // const { addToCart, cart, removeFromCart } = useContext(ComputerContext);
+  const [discountCode, setDiscountCode] = useState("");
   const dispatch = useDispatch();
 
   const cart = useSelector(selectCart);
@@ -34,9 +41,10 @@ function CartOpen({ totalPrice, totalQty, handleIsOpen }) {
       </div>
     ) : null;
 
-  const handleClose = () => handleIsOpen(false);
 
   const handleKeyDown = ({ key }) => key === "Enter" && handleClose();
+
+  const handleChange = ({ target: { value } }) => setDiscountCode(value);
 
   const removeFromCart = (id, all) => {
     dispatch(decrement({ id, all }));
@@ -52,7 +60,7 @@ function CartOpen({ totalPrice, totalQty, handleIsOpen }) {
     deal,
     dealPrice,
   }) => {
-    console.log("addToCart");
+    console.log("Cart open: addToCart");
     dispatch(
       increment({
         id,
@@ -111,7 +119,6 @@ function CartOpen({ totalPrice, totalQty, handleIsOpen }) {
                           addToCart({
                             id,
                             name,
-
                             brand,
                             shortName,
                             price,
@@ -160,6 +167,21 @@ function CartOpen({ totalPrice, totalQty, handleIsOpen }) {
           )
         )}
       </ul>
+      <div className={styles.discountCode}>
+        <input
+          className={styles.input}
+          onChange={handleChange}
+          type="text"
+          placeholder="Enter code here"
+        />
+        <Button
+          css="discount"
+          onClick={() => dispatch(applyDiscountCode(discountCode))}
+        >
+          Apply
+        </Button>
+      </div>
+
       <div className={styles.total}>
         <span>
           Total Items: <b>{totalQty}</b>

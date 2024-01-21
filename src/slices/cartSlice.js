@@ -20,12 +20,33 @@ const initialState = { cart: {}, deals: [] };
 
 // TODO: error handling/JSONBin
 
-const processCart = (cart, deal) => {
-  // const items = Object.values(cart);
+const checkDiscountCode = (cart, codeUserEntered) => {
   for (const cartItem in cart) {
-    if (cart[cartItem].deal === deal) {
-      cart[cartItem].dealPrice = deal / 2;
-      console.log(cart[cartItem]);
+    const item = cart[cartItem];
+    const {
+      price,
+      deal,
+      discountCode,
+      deal: { percentOff },
+    } = item;
+
+    if (
+      deal &&
+      percentOff &&
+      discountCode.toLowerCase() === codeUserEntered.toLowerCase()
+    ) {
+      item.dealPrice = ((price / 100) * (100 - percentOff)).toFixed(2);
+    }
+  }
+  return cart;
+};
+
+const checkTwoForDeals = (cart, deal) => {
+  for (const cartItem in cart) {
+    const item = cart[cartItem];
+    if (item.deal && item.deal.twoFor && item.deal.twoFor === deal) {
+      item.dealPrice = deal / 2;
+      console.log(item);
     }
   }
   return cart;
@@ -38,8 +59,10 @@ const checkCartDeals = (cart, prodDeal) => {
   if (dealCount.length < 2) {
     // remove deal from existing product
     for (const cartItem in cart) {
-      if (cart[cartItem].deal === prodDeal) {
-        delete cart[cartItem].dealPrice;
+      const item = cart[cartItem];
+
+      if (item.deal === prodDeal) {
+        delete item.dealPrice;
       }
     }
   }
@@ -54,10 +77,19 @@ export const cartSlice = createSlice({
     increment: (state, action) => {
       console.log("incremement");
       const {
-        payload: { id, name, brand, shortName, price, quantity, deal }, // TODO: name is reserved??
+        payload: {
+          id,
+          name,
+          brand,
+          shortName,
+          price,
+          quantity,
+          deal,
+          discountCode,
+        }, // TODO: name is reserved??
       } = action;
       // console.log(action);
-      // console.log(id, name, brand, shortName, price, quantity, deal);
+      console.log(id, name, brand, shortName, price, quantity, deal);
 
       const { cart, deals } = state;
       let qty = cart[id] ? cart[id].qty + quantity : quantity;
@@ -69,18 +101,19 @@ export const cartSlice = createSlice({
 
       state.cart = {
         ...state.cart,
-        [id]: { name, brand, shortName, price, qty, deal },
+        [id]: { name, brand, shortName, price, qty, deal, discountCode },
       };
-      // console.log(state.cart);
 
       // keep track of products in '2 for' deals
-      if (deal) {
-        if (deals.indexOf(deal) === -1) {
-          deals.push(deal);
+      if (deal.twoFor) {
+        const currentDeal = deal.twoFor;
+        if (deals.indexOf(currentDeal) === -1) {
+          deals.push(currentDeal);
         } else {
-          state.cart = processCart({ ...state.cart }, deal);
+          state.cart = checkTwoForDeals({ ...state.cart }, currentDeal);
         }
       }
+      console.log(state.cart);
     },
     decrement: (state, action) => {
       const {
@@ -99,6 +132,10 @@ export const cartSlice = createSlice({
         // check products in cart that have the same deal as the removed product
         state.cart = checkCartDeals(state.cart, prod.deal);
       }
+    },
+    applyDiscountCode: (state, action) => {
+      console.log(action);
+      state.cart = checkDiscountCode(state.cart, action.payload);
     },
     // // Use the PayloadAction type to declare the contents of `action.payload`
     // incrementByAmount: (state, action) => {
@@ -119,13 +156,24 @@ export const cartSlice = createSlice({
   //   },
 });
 
-export const { increment, decrement, incrementByAmount, selectCount } =
-  cartSlice.actions;
+export const {
+  increment,
+  decrement,
+  incrementByAmount,
+  selectCount,
+  applyDiscountCode,
+  toggleCart,
+} = cartSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state: RootState) => state.cart.value)`
 export const selectCart = (state) => state.cart.cart;
+
+export const applyDiscounts = (discountCode) => {
+  const cart = selectCart();
+  checkDiscountCode(cart, discountCode);
+};
 
 // We can also write thunks by hand, which may contain both sync and async logic.
 // Here's an example of conditionally dispatching actions based on current state.

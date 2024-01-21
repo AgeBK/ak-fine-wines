@@ -12,6 +12,7 @@ import styles from "./AutoComplete.module.css";
 function AutoComplete() {
   console.log("AutoComplete");
   const [overlay, setOverlay] = useState(false);
+  const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
   let data = all.map(({ name, id, category, variety }) => {
@@ -47,10 +48,16 @@ function AutoComplete() {
         // disablePortal
         // autoComplete={true}
         // autoHighlight={true}
-        // open={open}
+        open={open}
         // includeInputInList
         onChange={(e, value) => handleChange(e, value)}
-        // onInputChange={(e, value) => handleInputChange(e, value)}
+        onInputChange={(_, value) => {
+          if (value.length <= 1) {
+            if (open) setOpen(false);
+          } else {
+            if (!open) setOpen(true);
+          }
+        }}
         onKeyDown={handleKeyDown}
         getOptionLabel={(option) => option.name}
         className={styles.autoComplete}

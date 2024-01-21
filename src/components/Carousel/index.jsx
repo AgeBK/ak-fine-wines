@@ -106,7 +106,7 @@ function Carousel({ arr }) {
               shortName,
               brand,
               ratings: { average },
-              price: { current, normal, twoFor },
+              price: { current, normal, twoFor, percentOff },
               promotion: { calloutText },
             },
             ind
@@ -125,6 +125,7 @@ function Carousel({ arr }) {
                     current,
                     normal,
                     twoFor,
+                    percentOff,
                     calloutText,
                   }}
                   key={id}

@@ -1,13 +1,17 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { increment, selectCart } from "../../slices/cartSlice";
+import useCartState from "../../hooks/useCartState";
 import CartOpen from "../CartOpen";
 import CartClosed from "../CartClosed";
 import styles from "./Cart.module.css";
 
 function Cart() {
-  const [isOpen, setIsOpen] = useState(false);
+  console.log("Cart");
+  // const [isOpen, setIsOpen] = useState(false);
   const cart = useSelector(selectCart);
+  const [ref, isOpen, handleClose] = useCartState();
+
   // console.log(cart);
 
   const cartDetails = Object.values(cart).reduce(
@@ -23,35 +27,19 @@ function Cart() {
   );
 
   const { totalPrice, totalQty } = cartDetails;
-  // console.log(totalPrice, totalQty);
-
-  const handleIsOpen = () => setIsOpen(!isOpen);
-
-  const handleKeyDown = ({ key }) => key === "Enter" && handleIsOpen();
+  console.log(totalPrice, totalQty);
 
   return (
-    <div
-      className={styles.cartOuterContainer}
-      // onClick={handleIsOpen}
-      // onKeyDown={handleKeyDown}
-      // role="button"
-      // tabIndex={0}
-    >
+    <div className={styles.cartOuterContainer} ref={ref}>
       <div className={styles.container}>
         {isOpen && totalQty && totalPrice ? (
           <CartOpen
             totalPrice={totalPrice}
             totalQty={totalQty}
-            handleIsOpen={handleIsOpen}
-            handleKeyDown={handleKeyDown}
+            handleClose={handleClose}
           />
         ) : (
-          <CartClosed
-            totalPrice={totalPrice}
-            totalQty={totalQty}
-            handleIsOpen={handleIsOpen}
-            handleKeyDown={handleKeyDown}
-          />
+          <CartClosed totalPrice={totalPrice} totalQty={totalQty} />
         )}
       </div>
     </div>
