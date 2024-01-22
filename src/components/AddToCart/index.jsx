@@ -1,12 +1,5 @@
-import { useSelector, useDispatch } from "react-redux";
-import {
-  //decrement,
-  increment,
-  // incrementByAmount,
-  // incrementAsync,
-  // incrementIfOdd,
-  // selectCount,
-} from "../../slices/cartSlice";
+import { useDispatch } from "react-redux";
+import { increment } from "../../slices/cartSlice";
 import Button from "../Button";
 
 function AddToCart({
@@ -33,7 +26,6 @@ function AddToCart({
         discountCode,
       })
     );
-
   return (
     <Button css="cart" onClick={handleClick}>
       Buy

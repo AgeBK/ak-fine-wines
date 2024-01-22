@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Autocomplete, TextField } from "@mui/material";
 import { createFilterOptions } from "@mui/material/Autocomplete";
-import { hyphenate } from "../../data/functions";
+import { hyphenate } from "../../data/utils";
 import parse from "autosuggest-highlight/parse";
 import match from "autosuggest-highlight/match";
 import all from "../../data/allProducts.json";
@@ -23,10 +23,14 @@ function AutoComplete() {
 
   const handleBlur = () => setOverlay(false);
 
-  const handleChange = (_, val) => {
-    const { category, variety, id } = val;
-    setOverlay(false);
-    navigate(`/${category.toLowerCase()}/${hyphenate(variety)}/${id}`);
+  const handleChange = (e, val) => {
+    console.log(e, val);
+    if (val) {
+      const { category, variety, id } = val;
+      setOverlay(false);
+      setOpen(false);
+      navigate(`/${category.toLowerCase()}/${hyphenate(variety)}/${id}`);
+    }
   };
 
   const handleKeyDown = (e) => {

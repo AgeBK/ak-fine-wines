@@ -34,7 +34,7 @@ function VarietyFilter({ setFilters, filters, reset, initialData }) {
               className={styles.radio}
               onChange={handleChange}
             />
-            <label htmlFor="title" className={styles.visuallyHiddenTODO}>
+            <label htmlFor={text} className={styles.visuallyHiddenTODO}>
               {text}
             </label>
           </li>

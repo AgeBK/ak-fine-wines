@@ -109,9 +109,8 @@ export const cartSlice = createSlice({
         const currentDeal = deal.twoFor;
         if (deals.indexOf(currentDeal) === -1) {
           deals.push(currentDeal);
-        } else {
-          state.cart = checkTwoForDeals({ ...state.cart }, currentDeal);
         }
+        state.cart = checkTwoForDeals({ ...state.cart }, currentDeal);
       }
       console.log(state.cart);
     },

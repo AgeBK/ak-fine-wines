@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { hyphenate } from "../../data/functions";
+import { hyphenate } from "../../data/utils";
 import AddToCart from "../AddToCart";
 import Img from "../Image";
 import PriceDrop from "../PriceDrop";

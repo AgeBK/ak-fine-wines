@@ -32,3 +32,7 @@
 .info li span:last-child {
   margin-left: auto;
 }
+
+.info a {
+  color: #ffcf00;
+}

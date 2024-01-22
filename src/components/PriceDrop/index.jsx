@@ -45,7 +45,7 @@ function PriceDrop({ calloutText, onSpecial }) {
       <Link to="/ten-percent-off">{calloutText} </Link>
     </div>
   ) : (
-    <Link to="/sale-items" className={styles.sale}>
+    <Link to="/price-drop" className={styles.sale}>
       <span className={styles.priceDrop}>
         PRICE <br /> DROP
       </span>

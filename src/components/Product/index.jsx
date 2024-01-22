@@ -5,15 +5,14 @@ import {
   deHyphenate,
   randomProducts,
   productPageCarouselProducts,
-} from "../../data/functions";
+} from "../../data/utils";
 import all from "../../data/allProducts.json";
 import { blurb, reviews } from "../../data/appData.json";
 import AddToCart from "../AddToCart";
 import Img from "../Image";
 import Button from "../Button";
 import PriceDrop from "../PriceDrop";
-import ProductInfo from "./ProductInfo";
-import ProductList from "../ProductList";
+import ProductInfo from "../ProductInfo";
 import Carousel from "../Carousel";
 
 // import Price from "../Price";
@@ -94,12 +93,12 @@ function Product() {
               image={`wine/${id}.jpg`}
               imageStyle="productMain"
               imageAlt="AK Fine Wines"
-            />{" "}
-            {calloutText ||
+            />
+            {/*    {calloutText ||
               (onSpecial && (
                 <PriceDrop calloutText={calloutText} onSpecial={onSpecial} /> // TODO:  check this
               ))}
-            {/* {twoFor && <div className={styles.twoFor}>{calloutText}</div>} */}
+            {twoFor && <div className={styles.twoFor}>{calloutText}</div>} */}
           </div>
 
           <div className={styles.productMeta}>
@@ -141,7 +140,7 @@ function Product() {
                   <Button
                     css="cartLge"
                     onClick={handleCount}
-                    disabled={count < 1}
+                    disabled={count < 2}
                   >
                     -
                   </Button>

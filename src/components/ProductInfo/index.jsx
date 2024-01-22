@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { hyphenate } from "../../../data/functions";
+import { hyphenate } from "../../data/utils";
 import styles from "./ProductInfo.module.css";
 
 const ProductInfo = ({
@@ -20,11 +20,15 @@ const ProductInfo = ({
       <ul>
         <li>
           <span>Category</span>
-          <span>{category}</span>
+          <span>
+            <Link to={`/${urlCategory}`}>{category}</Link>
+          </span>
         </li>
         <li>
           <span>Style</span>
-          <span>{variety}</span>
+          <span>
+            <Link to={`/${urlCategory}/${hyphenate(variety)}`}>{variety}</Link>
+          </span>
         </li>
         <li>
           <span>Standard Drinks</span>
@@ -65,7 +69,7 @@ const ProductInfo = ({
           <span>Desserts</span>
         </li>
         <li>
-          <span>Region TODO</span>
+          <span>Region</span>
           <span>South Eastern Australia, Australia</span>
         </li>
         <li>
@@ -81,7 +85,7 @@ const ProductInfo = ({
           <span>{id}</span>
         </li>
         <li>
-          <span>Brand TODO link:</span>
+          <span>Brand</span>
           <span>
             <Link to={`/${urlCategory}/${hyphenate(brand)}`}>{brand}</Link>
           </span>

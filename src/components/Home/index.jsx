@@ -1,4 +1,4 @@
-import { homePageCarouselProducts } from "../../data/functions";
+import { homePageCarouselProducts } from "../../data/utils";
 import Carousel from "../Carousel";
 import { Link } from "react-router-dom";
 import Img from "../Image";

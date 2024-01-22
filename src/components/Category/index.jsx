@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import all from "../../data/allProducts.json";
 import { blurb } from "../../data/appData.json";
-import { hyphenate, deHyphenate } from "../../data/functions";
+import { hyphenate, deHyphenate } from "../../data/utils";
 import ProductList from "../ProductList";
 import Sort from "../Sort";
 import Pills from "../Pills";
@@ -18,48 +18,25 @@ function Category() {
   const [filtered, setFiltered] = useState(null);
   const [filters, setFilters] = useState({});
   const [paging, setPaging] = useState({ page: 1, pageSize: 40 });
+  const [customHeader, setCustomHeader] = useState("");
   const { category: urlCategory, variety: urlVariety } = useParams();
+  // const headerRef = useRef(""); // TODO: hacky
+  let headerRef = ""; // TODO: hacky
   console.log(urlCategory, urlVariety);
   console.log(location.search);
-
-  // only promotions that start with a number
-  const promotions = all.map((val) => {
-    const { calloutText } = val.promotion;
-    val.price.percentOff = 0;
-    val.price.tenFor = 0;
-
-    if (calloutText) {
-      if (calloutText.startsWith("10%")) {
-        val.price.percentOff = 10;
-      }
-      if (calloutText.startsWith("10 for $100")) {
-        val.price.tenFor = 100;
-      }
-    }
-
-    delete val.price.acrossAnySix;
-    delete val.price.memberOnlyPrice;
-    delete val.unitOfMeasure;
-    delete val.cartLimit;
-    delete val.productUrl;
-
-    return val;
-  });
-
-  console.log(promotions);
 
   useEffect(() => {
     console.log("Category UE");
     const sp = new URLSearchParams(location.pathname.substring(1));
     let arr = [];
+    let header = "";
 
-    // firstly check if theres a variety(sub category) to filter by
+    // firstly check if theres a variety(2nd URL param) to filter by
     if (urlVariety) {
       // filter by wine variety or wine brand
       arr = all.filter(
         ({ variety, brand }) =>
-          hyphenate(variety.toLowerCase()) === urlVariety ||
-          brand.toLowerCase() === urlVariety
+          hyphenate(variety) === urlVariety || hyphenate(brand) === urlVariety
       );
     } else if (sp.has("search")) {
       // filter by search param
@@ -67,13 +44,14 @@ function Category() {
       arr = all.filter(({ name }) =>
         name.toLowerCase().includes(query.toLowerCase())
       );
-      console.log(arr);
+      header = `results: ${query}`;
     } else if (
       // filter by 2 for XX deals
       urlCategory.startsWith("two-for") &&
       urlCategory !== "two-for-deals"
     ) {
       const price = Number(urlCategory.split("-")[2]); // TODO: two for XX didn't load any items twice, check
+      header = `2 for $${price}`;
       arr = all.filter(({ price: { twoFor } }) => twoFor === price);
     } else {
       switch (urlCategory) {
@@ -82,20 +60,23 @@ function Category() {
             ({ promotion: { calloutText } }) =>
               calloutText && calloutText.startsWith("2 for")
           );
+          header = "2 for Deals";
           break;
         case "ten-percent-off":
           arr = all.filter(
             ({ promotion: { calloutText } }) =>
               calloutText && calloutText.startsWith("10% OFF")
           );
+          header = "10% OFF";
           break;
         case "ten-for-100":
           arr = all.filter(
             ({ promotion: { calloutText } }) =>
               calloutText && calloutText === "10 for $100"
           );
+          header = "10 for $100";
           break;
-        case "sale-items":
+        case "price-drop":
           arr = all.filter(
             ({ price: { current, normal } }) => current !== normal
           );
@@ -118,6 +99,7 @@ function Category() {
     arr.sort((a, b) => (a.ratings.average > b.ratings.average ? -1 : 1));
 
     console.log(arr);
+    setCustomHeader(header);
     setFilters({ reset: true });
     setInitialData([...arr]);
   }, [urlCategory, urlVariety]);
@@ -164,24 +146,28 @@ function Category() {
   };
 
   const Blurb = () => {
-    const wineCategory = blurb[urlCategory]; // TODO: 2 for deals, no blurb
-    const wineVariety = blurb[urlVariety];
+    // TODO: check brand link on product page?
+    if (urlCategory) {
+      const wineCategory = blurb[urlCategory]; // TODO: 2 for deals, no blurb
+      let wineVariety = blurb[urlVariety];
+      if (customHeader) {
+        wineVariety = blurb["generic"];
+      }
 
-    if (
-      urlCategory.includes("two-for") &&
-      !urlCategory.includes("two-for-deals")
-    ) {
-      console.log("yEaH bOi");
+      return (
+        <>
+          <h2 className={styles.variety}>
+            {customHeader ||
+              deHyphenate(urlVariety) ||
+              deHyphenate(urlCategory)}
+          </h2>
+          <div className={styles.varietyBlurb}>
+            {wineVariety || wineCategory}
+          </div>
+        </>
+      );
     }
-
-    return (
-      <>
-        <h2 className={styles.variety}>
-          {deHyphenate(urlVariety) || deHyphenate(urlCategory)}
-        </h2>
-        <div className={styles.varietyBlurb}>{wineVariety || wineCategory}</div>
-      </>
-    );
+    return null;
   };
 
   return (
