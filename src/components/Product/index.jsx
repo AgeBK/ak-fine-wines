@@ -42,7 +42,7 @@ function Product() {
     packaging,
     unitOfMeasureLabel,
     ratings: { average, total },
-    price: { current, normal, twoFor },
+    price: { current, normal, twoFor, percentOff, tenFor },
     promotion: { calloutText },
   } = product;
 
@@ -62,6 +62,17 @@ function Product() {
 
   const CartDeal = () =>
     twoFor ? <div className={styles.cartTwoFor}>{calloutText}</div> : null;
+
+  let deal = 0; // TODO: have this same code in ProductItem
+  let discountCode =
+    calloutText && calloutText.includes(":") ? calloutText.split(":")[1] : null; // TODO: ??
+  if (twoFor) {
+    deal = { twoFor };
+  } else if (tenFor) {
+    deal = { tenFor };
+  } else if (percentOff) {
+    deal = { percentOff };
+  }
 
   return (
     <article>
@@ -157,7 +168,7 @@ function Product() {
                     shortName={shortName}
                     price={current}
                     quantity={count}
-                    deal={twoFor}
+                    deal={deal}
                   />
                 </div>
               </div>

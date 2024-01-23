@@ -96,8 +96,19 @@
   top: -9px;
 }
 
-.buttons {
-  /* display: flex; */
+.discountCode {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0;
+}
+
+.inputCode {
+  font-size: 20px;
+  border: 1px solid #000;
+  padding: 2px 5px;
+  margin: 0;
+  max-width: 200px;
+  height: 25px;
 }
 
 .oneItem {

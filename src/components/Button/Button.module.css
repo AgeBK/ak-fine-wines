@@ -153,6 +153,13 @@
   color: #d3d3d3;
 }
 
+.discount {
+  background-color: #000;
+  color: #fff;
+  padding: 5px 10px;
+  font-weight: bold;
+}
+
 /* .pageDot {
   border: 1px solid #000;
   border-radius: 16px;

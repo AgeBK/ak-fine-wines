@@ -104,13 +104,21 @@ export const cartSlice = createSlice({
         [id]: { name, brand, shortName, price, qty, deal, discountCode },
       };
 
-      // keep track of products in '2 for' deals
-      if (deal.twoFor) {
-        const currentDeal = deal.twoFor;
-        if (deals.indexOf(currentDeal) === -1) {
-          deals.push(currentDeal);
+      // keep track of products in multibuy deals
+      if (deal.twoFor || deal.tenFor) {
+        const twoForDeal = deal.twoFor;
+        const tenForDeal = deal.tenFor;
+        for (let i = 0; i < quantity; i++) {
+          if (twoForDeal) deals.push(twoForDeal);
+          if (
+            tenForDeal) deals.push(tenForDeal);
         }
-        state.cart = checkTwoForDeals({ ...state.cart }, currentDeal);
+        if (deals.filter((val) => val === twoForDeal).length > 1) {
+          state.cart = checkTwoForDeals({ ...state.cart }, twoForDeal);
+          // state.cart[id].dealPrice = twoForDeal / 2;
+        } else {
+          if (state.cart[id].dealPrice) delete state.cart[id].dealPrice;
+        }
       }
       console.log(state.cart);
     },

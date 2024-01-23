@@ -17,6 +17,7 @@ function VarietyFilter({ setFilters, filters, reset, initialData }) {
     acc[variety] = (acc[variety] || 0) + 1;
     return acc;
   }, {});
+
   const sortedArr = Object.entries(varietys).sort(([, a], [, b]) => b - a);
 
   return (

@@ -28,7 +28,7 @@ const ProductItem = ({ props, css }) => {
 
   let deal = 0;
   let discountCode =
-    calloutText && calloutText.includes(":") ? calloutText.split(":")[1] : null;
+    calloutText && calloutText.includes(":") ? calloutText.split(":")[1] : null; // TODO: ??
   if (twoFor) {
     deal = { twoFor };
   } else if (tenFor) {
@@ -36,6 +36,8 @@ const ProductItem = ({ props, css }) => {
   } else if (percentOff) {
     deal = { percentOff };
   }
+
+  console.log(deal);
 
   // console.log(css); // TODO: lots of undefined?
 

@@ -33,22 +33,19 @@ function CartOpen({ totalPrice, totalQty, handleClose }) {
     return <div className={styles.price}>${cartPrice.toFixed(2)}</div>;
   };
 
-  const ItemSavings = ({ price, dealPrice }) =>
+  const ItemSavings = ({ price, dealPrice, qty }) =>
     dealPrice ? (
       <div className={styles.savings}>
         <span className={styles.triangle}></span>
-        You save: ${(price - dealPrice).toFixed(2)}
+        You save: ${((price - dealPrice) * qty).toFixed(2)}
       </div>
     ) : null;
-
 
   const handleKeyDown = ({ key }) => key === "Enter" && handleClose();
 
   const handleChange = ({ target: { value } }) => setDiscountCode(value);
 
-  const removeFromCart = (id, all) => {
-    dispatch(decrement({ id, all }));
-  };
+  const removeFromCart = (id, all) => dispatch(decrement({ id, all }));
 
   const addToCart = ({
     id,
@@ -157,10 +154,11 @@ function CartOpen({ totalPrice, totalQty, handleClose }) {
                 </div>
               </div>
               <div className={styles.itemSavings}>
-                <ItemSavings // qty={qty}
+                <ItemSavings
                   price={price}
                   // deal={deal}
                   dealPrice={dealPrice}
+                  qty={qty}
                 />
               </div>
             </li>
@@ -169,7 +167,7 @@ function CartOpen({ totalPrice, totalQty, handleClose }) {
       </ul>
       <div className={styles.discountCode}>
         <input
-          className={styles.input}
+          className={styles.inputCode}
           onChange={handleChange}
           type="text"
           placeholder="Enter code here"
