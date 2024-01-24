@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 // import { fetchCart } from "./cartAPI"; ??
 
-const initialState = { cart: {}, deals: [] };
+const initialState = { cart: {}, twoForDeals: [], tenForDeals: [] };
 
 // The function below is called a thunk and allows us to perform async logic. It
 // can be dispatched like a regular action: `dispatch(incrementAsync(10))`. This
@@ -41,29 +41,35 @@ const checkDiscountCode = (cart, codeUserEntered) => {
   return cart;
 };
 
-const checkTwoForDeals = (cart, deal) => {
+const checkApplyDeal = (cart, deal, dealPrice, dealAmount) => {
   for (const cartItem in cart) {
     const item = cart[cartItem];
-    if (item.deal && item.deal.twoFor && item.deal.twoFor === deal) {
-      item.dealPrice = deal / 2;
+    const currentDeal = item.deal;
+    if (currentDeal[deal] && currentDeal[deal] === dealPrice) {
+      item.dealPrice = dealPrice / dealAmount;
       console.log(item);
     }
   }
   return cart;
 };
 
-const checkCartDeals = (cart, prodDeal) => {
-  // const cart = { ...state.cart };
-  const dealCount = Object.values(cart).filter(({ deal }) => deal === prodDeal);
-  console.log(dealCount);
-  if (dealCount.length < 2) {
-    // remove deal from existing product
-    for (const cartItem in cart) {
-      const item = cart[cartItem];
+// const checkTwoForDeals = (cart, deal) => {
+//   for (const cartItem in cart) {
+//     const item = cart[cartItem];
+//     if (item.deal && item.deal.twoFor && item.deal.twoFor === deal) {
+//       item.dealPrice = deal / 2;
+//       console.log(item);
+//     }
+//   }
+//   return cart;
+// };
 
-      if (item.deal === prodDeal) {
-        delete item.dealPrice;
-      }
+const checkRemoveDeal = (cart, deal, dealPrice) => {
+  for (const cartItem in cart) {
+    const currentItem = cart[cartItem];
+    const currentDeal = currentItem.deal;
+    if (currentDeal[deal] === dealPrice) {
+      delete currentItem.dealPrice;
     }
   }
   return cart;
@@ -91,7 +97,7 @@ export const cartSlice = createSlice({
       // console.log(action);
       console.log(id, name, brand, shortName, price, quantity, deal);
 
-      const { cart, deals } = state;
+      const { cart, twoForDeals, tenForDeals } = state;
       let qty = cart[id] ? cart[id].qty + quantity : quantity;
 
       // Redux Toolkit allows us to write "mutating" logic in reducers. It
@@ -109,17 +115,31 @@ export const cartSlice = createSlice({
         const twoForDeal = deal.twoFor;
         const tenForDeal = deal.tenFor;
         for (let i = 0; i < quantity; i++) {
-          if (twoForDeal) deals.push(twoForDeal);
-          if (
-            tenForDeal) deals.push(tenForDeal);
+          if (twoForDeal) twoForDeals.push(twoForDeal);
+          if (tenForDeal) tenForDeals.push(tenForDeal);
         }
-        if (deals.filter((val) => val === twoForDeal).length > 1) {
-          state.cart = checkTwoForDeals({ ...state.cart }, twoForDeal);
+        if (twoForDeals.filter((val) => val === twoForDeal).length > 1) {
+          // state.cart = checkTwoForDeals({ ...state.cart }, twoForDeal);
+          state.cart = checkApplyDeal(
+            { ...state.cart },
+            "twoFor",
+            twoForDeal,
+            2
+          );
           // state.cart[id].dealPrice = twoForDeal / 2;
         } else {
           if (state.cart[id].dealPrice) delete state.cart[id].dealPrice;
         }
+
+        // if (twoForDeals.filter((val) => val === twoForDeal).length > 9) {
+        //   // state.cart = checkTwoForDeals({ ...state.cart }, twoForDeal);
+        //   state.cart = checkApplyDeal({ ...state.cart }, "twoFor", twoForDeal);
+        //   // state.cart[id].dealPrice = twoForDeal / 2;
+        // } else {
+        //   if (state.cart[id].dealPrice) delete state.cart[id].dealPrice;
+        // }
       }
+
       console.log(state.cart);
     },
     decrement: (state, action) => {
@@ -127,17 +147,38 @@ export const cartSlice = createSlice({
         payload: { id, all },
       } = action;
 
-      const prod = state.cart[id];
-      let prodQty = prod.qty;
-      if (all || prodQty === 1) {
+      const { cart, twoForDeals, tenForDeals } = state;
+
+      const item = state.cart[id];
+      console.log(current(item));
+      console.log(current(twoForDeals));
+
+      const {
+        qty,
+        deal,
+        deal: { twoFor },
+      } = item;
+      // console.log(current(qty));
+      // console.log(current(deal));
+
+      if (all || qty === 1) {
         delete state.cart[id];
       } else {
-        state.cart = { ...state.cart, [id]: { ...prod, qty: --prodQty } };
+        state.cart = { ...state.cart, [id]: { ...item, qty: qty - 1 } };
       }
+
       //  check if the product was in a '2 for' deal
-      if (prod.deal) {
-        // check products in cart that have the same deal as the removed product
-        state.cart = checkCartDeals(state.cart, prod.deal);
+      if (twoFor) {
+        // const currentDeal = twoFor;
+        const ind = twoForDeals.indexOf(twoFor);
+        twoForDeals.splice(ind, 1);
+        console.log(current(twoForDeals));
+        // const twoForDeal = deal.twoFor;
+        // const tenForDeal = deal.tenFor;
+        if (twoForDeals.filter((val) => val === twoFor).length < 2) {
+          // check products in cart that have the same deal as the removed product
+          state.cart = checkRemoveDeal(state.cart, "twoFor", twoFor);
+        }
       }
     },
     applyDiscountCode: (state, action) => {

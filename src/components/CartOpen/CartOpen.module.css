@@ -132,6 +132,7 @@
   padding: 0.5rem 1rem;
   display: flex;
   font-size: 1.1rem;
+  border-top: 1px solid #000;
 }
 
 .total span:last-child {
