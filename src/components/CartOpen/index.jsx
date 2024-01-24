@@ -21,11 +21,6 @@ function CartOpen({ totalPrice, totalQty, handleClose }) {
   const cart = useSelector(selectCart);
   console.log(totalPrice, totalQty);
 
-  // Object.entries(cart).map(([key, val]) => {
-  //   console.log(key);
-  //   console.log(val);
-  // });
-
   console.log(cart);
 
   const CartPrice = ({ price, dealPrice, qty }) => {

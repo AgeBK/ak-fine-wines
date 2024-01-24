@@ -3,23 +3,6 @@ import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 
 const initialState = { cart: {}, twoForDeals: [], tenForDeals: [] };
 
-// The function below is called a thunk and allows us to perform async logic. It
-// can be dispatched like a regular action: `dispatch(incrementAsync(10))`. This
-// will call the thunk with the `dispatch` function as the first argument. Async
-// code can then be executed and other actions can be dispatched. Thunks are
-// typically used to make async requests.
-
-// export const incrementAsync = createAsyncThunk(
-//   "cart/fetchCart",
-//   async (amount) => {
-//     const response = await fetchCart(amount);
-//     // The value we return becomes the `fulfilled` action payload
-//     return response.data;
-//   }
-// );
-
-// TODO: error handling/JSONBin
-
 const checkDiscountCode = (cart, codeUserEntered) => {
   for (const cartItem in cart) {
     const item = cart[cartItem];
@@ -41,34 +24,31 @@ const checkDiscountCode = (cart, codeUserEntered) => {
   return cart;
 };
 
-const checkApplyDeal = (cart, deal, dealPrice, dealAmount) => {
+const checkApplyDeal = (cart, deal, items) => {
+  const dealType = Object.keys(deal)[0];
+  const dealPrice = Object.values(deal)[0];
   for (const cartItem in cart) {
     const item = cart[cartItem];
     const currentDeal = item.deal;
-    if (currentDeal[deal] && currentDeal[deal] === dealPrice) {
-      item.dealPrice = dealPrice / dealAmount;
-      console.log(item);
+    // if (currentDeal) console.log(current(currentDeal));
+
+    if (currentDeal) {
+      if (currentDeal[dealType] && currentDeal[dealType] === dealPrice) {
+        item.dealPrice = dealPrice / items;
+        console.log(item);
+      }
     }
   }
   return cart;
 };
 
-// const checkTwoForDeals = (cart, deal) => {
-//   for (const cartItem in cart) {
-//     const item = cart[cartItem];
-//     if (item.deal && item.deal.twoFor && item.deal.twoFor === deal) {
-//       item.dealPrice = deal / 2;
-//       console.log(item);
-//     }
-//   }
-//   return cart;
-// };
-
-const checkRemoveDeal = (cart, deal, dealPrice) => {
+const checkRemoveDeal = (cart, deal) => {
+  const dealType = Object.keys(deal)[0];
+  const dealPrice = Object.values(deal)[0];
   for (const cartItem in cart) {
     const currentItem = cart[cartItem];
     const currentDeal = currentItem.deal;
-    if (currentDeal[deal] === dealPrice) {
+    if (currentDeal[dealType] === dealPrice) {
       delete currentItem.dealPrice;
     }
   }
@@ -99,11 +79,7 @@ export const cartSlice = createSlice({
 
       const { cart, twoForDeals, tenForDeals } = state;
       let qty = cart[id] ? cart[id].qty + quantity : quantity;
-
-      // Redux Toolkit allows us to write "mutating" logic in reducers. It
-      // doesn't actually mutate the state because it uses the Immer library,
-      // which detects changes to a "draft state" and produces a brand new
-      // immutable state based off those changes
+      console.log("qty" + qty);
 
       state.cart = {
         ...state.cart,
@@ -114,29 +90,31 @@ export const cartSlice = createSlice({
       if (deal.twoFor || deal.tenFor) {
         const twoForDeal = deal.twoFor;
         const tenForDeal = deal.tenFor;
+
         for (let i = 0; i < quantity; i++) {
           if (twoForDeal) twoForDeals.push(twoForDeal);
           if (tenForDeal) tenForDeals.push(tenForDeal);
         }
-        if (twoForDeals.filter((val) => val === twoForDeal).length > 1) {
-          // state.cart = checkTwoForDeals({ ...state.cart }, twoForDeal);
-          state.cart = checkApplyDeal(
-            { ...state.cart },
-            "twoFor",
-            twoForDeal,
-            2
-          );
-          // state.cart[id].dealPrice = twoForDeal / 2;
-        } else {
-          if (state.cart[id].dealPrice) delete state.cart[id].dealPrice;
-        }
 
-        // if (twoForDeals.filter((val) => val === twoForDeal).length > 9) {
-        //   // state.cart = checkTwoForDeals({ ...state.cart }, twoForDeal);
-        //   state.cart = checkApplyDeal({ ...state.cart }, "twoFor", twoForDeal);
-        //   // state.cart[id].dealPrice = twoForDeal / 2;
-        // } else {
+        if (
+          twoForDeal &&
+          twoForDeals.filter((val) => val === twoForDeal).length > 1
+        ) {
+          state.cart = checkApplyDeal(state.cart, deal, 2);
+        }
+        // else {
         //   if (state.cart[id].dealPrice) delete state.cart[id].dealPrice;
+        // }
+
+        // if (
+        //   tenForDeal &&
+        //   tenForDeals.filter((val) => val === tenForDeal).length > 9
+        // ) {
+        //   // state.cart = checktenForDeals({ ...state.cart }, tenForDeal);
+        //   state.cart = checkApplyDeal({ ...state.cart }, "tenFor", tenForDeal);
+        //   // state.cart[id].dealPrice = tenForDeal / 2;
+        // } else {
+        //   delete state.cart[id].dealPrice;
         // }
       }
 
@@ -177,7 +155,7 @@ export const cartSlice = createSlice({
         // const tenForDeal = deal.tenFor;
         if (twoForDeals.filter((val) => val === twoFor).length < 2) {
           // check products in cart that have the same deal as the removed product
-          state.cart = checkRemoveDeal(state.cart, "twoFor", twoFor);
+          state.cart = checkRemoveDeal(state.cart, deal);
         }
       }
     },
