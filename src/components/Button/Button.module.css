@@ -160,6 +160,14 @@
   font-weight: bold;
 }
 
+.close {
+  font-size: 1.5rem;
+  position: absolute;
+  top: -2px;
+  right: 10px;
+  cursor: pointer;
+}
+
 /* .pageDot {
   border: 1px solid #000;
   border-radius: 16px;

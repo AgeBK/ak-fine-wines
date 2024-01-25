@@ -1,11 +1,9 @@
 import { useState } from "react";
-// import { ComputerContext } from "../../context";
 import { useSelector, useDispatch } from "react-redux";
 import {
   increment,
   decrement,
   selectCart,
-  applyDiscounts,
   applyDiscountCode,
 } from "../../slices/cartSlice";
 import Img from "../Image";
@@ -14,9 +12,11 @@ import Button from "../Button";
 import styles from "./CartOpen.module.css";
 
 function CartOpen({ totalPrice, totalQty, handleClose }) {
-  // const { addToCart, cart, removeFromCart } = useContext(ComputerContext);
   const [discountCode, setDiscountCode] = useState("");
   const dispatch = useDispatch();
+
+  // TODO: picture of cask/bundles, maybe get rid of bundles??
+  // TODO: Price when discounted? like for product Item??
 
   const cart = useSelector(selectCart);
   console.log(totalPrice, totalQty);
@@ -36,9 +36,11 @@ function CartOpen({ totalPrice, totalQty, handleClose }) {
       </div>
     ) : null;
 
-  const handleKeyDown = ({ key }) => key === "Enter" && handleClose();
+  const handleKeyDown = ({ key }) => key === "Enter" && dispatchDiscountCode();
 
   const handleChange = ({ target: { value } }) => setDiscountCode(value);
+
+  const dispatchDiscountCode = () => dispatch(applyDiscountCode(discountCode));
 
   const removeFromCart = (id, all) => dispatch(decrement({ id, all }));
 
@@ -72,15 +74,9 @@ function CartOpen({ totalPrice, totalQty, handleClose }) {
       <div className={styles.totalItems}>
         <span>{totalQty} </span>
         items in your shopping cart
-        <span
-          className={styles.close}
-          onClick={handleClose}
-          onKeyDown={handleKeyDown}
-          role="button"
-          tabIndex={0}
-        >
+        <Button css="close" onClick={handleClose}>
           X
-        </span>
+        </Button>
       </div>
       <ul className={styles.list}>
         {Object.entries(cart).map(
@@ -136,16 +132,12 @@ function CartOpen({ totalPrice, totalQty, handleClose }) {
                       imageAlt={name}
                     />
                   </Button>
-                  {/* <div className={styles.qty}>Quantity: {qty}</div> */}
-
                   <CartPrice
                     qty={qty}
                     price={price}
                     // deal={deal}
                     dealPrice={dealPrice}
                   />
-
-                  {/* <Price price={price} loc="cartItem" /> */}
                 </div>
               </div>
               <div className={styles.itemSavings}>
@@ -164,13 +156,11 @@ function CartOpen({ totalPrice, totalQty, handleClose }) {
         <input
           className={styles.inputCode}
           onChange={handleChange}
+          onKeyDown={handleKeyDown}
           type="text"
           placeholder="Enter code here"
         />
-        <Button
-          css="discount"
-          onClick={() => dispatch(applyDiscountCode(discountCode))}
-        >
+        <Button css="discount" onClick={dispatchDiscountCode}>
           Apply
         </Button>
       </div>

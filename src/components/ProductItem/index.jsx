@@ -28,7 +28,9 @@ const ProductItem = ({ props, css }) => {
 
   let deal = 0;
   let discountCode =
-    calloutText && calloutText.includes(":") ? calloutText.split(":")[1] : null; // TODO: ??
+    calloutText && calloutText.includes(":")
+      ? calloutText.split(":")[1].trimStart()
+      : null; // TODO: ??
   if (twoFor) {
     deal = { twoFor };
   } else if (tenFor) {

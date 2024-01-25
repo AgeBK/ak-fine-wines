@@ -1,26 +1,39 @@
 import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 // import { fetchCart } from "./cartAPI"; ??
 
-const initialState = { cart: {}, twoForDeals: [], tenForDeals: 0 };
+const initialState = {
+  cart: {},
+  twoForDeals: [],
+  tenForDeals: 0,
+  promotionCode: "",
+};
 
-const checkDiscountCode = (cart, codeUserEntered) => {
-  for (const cartItem in cart) {
-    const item = cart[cartItem];
-    const {
-      price,
-      deal,
-      discountCode,
-      deal: { percentOff },
-    } = item;
+const checkDiscountCode = (cart, promotionCode) => {
+  if (promotionCode) {
+    for (const cartItem in cart) {
+      const item = cart[cartItem];
+      const {
+        price,
+        // deal,
+        discountCode,
+        deal: { percentOff },
+      } = item;
 
-    if (
-      deal &&
-      percentOff &&
-      discountCode.toLowerCase() === codeUserEntered.toLowerCase()
-    ) {
-      item.dealPrice = ((price / 100) * (100 - percentOff)).toFixed(2);
+      if (
+        discountCode &&
+        discountCode.toLowerCase() === promotionCode.toLowerCase()
+      ) {
+        item.dealPrice = ((price / 100) * (100 - percentOff)).toFixed(2);
+      } else if (
+        discountCode &&
+        discountCode.toLowerCase() !== promotionCode.toLowerCase() &&
+        item.dealPrice
+      ) {
+        delete item.dealPrice;
+      }
     }
   }
+
   return cart;
 };
 
@@ -115,6 +128,7 @@ export const cartSlice = createSlice({
       console.log(state.cart);
     },
     decrement: (state, action) => {
+      console.log("decrement");
       const { id, all } = action.payload;
       const { twoForDeals } = state;
 
@@ -133,11 +147,14 @@ export const cartSlice = createSlice({
 
       //  check if existing products in cart still qualify for any multibuys
       if (twoFor || tenFor) {
+        const quantity = all ? qty : 1;
         if (twoFor) {
-          const ind = twoForDeals.indexOf(twoFor);
-          twoForDeals.splice(ind, 1);
+          for (let i = 0; i < quantity; i++) {
+            const ind = twoForDeals.indexOf(twoFor);
+            twoForDeals.splice(ind, 1);
+          }
         } else {
-          state.tenForDeals += -1;
+          state.tenForDeals -= quantity;
         }
         if (
           (twoFor && twoForDeals.filter((val) => val === twoFor).length < 2) ||
@@ -149,7 +166,8 @@ export const cartSlice = createSlice({
     },
     applyDiscountCode: (state, action) => {
       console.log(action);
-      state.cart = checkDiscountCode(state.cart, action.payload);
+      state.promotionCode = action.payload;
+      checkDiscountCode(state.cart, state.promotionCode);
     },
   },
 });

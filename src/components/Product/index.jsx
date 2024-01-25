@@ -65,7 +65,9 @@ function Product() {
 
   let deal = 0; // TODO: have this same code in ProductItem
   let discountCode =
-    calloutText && calloutText.includes(":") ? calloutText.split(":")[1] : null; // TODO: ??
+    calloutText && calloutText.includes(":")
+      ? calloutText.split(":")[1].trimStart()
+      : null; // TODO: ??
   if (twoFor) {
     deal = { twoFor };
   } else if (tenFor) {
