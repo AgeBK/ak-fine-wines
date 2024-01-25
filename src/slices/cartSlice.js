@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 // import { fetchCart } from "./cartAPI"; ??
 
-const initialState = { cart: {}, twoForDeals: [], tenForDeals: [] };
+const initialState = { cart: {}, twoForDeals: [], tenForDeals: 0 };
 
 const checkDiscountCode = (cart, codeUserEntered) => {
   for (const cartItem in cart) {
@@ -24,18 +24,37 @@ const checkDiscountCode = (cart, codeUserEntered) => {
   return cart;
 };
 
-const checkApplyDeal = (cart, deal, items) => {
+const apply2forDeal = (cart, deal, items) => {
   const dealType = Object.keys(deal)[0];
   const dealPrice = Object.values(deal)[0];
+
   for (const cartItem in cart) {
     const item = cart[cartItem];
     const currentDeal = item.deal;
-    // if (currentDeal) console.log(current(currentDeal));
-
     if (currentDeal) {
-      if (currentDeal[dealType] && currentDeal[dealType] === dealPrice) {
+      const currentDealType = Object.keys(currentDeal)[0];
+      const currentDealPrice = Object.values(currentDeal)[0];
+      if (currentDealType && currentDeal[dealType] === dealPrice) {
         item.dealPrice = dealPrice / items;
         console.log(item);
+      }
+    }
+  }
+  return cart;
+};
+
+const applyMultiBuy = (cart, deal, items) => {
+  const dealType = Object.keys(deal)[0];
+  const dealPrice = Object.values(deal)[0];
+
+  for (const cartItem in cart) {
+    const item = cart[cartItem];
+    const currentDeal = item.deal;
+    if (currentDeal) {
+      const currentDealType = Object.keys(currentDeal)[0];
+      const currentDealPrice = Object.values(currentDeal)[0];
+      if (currentDealType === dealType && currentDealPrice === dealPrice) {
+        item.dealPrice = dealPrice / items;
       }
     }
   }
@@ -79,7 +98,8 @@ export const cartSlice = createSlice({
 
       const { cart, twoForDeals, tenForDeals } = state;
       let qty = cart[id] ? cart[id].qty + quantity : quantity;
-      console.log("qty" + qty);
+      console.log("qty " + qty);
+      console.log("tenForDeals: " + tenForDeals);
 
       state.cart = {
         ...state.cart,
@@ -93,29 +113,21 @@ export const cartSlice = createSlice({
 
         for (let i = 0; i < quantity; i++) {
           if (twoForDeal) twoForDeals.push(twoForDeal);
-          if (tenForDeal) tenForDeals.push(tenForDeal);
+          if (tenForDeal) state.tenForDeals += 1;
         }
 
         if (
           twoForDeal &&
           twoForDeals.filter((val) => val === twoForDeal).length > 1
         ) {
-          state.cart = checkApplyDeal(state.cart, deal, 2);
+          state.cart = applyMultiBuy(state.cart, deal, 2);
         }
-        // else {
-        //   if (state.cart[id].dealPrice) delete state.cart[id].dealPrice;
-        // }
 
-        // if (
-        //   tenForDeal &&
-        //   tenForDeals.filter((val) => val === tenForDeal).length > 9
-        // ) {
-        //   // state.cart = checktenForDeals({ ...state.cart }, tenForDeal);
-        //   state.cart = checkApplyDeal({ ...state.cart }, "tenFor", tenForDeal);
-        //   // state.cart[id].dealPrice = tenForDeal / 2;
-        // } else {
-        //   delete state.cart[id].dealPrice;
-        // }
+        if (tenForDeal && state.tenForDeals > 9) {
+          // state.cart = checktenForDeals({ ...state.cart }, tenForDeal);
+          state.cart = applyMultiBuy(state.cart, deal, 10);
+          // state.cart[id].dealPrice = tenForDeal / 2;
+        }
       }
 
       console.log(state.cart);
