@@ -33,7 +33,7 @@ function Home() {
           {/* <h2 className={styles.toGood}>To good to be true!!!</h2> */}
           <h2 className={styles.tenOff}>10% OFF</h2>
           <h2 className={styles.selected}>Huge range of selected wines</h2>
-          <h2 className={styles.shopNow}>SHOW NOW</h2>
+          <h2 className={styles.shopNow}>SHOP NOW</h2>
           <div className={styles.finePrint}>(Ends Sunday, 5pm)</div>
         </a>
       </div>

@@ -92,7 +92,6 @@ export const cartSlice = createSlice({
           discountCode,
         }, // TODO: name is reserved??
       } = action;
-      // console.log(action);
       console.log(id, name, brand, shortName, price, quantity, deal);
 
       const { cart, twoForDeals, tenForDeals } = state;
@@ -128,10 +127,8 @@ export const cartSlice = createSlice({
       console.log(state.cart);
     },
     decrement: (state, action) => {
-      console.log("decrement");
       const { id, all } = action.payload;
       const { twoForDeals } = state;
-
       const item = state.cart[id];
       const {
         qty,
@@ -165,7 +162,6 @@ export const cartSlice = createSlice({
       }
     },
     applyDiscountCode: (state, action) => {
-      console.log(action);
       state.promotionCode = action.payload;
       checkDiscountCode(state.cart, state.promotionCode);
     },

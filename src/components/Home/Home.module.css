@@ -8,10 +8,11 @@
   background-color: #000;
   text-align: center;
   margin-bottom: 1rem;
-  padding: 0.5rem;
+  padding: 1rem;
 }
 
-.campaign a {
+.campaign a,
+.campaignMini a {
   color: #fff;
 }
 
@@ -23,24 +24,20 @@
   font-size: 4rem;
 }
 
-.campaign h2 {
+.shopNow {
   font-size: 2rem;
-  padding: 0;
-  margin: 0;
-}
-
-.campaign .shopNow {
-  background-color: #fff;
-  color: #000;
-  display: inline-block;
   margin: 1rem 0;
-  padding: 1rem;
+  border: 3px solid white;
+  display: inline-block;
+  padding: 5px 20px;
+  color: #fff;
 }
 
 .campaignMini {
   display: flex;
   text-align: center;
   background-color: #000;
+  color: #fff;
 }
 
 .campaignMini .hdr {
@@ -51,18 +48,6 @@
   flex: 1 1 0;
   margin: 3rem;
   border: 5px solid white;
-}
-
-.campaignMini h3 {
-  font-size: 2rem;
-  margin: 1rem 0;
-  color: #fff;
-}
-
-.campaignMini h3.shopNow {
-  border: 3px solid white;
-  display: inline-block;
-  padding: 5px 20px;
 }
 
 .campaignMini .twoForBlurb {
