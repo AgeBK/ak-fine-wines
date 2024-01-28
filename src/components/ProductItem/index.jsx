@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { hyphenate } from "../../data/utils";
+import { checkDeals } from "../../data/utils";
 import AddToCart from "../AddToCart";
 import Img from "../Image";
 import PriceDrop from "../PriceDrop";
@@ -22,22 +23,25 @@ const ProductItem = ({ props, css }) => {
     percentOff,
     tenFor,
     calloutText,
+    discountCode,
   } = props;
 
   console.log(twoFor, percentOff, tenFor);
 
-  let deal = 0;
-  let discountCode =
-    calloutText && calloutText.includes(":")
-      ? calloutText.split(":")[1].trimStart()
-      : null; // TODO: ??
-  if (twoFor) {
-    deal = { twoFor };
-  } else if (tenFor) {
-    deal = { tenFor };
-  } else if (percentOff) {
-    deal = { percentOff };
-  }
+  let deal = checkDeals(twoFor, tenFor, percentOff);
+
+  // let deal = 0;
+  // // let discountCode =
+  // //   calloutText && calloutText.includes(":")
+  // //     ? calloutText.split(":")[1].trimStart()
+  // //     : null; // TODO: hacky ??
+  // if (twoFor) {
+  //   deal = { twoFor };
+  // } else if (tenFor) {
+  //   deal = { tenFor };
+  // } else if (percentOff) {
+  //   deal = { percentOff };
+  // }
 
   console.log(deal);
 

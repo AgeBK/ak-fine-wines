@@ -7,6 +7,8 @@ import CartClosed from "../CartClosed";
 import styles from "./Cart.module.css";
 
 function Cart() {
+  const [discountCode, setDiscountCode] = useState("");
+
   console.log("Cart");
   // const [isOpen, setIsOpen] = useState(false);
   const cart = useSelector(selectCart);
@@ -37,6 +39,8 @@ function Cart() {
             totalPrice={totalPrice}
             totalQty={totalQty}
             handleClose={handleClose}
+            discountCode={discountCode}
+            setDiscountCode={setDiscountCode}
           />
         ) : (
           <CartClosed totalPrice={totalPrice} totalQty={totalQty} />

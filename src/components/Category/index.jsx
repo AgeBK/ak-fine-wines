@@ -25,6 +25,18 @@ function Category() {
   console.log(urlCategory, urlVariety);
   console.log(location.search);
 
+  const addCode = all.map((val) => {
+    if (
+      val.promotion.calloutText &&
+      val.promotion.calloutText.includes("SAVE10")
+    ) {
+      val.promotion.discountCode = "SAVE10";
+    }
+    return val;
+  });
+
+  console.log(addCode);
+
   useEffect(() => {
     console.log("Category UE");
     const sp = new URLSearchParams(location.pathname.substring(1));

@@ -8,6 +8,7 @@ import {
 } from "../../data/utils";
 import all from "../../data/allProducts.json";
 import { blurb, reviews } from "../../data/appData.json";
+import { checkDeals } from "../../data/utils";
 import AddToCart from "../AddToCart";
 import Img from "../Image";
 import Button from "../Button";
@@ -63,18 +64,7 @@ function Product() {
   const CartDeal = () =>
     twoFor ? <div className={styles.cartTwoFor}>{calloutText}</div> : null;
 
-  let deal = 0; // TODO: have this same code in ProductItem
-  let discountCode =
-    calloutText && calloutText.includes(":")
-      ? calloutText.split(":")[1].trimStart()
-      : null; // TODO: ??
-  if (twoFor) {
-    deal = { twoFor };
-  } else if (tenFor) {
-    deal = { tenFor };
-  } else if (percentOff) {
-    deal = { percentOff };
-  }
+  let deal = checkDeals(twoFor, tenFor, percentOff);
 
   return (
     <article>

@@ -9,28 +9,25 @@ const initialState = {
 };
 
 const checkDiscountCode = (cart, promotionCode) => {
-  if (promotionCode) {
-    for (const cartItem in cart) {
-      const item = cart[cartItem];
-      const {
-        price,
-        // deal,
-        discountCode,
-        deal: { percentOff },
-      } = item;
+  for (const cartItem in cart) {
+    const item = cart[cartItem];
+    const {
+      price,
+      discountCode,
+      deal: { percentOff },
+    } = item;
 
-      if (
-        discountCode &&
-        discountCode.toLowerCase() === promotionCode.toLowerCase()
-      ) {
-        item.dealPrice = ((price / 100) * (100 - percentOff)).toFixed(2);
-      } else if (
-        discountCode &&
-        discountCode.toLowerCase() !== promotionCode.toLowerCase() &&
-        item.dealPrice
-      ) {
-        delete item.dealPrice;
-      }
+    if (
+      discountCode &&
+      discountCode.toLowerCase() === promotionCode.toLowerCase()
+    ) {
+      item.dealPrice = ((price / 100) * (100 - percentOff)).toFixed(2);
+    } else if (
+      discountCode &&
+      discountCode.toLowerCase() !== promotionCode.toLowerCase() &&
+      item.dealPrice
+    ) {
+      delete item.dealPrice;
     }
   }
 
@@ -92,9 +89,9 @@ export const cartSlice = createSlice({
           discountCode,
         }, // TODO: name is reserved??
       } = action;
-      console.log(id, name, brand, shortName, price, quantity, deal);
+      console.log(id, name, brand, shortName, price, quantity, deal, discountCode);
 
-      const { cart, twoForDeals, tenForDeals } = state;
+      const { cart, twoForDeals, tenForDeals, promotionCode } = state;
       let qty = cart[id] ? cart[id].qty + quantity : quantity;
       console.log("qty " + qty);
       console.log("tenForDeals: " + tenForDeals);
@@ -122,6 +119,10 @@ export const cartSlice = createSlice({
         } else if (tenForDeal && state.tenForDeals > 9) {
           state.cart = applyMultiBuy(state.cart, deal, 10);
         }
+      }
+
+      if (promotionCode) {
+        checkDiscountCode(state.cart, state.promotionCode);
       }
 
       console.log(state.cart);
@@ -181,11 +182,13 @@ export const {
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state: RootState) => state.cart.value)`
 export const selectCart = (state) => state.cart.cart;
+export const getPromotionCode = (state) => state.cart.promotionCode; // TODO: why .cart?
 
-export const applyDiscounts = (discountCode) => {
-  const cart = selectCart();
-  checkDiscountCode(cart, discountCode);
-};
+// export const applyDiscounts = (discountCode) => {
+//   console.log(discountCode);
+//   const cart = selectCart();
+//   checkDiscountCode(cart, discountCode);
+// };
 
 // We can also write thunks by hand, which may contain both sync and async logic.
 // Here's an example of conditionally dispatching actions based on current state.

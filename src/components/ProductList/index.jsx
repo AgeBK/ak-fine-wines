@@ -15,7 +15,7 @@ const ProductList = ({ arr, css }) => {
           brand,
           ratings: { average },
           price: { current, normal, twoFor, percentOff, tenFor },
-          promotion: { calloutText },
+          promotion: { calloutText, discountCode },
         }) => {
           return (
             <ProductItem
@@ -33,6 +33,7 @@ const ProductList = ({ arr, css }) => {
                 percentOff,
                 tenFor,
                 calloutText,
+                discountCode,
               }}
               key={id}
             />

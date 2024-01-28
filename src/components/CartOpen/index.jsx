@@ -5,23 +5,32 @@ import {
   decrement,
   selectCart,
   applyDiscountCode,
+  getPromotionCode,
 } from "../../slices/cartSlice";
 import Img from "../Image";
 import Price from "../Price";
 import Button from "../Button";
 import styles from "./CartOpen.module.css";
 
-function CartOpen({ totalPrice, totalQty, handleClose }) {
-  const [discountCode, setDiscountCode] = useState("");
+function CartOpen({
+  totalPrice,
+  totalQty,
+  handleClose,
+  discountCode,
+  setDiscountCode,
+}) {
   const dispatch = useDispatch();
+  // const selector = useSelector();
 
   // TODO: picture of cask/bundles, maybe get rid of bundles??
   // TODO: Price when discounted? like for product Item??
 
   const cart = useSelector(selectCart);
-  console.log(totalPrice, totalQty);
-
+  // const promoCode = useSelector(getPromotionCode);
+  // console.log(promoCode);
   console.log(cart);
+
+  console.log(totalPrice, totalQty);
 
   const CartPrice = ({ price, dealPrice, qty }) => {
     const cartPrice = (dealPrice || price) * qty;
@@ -159,6 +168,7 @@ function CartOpen({ totalPrice, totalQty, handleClose }) {
           onKeyDown={handleKeyDown}
           type="text"
           placeholder="Enter code here"
+          value={discountCode}
         />
         <Button css="discount" onClick={dispatchDiscountCode}>
           Apply

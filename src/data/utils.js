@@ -24,12 +24,25 @@ const productPageCarouselProducts = (arr, wineVariety) => {
   return products;
 };
 
+const checkDeals = (twoFor, tenFor, percentOff) => {
+  let deal = 0;
+  if (twoFor) {
+    deal = { twoFor };
+  } else if (tenFor) {
+    deal = { tenFor };
+  } else if (percentOff) {
+    deal = { percentOff };
+  }
+  return deal;
+};
+
 export {
   hyphenate,
   deHyphenate,
   randomProducts,
   homePageCarouselProducts,
   productPageCarouselProducts,
+  checkDeals,
 };
 
 // // remove unused properties
