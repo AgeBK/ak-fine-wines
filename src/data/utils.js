@@ -36,6 +36,30 @@ const checkDeals = (twoFor, tenFor, percentOff) => {
   return deal;
 };
 
+const categoryURLs = {
+  "two-for-deals": (all) => {
+    return all.filter(
+      ({ promotion: { calloutText } }) =>
+        calloutText && calloutText.startsWith("2 for")
+    );
+  },
+  "ten-percent-off": (all) => {
+    return all.filter(
+      ({ promotion: { calloutText } }) =>
+        calloutText && calloutText.startsWith("10% OFF")
+    );
+  },
+  "ten-and-less": (all) => {
+    return all.filter(({ price: { current } }) => current <= 10);
+  },
+  "ten-for-100": (all) => {
+    return all.filter(({ price: { tenFor } }) => tenFor === 100);
+  },
+  "price-drop": (all) => {
+    return all.filter(({ price: { current, normal } }) => current !== normal);
+  },
+};
+
 export {
   hyphenate,
   deHyphenate,
@@ -43,6 +67,7 @@ export {
   homePageCarouselProducts,
   productPageCarouselProducts,
   checkDeals,
+  categoryURLs,
 };
 
 // // remove unused properties

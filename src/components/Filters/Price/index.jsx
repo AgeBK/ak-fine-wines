@@ -2,15 +2,12 @@ import { useState, useEffect } from "react";
 import styles from "./PriceFilter.module.css";
 
 function PriceFilter({ setFilters, filters, reset }) {
-  console.log("PriceFilter");
-
   const [priceFilter, setPriceFilter] = useState(null);
-  // const pricefilters = ["0-10", "10-19", "20-29", "30-1000"];
   const pricefilterObj = [
-    { text: "<$10", value: "0-10" },
+    { text: "Less than $10", value: "0-10" },
     { text: "$10-$20", value: "10-19" },
     { text: "$20-$30", value: "20-29" },
-    { text: "$30+", value: "30-1000" },
+    { text: "$30 plus", value: "30-1000" },
   ];
 
   const handleChange = ({ target: { value } }) => {

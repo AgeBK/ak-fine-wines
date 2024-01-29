@@ -8,7 +8,6 @@ import Price from "../Price";
 import styles from "./ProductItem.module.css";
 
 const ProductItem = ({ props, css }) => {
-  console.log("ProductItem");
   const {
     id,
     category,
@@ -26,24 +25,11 @@ const ProductItem = ({ props, css }) => {
     discountCode,
   } = props;
 
-  console.log(twoFor, percentOff, tenFor);
+  // console.log(twoFor, percentOff, tenFor);
 
   let deal = checkDeals(twoFor, tenFor, percentOff);
 
-  // let deal = 0;
-  // // let discountCode =
-  // //   calloutText && calloutText.includes(":")
-  // //     ? calloutText.split(":")[1].trimStart()
-  // //     : null; // TODO: hacky ??
-  // if (twoFor) {
-  //   deal = { twoFor };
-  // } else if (tenFor) {
-  //   deal = { tenFor };
-  // } else if (percentOff) {
-  //   deal = { percentOff };
-  // }
-
-  console.log(deal);
+  // console.log(deal);
 
   // console.log(css); // TODO: lots of undefined?
 

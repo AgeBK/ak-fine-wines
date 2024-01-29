@@ -20,17 +20,7 @@ function CartOpen({
   setDiscountCode,
 }) {
   const dispatch = useDispatch();
-  // const selector = useSelector();
-
-  // TODO: picture of cask/bundles, maybe get rid of bundles??
-  // TODO: Price when discounted? like for product Item??
-
   const cart = useSelector(selectCart);
-  // const promoCode = useSelector(getPromotionCode);
-  // console.log(promoCode);
-  console.log(cart);
-
-  console.log(totalPrice, totalQty);
 
   const CartPrice = ({ price, dealPrice, qty }) => {
     const cartPrice = (dealPrice || price) * qty;
@@ -63,7 +53,6 @@ function CartOpen({
     deal,
     dealPrice,
   }) => {
-    console.log("Cart open: addToCart");
     dispatch(
       increment({
         id,
@@ -141,12 +130,7 @@ function CartOpen({
                       imageAlt={name}
                     />
                   </Button>
-                  <CartPrice
-                    qty={qty}
-                    price={price}
-                    // deal={deal}
-                    dealPrice={dealPrice}
-                  />
+                  <CartPrice qty={qty} price={price} dealPrice={dealPrice} />
                 </div>
               </div>
               <div className={styles.itemSavings}>
@@ -167,7 +151,7 @@ function CartOpen({
           onChange={handleChange}
           onKeyDown={handleKeyDown}
           type="text"
-          placeholder="Enter code here"
+          placeholder="Enter promo/discount code here"
           value={discountCode}
         />
         <Button css="discount" onClick={dispatchDiscountCode}>

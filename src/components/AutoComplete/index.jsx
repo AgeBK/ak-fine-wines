@@ -10,13 +10,12 @@ import Img from "../../components/Image";
 import styles from "./AutoComplete.module.css";
 
 function AutoComplete() {
-  console.log("AutoComplete");
   const [overlay, setOverlay] = useState(false);
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
-  let data = all.map(({ name, id, category, variety }) => {
-    return { name, id, category, variety };
+  let data = all.map(({ name, id, category, variety, packaging }) => {
+    return { name, id, category, variety, packaging };
   });
 
   const handleClick = () => setOverlay(true);
@@ -24,7 +23,6 @@ function AutoComplete() {
   const handleBlur = () => setOverlay(false);
 
   const handleChange = (e, val) => {
-    console.log(e, val);
     if (val) {
       const { category, variety, id } = val;
       setOverlay(false);
@@ -69,30 +67,16 @@ function AutoComplete() {
         filterOptions={createFilterOptions({
           limit: 7,
         })}
-        renderOption={(
-          props,
-          { id, name, category, variety },
-          { inputValue }
-        ) => {
+        renderOption={(props, { id, name, packaging }, { inputValue }) => {
           const matches = match(name, inputValue);
           const parts = parse(name, matches);
           return (
-            <li
-              key={id}
-              {...props}
-              className={styles.listItem}
-              // onClick={handleSelect}
-              // onKeyDown={handleSelect}
-              // tabIndex={0}
-            >
-              {/* <Link
-                to={`/${category.toLowerCase()}/${hyphenate(variety)}/${id}`}
-              > */}
+            <li key={id} {...props} className={styles.listItem}>
               <div className={styles.itemCont}>
                 <div className={styles.itemImg}>
                   <Img
                     image={`wine/${id}.jpg`}
-                    imageStyle="autoComplete"
+                    imageStyle={packaging === "Bottle" ? "acBottle" : "acCask"}
                     imageAlt={name}
                   />
                 </div>
@@ -109,7 +93,6 @@ function AutoComplete() {
                   ))}
                 </div>
               </div>
-              {/* </Link> */}
             </li>
           );
         }}

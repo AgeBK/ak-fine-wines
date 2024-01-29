@@ -1,8 +1,8 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import all from "../../data/allProducts.json";
 import { blurb } from "../../data/appData.json";
-import { hyphenate, deHyphenate } from "../../data/utils";
+import { hyphenate, deHyphenate, categoryURLs } from "../../data/utils";
 import ProductList from "../ProductList";
 import Sort from "../Sort";
 import Pills from "../Pills";
@@ -10,7 +10,8 @@ import PageNumber from "../PageNumber";
 import ResultsPP from "../ResultsPP";
 import styles from "./Category.module.css";
 import FilterList from "../Filters/FilterList";
-// import Price from "../Price";// import Error from "../Error";
+// import Price from "../Price";
+// import Error from "../Error"; TODO: error handling
 
 function Category() {
   console.log("Category");
@@ -20,28 +21,19 @@ function Category() {
   const [paging, setPaging] = useState({ page: 1, pageSize: 40 });
   const [customHeader, setCustomHeader] = useState("");
   const { category: urlCategory, variety: urlVariety } = useParams();
-  // const headerRef = useRef(""); // TODO: hacky
-  let headerRef = ""; // TODO: hacky
-  console.log(urlCategory, urlVariety);
-  console.log(location.search);
-
-  const addCode = all.map((val) => {
-    if (
-      val.promotion.calloutText &&
-      val.promotion.calloutText.includes("SAVE10")
-    ) {
-      val.promotion.discountCode = "SAVE10";
-    }
-    return val;
-  });
-
-  console.log(addCode);
 
   useEffect(() => {
     console.log("Category UE");
     const sp = new URLSearchParams(location.pathname.substring(1));
     let arr = [];
     let header = "";
+
+    const test = all.map((val) => {
+      delete val.isBundle;
+      return val;
+    });
+
+    console.log(test);
 
     // firstly check if theres a variety(2nd URL param) to filter by
     if (urlVariety) {
@@ -63,44 +55,35 @@ function Category() {
       urlCategory !== "two-for-deals"
     ) {
       const price = Number(urlCategory.split("-")[2]); // TODO: two for XX didn't load any items twice, check
-      header = `2 for $${price}`;
       arr = all.filter(({ price: { twoFor } }) => twoFor === price);
+      header = `2 for $${price}`;
     } else {
       switch (urlCategory) {
         case "two-for-deals":
-          arr = all.filter(
-            ({ promotion: { calloutText } }) =>
-              calloutText && calloutText.startsWith("2 for")
-          );
+          arr = categoryURLs["two-for-deals"](all);
           header = "2 for Deals";
           break;
         case "ten-percent-off":
-          arr = all.filter(
-            ({ promotion: { calloutText } }) =>
-              calloutText && calloutText.startsWith("10% OFF")
-          );
+          arr = categoryURLs["ten-percent-off"](all);
           header = "10% OFF";
           break;
+        case "10-and-less":
+          arr = categoryURLs["ten-and-less"](all);
+          header = "$10 and less";
+          break;
         case "ten-for-100":
-          arr = all.filter(
-            ({ promotion: { calloutText } }) =>
-              calloutText && calloutText === "10 for $100"
-          );
+          arr = categoryURLs["ten-for-100"](all);
           header = "10 for $100";
           break;
         case "price-drop":
-          arr = all.filter(
-            ({ price: { current, normal } }) => current !== normal
-          );
+          arr = categoryURLs["price-drop"](all);
           break;
         case "white":
         case "red":
         case "sparkling":
           arr = all.filter(
             ({ category, isBundle, packaging }) =>
-              category.toLowerCase() === urlCategory &&
-              isBundle === false &&
-              packaging !== "Cask"
+              category.toLowerCase() === urlCategory && packaging !== "Cask"
           );
           break;
         default:
@@ -109,15 +92,12 @@ function Category() {
     }
 
     arr.sort((a, b) => (a.ratings.average > b.ratings.average ? -1 : 1));
-
-    console.log(arr);
     setCustomHeader(header);
     setFilters({ reset: true });
-    setInitialData([...arr]);
+    setInitialData(arr);
   }, [urlCategory, urlVariety]);
 
   useEffect(() => {
-    console.log("UE price rating Filter");
     const { price, rating, variety } = filters;
     let arr = [...initialData];
 
@@ -126,19 +106,16 @@ function Category() {
       arr = arr.filter(
         ({ price: { current } }) => current >= min && current < max
       );
-      //console.log(arr);
     }
 
     if (rating) {
       arr = arr.filter(
         ({ ratings: { average } }) => Math.round(average) === Number(rating)
       );
-      //console.log(arr);
     }
 
     if (variety) {
       arr = arr.filter(({ variety: wineType }) => wineType === variety);
-      //console.log(arr);
     }
 
     setFiltered(arr);

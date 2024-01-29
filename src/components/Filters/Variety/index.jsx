@@ -24,19 +24,19 @@ function VarietyFilter({ setFilters, filters, reset, initialData }) {
     <>
       <h3 className={styles.hdr}>Variety:</h3>
       <ul className={styles.list}>
-        {sortedArr.map(([text]) => (
-          <li key={text}>
+        {sortedArr.map(([variety, amount]) => (
+          <li key={variety}>
             <input
               type="radio"
-              id={text}
+              id={variety}
               name="rating"
-              value={text}
-              checked={varietyFilter === text}
+              value={variety}
+              checked={varietyFilter === variety}
               className={styles.radio}
               onChange={handleChange}
             />
-            <label htmlFor={text} className={styles.visuallyHiddenTODO}>
-              {text}
+            <label htmlFor={variety} className={styles.visuallyHiddenTODO}>
+              {variety} <span className={styles.amount}> ({amount})</span>
             </label>
           </li>
         ))}
@@ -46,8 +46,3 @@ function VarietyFilter({ setFilters, filters, reset, initialData }) {
 }
 
 export default VarietyFilter;
-
-// // TODO: get wine sub categories for filter
-// varietys = Object.fromEntries(sortedArr); // convert back to obj
-
-// console.log(varietys);

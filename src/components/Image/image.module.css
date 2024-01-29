@@ -65,8 +65,12 @@
   display: none;
 }
 
-.autoComplete {
-  width: 15px;
+.acBottle {
+  width: 20px;
+}
+
+.acCask {
+  width: 35px;
 }
 
 @media screen and (max-width: 900px) {

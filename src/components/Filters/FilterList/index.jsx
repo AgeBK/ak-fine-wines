@@ -4,6 +4,7 @@ import VarietyFilter from "../Variety";
 import styles from "./FilterList.module.css";
 
 const FilterList = ({ initialData, filters, setFilters, urlVariety }) => {
+  // TODO: variety filter doesn't show when brand is selected from product page??
   return (
     <section className={styles.container}>
       <h2 className={styles.hdr}>Refine:</h2>
