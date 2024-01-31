@@ -1,0 +1,13 @@
+.variety {
+  font-size: 60px;
+  text-transform: capitalize;
+}
+
+.varietyBlurb {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.01);
+  line-height: 25px;
+  text-align: center;
+}

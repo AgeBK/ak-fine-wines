@@ -1,19 +1,50 @@
 .container {
-  flex: 0 0 180px; /* don't grow, don't shrink, stay fixed at 180px */
+  flex: 0 0 210px;
   margin: 20px;
 }
 
 .hdr {
   font-size: 1.6rem;
-  /* margin-bottom: 20px; */
+  padding-bottom: 20px;
   border-bottom: 1px solid #555;
 }
 
 .filterList > li {
   padding: 15px 0;
+
+  
   border-bottom: 1px solid #555;
+}
+
+.filterList input,
+.filterList label {
+  cursor: pointer;
 }
 
 .filterList input[type="radio"] {
   margin: 4px 10px 10px 0;
+}
+
+@media screen and (max-width: 650px) {
+  .container {
+    padding: 20px;
+    margin: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: #fff;
+    z-index: 9;
+    width: 100%;
+  }
+  /* .filterList li ul {
+      display: inline-block;
+    }
+
+    .filterList li ul li {
+      margin-right: 20px;
+    }
+
+    .filterList input[type="radio"] {
+      margin: 2px;
+    } */
 }

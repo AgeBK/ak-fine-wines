@@ -1,17 +1,19 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import all from "../../data/allProducts.json";
-import { blurb } from "../../data/appData.json";
-import { hyphenate, deHyphenate, categoryURLs } from "../../data/utils";
+import { categoryURLs } from "../../data/utils";
 import ProductList from "../ProductList";
 import Sort from "../Sort";
 import Pills from "../Pills";
+import Blurb from "../Blurb";
 import PageNumber from "../PageNumber";
 import ResultsPP from "../ResultsPP";
 import styles from "./Category.module.css";
 import FilterList from "../Filters/FilterList";
 // import Price from "../Price";
 // import Error from "../Error"; TODO: error handling
+
+// TODO: incorrect URL,what happens http://localhost:5173/Blue ?? zero results
 
 function Category() {
   console.log("Category");
@@ -28,34 +30,21 @@ function Category() {
     let arr = [];
     let header = "";
 
-    const test = all.map((val) => {
-      delete val.isBundle;
-      return val;
-    });
-
-    console.log(test);
-
-    // firstly check if theres a variety(2nd URL param) to filter by
     if (urlVariety) {
       // filter by wine variety or wine brand
-      arr = all.filter(
-        ({ variety, brand }) =>
-          hyphenate(variety) === urlVariety || hyphenate(brand) === urlVariety
-      );
+      arr = categoryURLs["urlVariety"](all, urlVariety);
     } else if (sp.has("search")) {
       // filter by search param
       const query = sp.get("search");
-      arr = all.filter(({ name }) =>
-        name.toLowerCase().includes(query.toLowerCase())
-      );
+      arr = categoryURLs["search"](all, query);
       header = `results: ${query}`;
     } else if (
       // filter by 2 for XX deals
       urlCategory.startsWith("two-for") &&
       urlCategory !== "two-for-deals"
     ) {
-      const price = Number(urlCategory.split("-")[2]); // TODO: two for XX didn't load any items twice, check
-      arr = all.filter(({ price: { twoFor } }) => twoFor === price);
+      const price = Number(urlCategory.split("-")[2]);
+      arr = categoryURLs["two-for-price"](all, price);
       header = `2 for $${price}`;
     } else {
       switch (urlCategory) {
@@ -81,10 +70,7 @@ function Category() {
         case "white":
         case "red":
         case "sparkling":
-          arr = all.filter(
-            ({ category, isBundle, packaging }) =>
-              category.toLowerCase() === urlCategory && packaging !== "Cask"
-          );
+          arr = arr = categoryURLs["category"](all, urlCategory);
           break;
         default:
           break;
@@ -94,6 +80,7 @@ function Category() {
     arr.sort((a, b) => (a.ratings.average > b.ratings.average ? -1 : 1));
     setCustomHeader(header);
     setFilters({ reset: true });
+    setPaging({ page: 1, pageSize: 40 });
     setInitialData(arr);
   }, [urlCategory, urlVariety]);
 
@@ -119,7 +106,7 @@ function Category() {
     }
 
     setFiltered(arr);
-  }, [filters, setFilters, initialData]);
+  }, [filters, initialData]);
 
   let data = filtered || initialData;
   const pagedData = data.slice(
@@ -127,69 +114,58 @@ function Category() {
     paging.page * paging.pageSize
   );
 
-  const handleRemoveFilter = (val) => {
+  const removeFilters = (val) => {
     console.log(val);
     val === "all"
       ? setFilters({ reset: true })
       : setFilters({ ...filters, [val]: null, reset: true });
   };
 
-  const Blurb = () => {
-    // TODO: check brand link on product page?
-    if (urlCategory) {
-      const wineCategory = blurb[urlCategory]; // TODO: 2 for deals, no blurb
-      let wineVariety = blurb[urlVariety];
-      if (customHeader) {
-        wineVariety = blurb["generic"];
-      }
-
-      return (
-        <>
-          <h2 className={styles.variety}>
-            {customHeader ||
-              deHyphenate(urlVariety) ||
-              deHyphenate(urlCategory)}
-          </h2>
-          <div className={styles.varietyBlurb}>
-            {wineVariety || wineCategory}
-          </div>
-        </>
-      );
-    }
-    return null;
-  };
-
   return (
     <article>
       <section className={styles.categoryBlurb}>
-        <Blurb />
+        <Blurb
+          urlCategory={urlCategory}
+          urlVariety={urlVariety}
+          customHeader={customHeader}
+        />
       </section>
-      <div className={styles.categoryCont}>
+      <div className={styles.category}>
         <FilterList
-          initialData={initialData}
+          initialData={data}
           filters={filters}
           setFilters={setFilters}
           urlVariety={urlVariety}
         />
         <section className={styles.categoryItems}>
           <div className={styles.detailsCont}>
-            <Pills filters={filters} handleRemoveFilter={handleRemoveFilter} />
+            <Pills filters={filters} removeFilters={removeFilters} />
             <span className={styles.results}>({data.length}) Available</span>
             <div className={styles.sort}>Sort:</div>
             <Sort initialData={initialData} setInitialData={setInitialData} />
           </div>
-          <ProductList arr={pagedData} />
-          <div className={styles.categoryFooter}>
-            <div className={styles.pageNumCont}>
-              <PageNumber data={data} paging={paging} setPaging={setPaging} />
-            </div>
-            <div className={styles.resultsPPCont}>
-              <div className={styles.resultsPP}>Results per page:</div>
-              <div className={styles.resultsPPBtns}>
-                <ResultsPP paging={paging} setPaging={setPaging} />
+          {data.length > 0 ? (
+            <>
+              <ProductList arr={pagedData} />
+              <div className={styles.categoryFooter}>
+                <div className={styles.pageNumCont}>
+                  <PageNumber
+                    data={data}
+                    paging={paging}
+                    setPaging={setPaging}
+                  />
+                </div>
+                <div className={styles.resultsPPCont}>
+                  <div className={styles.resultsPP}>Results per page:</div>
+                  <div className={styles.resultsPPBtns}>
+                    <ResultsPP paging={paging} setPaging={setPaging} />
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
+            </>
+          ) : (
+            <div className={styles.noResults}>Sorry, no results:</div> // TODO:
+          )}
         </section>
       </div>
     </article>

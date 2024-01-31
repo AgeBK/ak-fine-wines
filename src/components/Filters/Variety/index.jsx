@@ -2,6 +2,10 @@ import { useState, useEffect } from "react";
 import styles from "./VarietyFilter.module.css";
 
 function VarietyFilter({ setFilters, filters, reset, initialData }) {
+  console.log("VarietyFilter");
+  console.log(initialData);
+  console.log(filters);
+
   const [varietyFilter, setVarietyFilter] = useState(null);
 
   const handleChange = ({ target: { value } }) => {
@@ -22,25 +26,30 @@ function VarietyFilter({ setFilters, filters, reset, initialData }) {
 
   return (
     <>
+    {}
       <h3 className={styles.hdr}>Variety:</h3>
-      <ul className={styles.list}>
-        {sortedArr.map(([variety, amount]) => (
-          <li key={variety}>
-            <input
-              type="radio"
-              id={variety}
-              name="rating"
-              value={variety}
-              checked={varietyFilter === variety}
-              className={styles.radio}
-              onChange={handleChange}
-            />
-            <label htmlFor={variety} className={styles.visuallyHiddenTODO}>
-              {variety} <span className={styles.amount}> ({amount})</span>
-            </label>
-          </li>
-        ))}
-      </ul>
+      {sortedArr.length > 0 ? (
+        <ul className={styles.list}>
+          {sortedArr.map(([variety, amount]) => (
+            <li key={variety}>
+              <input
+                type="radio"
+                id={variety}
+                name="variety"
+                value={variety}
+                checked={varietyFilter === variety}
+                className={styles.radio}
+                onChange={handleChange}
+              />
+              <label htmlFor={variety} className={styles.visuallyHiddenTODO}>
+                {variety} <span className={styles.amount}> ({amount})</span>
+              </label>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <div className={styles.noResults}>No results</div>
+      )}
     </>
   );
 }

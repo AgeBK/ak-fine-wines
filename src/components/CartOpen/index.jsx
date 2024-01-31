@@ -1,14 +1,12 @@
-import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   increment,
   decrement,
   selectCart,
   applyDiscountCode,
-  getPromotionCode,
 } from "../../slices/cartSlice";
 import Img from "../Image";
-import Price from "../Price";
+// import Price from "../Price";
 import Button from "../Button";
 import styles from "./CartOpen.module.css";
 
@@ -52,6 +50,7 @@ function CartOpen({
     quantity = 1,
     deal,
     dealPrice,
+    discountCode,
   }) => {
     dispatch(
       increment({
@@ -63,6 +62,7 @@ function CartOpen({
         quantity,
         deal,
         dealPrice,
+        discountCode,
       })
     );
   };
@@ -110,6 +110,7 @@ function CartOpen({
                             price,
                             deal,
                             dealPrice,
+                            discountCode,
                           });
                         }}
                         css="cartAdd"

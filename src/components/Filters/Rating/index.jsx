@@ -34,23 +34,22 @@ function RatingFilter({ setFilters, filters, reset }) {
       <ul className={styles.list}>
         {ratingfilter.map(({ value, text }) => (
           <li key={value}>
-            <input
-              type="radio"
-              id={`rating${value}`}
-              name="rating"
-              value={value}
-              checked={ratingFilter === value}
-              className={styles.radio}
-              onChange={handleChange}
-            />
             <label
               htmlFor={`rating${value}`}
               className={styles.visuallyHiddenTODO}
             >
+              <input
+                type="radio"
+                id={`rating${value}`}
+                name="rating"
+                value={value}
+                checked={ratingFilter === value}
+                className={styles.radio}
+                onChange={handleChange}
+              />{" "}
               <Stars value={value} />
+              <span className={styles.rating}></span>
             </label>
-
-            {/* {text} */}
           </li>
         ))}
       </ul>

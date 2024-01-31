@@ -13,7 +13,7 @@ function PriceFilter({ setFilters, filters, reset }) {
   const handleChange = ({ target: { value } }) => {
     console.log(value);
     setPriceFilter(value);
-    setFilters({ ...filters, price: value, reset: false }); // TODO: reset?
+    setFilters({ ...filters, price: value, reset: false });
   };
 
   useEffect(() => {

@@ -23,7 +23,7 @@ const FilterList = ({ initialData, filters, setFilters, urlVariety }) => {
             reset={filters.reset}
           />
         </li>
-        {!urlVariety && (
+        {!urlVariety && !filters.variety && (
           <li>
             <VarietyFilter
               setFilters={setFilters}

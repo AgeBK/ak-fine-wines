@@ -9,10 +9,7 @@ const randomProducts = (arr) => arr.sort(() => 0.5 - Math.random());
 const homePageCarouselProducts = (arr) => {
   console.log(arr);
   const products = randomProducts(arr)
-    .filter(
-      ({ isBundle, price: { current, normal } }) =>
-        current !== normal && isBundle === false
-    )
+    .filter(({ price: { current, normal } }) => current !== normal)
     .slice(0, 12);
   return products;
 };
@@ -37,6 +34,9 @@ const checkDeals = (twoFor, tenFor, percentOff) => {
 };
 
 const categoryURLs = {
+  "price-drop": (all) => {
+    return all.filter(({ price: { current, normal } }) => current !== normal);
+  },
   "two-for-deals": (all) => {
     return all.filter(
       ({ promotion: { calloutText } }) =>
@@ -55,8 +55,22 @@ const categoryURLs = {
   "ten-for-100": (all) => {
     return all.filter(({ price: { tenFor } }) => tenFor === 100);
   },
-  "price-drop": (all) => {
-    return all.filter(({ price: { current, normal } }) => current !== normal);
+  "two-for-price": (all, price) => {
+    return all.filter(({ price: { twoFor } }) => twoFor === price);
+  },
+  urlVariety: (all, urlVariety) => {
+    return all.filter(
+      ({ variety, brand }) =>
+        hyphenate(variety) === urlVariety || hyphenate(brand) === urlVariety
+    );
+  },
+  search: (all, query) => {
+    return all.filter(({ name }) =>
+      name.toLowerCase().includes(query.toLowerCase())
+    );
+  },
+  category: (all, urlCategory) => {
+    return all.filter(({ category }) => category.toLowerCase() === urlCategory);
   },
 };
 
