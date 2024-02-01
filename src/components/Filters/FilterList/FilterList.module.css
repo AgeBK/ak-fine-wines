@@ -40,23 +40,4 @@
   .container {
     flex: 1 1 0;
   }
-  /* 
-  .contInner {
-    padding: 20px;
-  }
-
-  .close {
-    display: inline-block;
-  } */
-  /* .filterList li ul {
-      display: inline-block;
-    }
-
-    .filterList li ul li {
-      margin-right: 20px;
-    }
-
-    .filterList input[type="radio"] {
-      margin: 2px;
-    } */
 }

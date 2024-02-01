@@ -29,7 +29,6 @@
 
 .detailsCont {
   display: flex;
-  /* align-items: center; */
   padding: 20px 0;
   text-align: left;
 }
@@ -42,6 +41,7 @@
 .results {
   color: #555;
   flex-grow: 1;
+  margin-left: 10px;
 }
 
 .sort {
@@ -158,11 +158,14 @@
   }
 
   .results {
-    /* margin-right: 0; */
     margin-bottom: 10px;
   }
 
   .hdr {
     margin-left: 0;
+  }
+
+  .resultsPP {
+    display: none;
   }
 }

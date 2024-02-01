@@ -7,8 +7,8 @@
 .campaign {
   background-color: #000;
   text-align: center;
-  margin-bottom: 1rem;
-  padding: 1rem;
+  margin-bottom: 15px;
+  padding: 15px;
   background-image: url(/src/assets/img/bg/bgBlurb.png);
   background-repeat: no-repeat;
   background-size: cover;
@@ -41,6 +41,7 @@
   text-align: center;
   background-color: #000;
   color: #fff;
+  margin-bottom: 20px;
 }
 
 .campaignMini .hdr {
@@ -49,7 +50,7 @@
 
 .campaignMini > div {
   flex: 1 1 0;
-  margin: 3rem;
+  margin: 30px;
   border: 5px solid white;
 }
 
@@ -58,14 +59,11 @@
   color: #fff;
 }
 
-.topRated {
-}
-
 .slogan {
   background-color: #000;
   color: #fff;
   text-align: center;
-  padding: 0.2rem;
+  padding: 5px;
   font-size: 1.2rem;
   font-weight: normal;
   margin: 0;
@@ -83,36 +81,8 @@
   margin-bottom: 20px;
 }
 
-/* .tenFor {
-  background-image: url("/src/assets/img/promotion/tenFor100.jpg");
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-attachment: fixed;
-  width: 100%;
-  height: 570px;
-  display: block;
-} */
-/* 
-.category {
-  flex: 1;
-  margin: 0.8rem;
+@media screen and (max-width: 800px) {
+  .campaignMini {
+    flex-direction: column;
+  }
 }
-
-.category a h2 {
-  color: #286c93;
-  margin: 0.3rem 0;
-  font-size: 1.1rem;
-  font-weight: normal;
-}
-
-.category a h2:hover {
-  color: #000;
-}
-
-.imgCont {
-  border: 1px solid #d3d3d3;
-}
-
-.imgCont:hover {
-  border-color: #b2b0b0;
-} */
