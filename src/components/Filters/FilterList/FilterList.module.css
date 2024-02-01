@@ -3,16 +3,27 @@
   margin: 20px;
 }
 
+.hdrCont {
+  display: flex;
+}
+
 .hdr {
   font-size: 1.6rem;
   padding-bottom: 20px;
-  border-bottom: 1px solid #555;
+  flex-grow: 1;
+}
+
+.close {
+  display: none;
+}
+
+.filterList {
+  border-top: 1px solid #555;
 }
 
 .filterList > li {
   padding: 15px 0;
 
-  
   border-bottom: 1px solid #555;
 }
 
@@ -27,15 +38,16 @@
 
 @media screen and (max-width: 650px) {
   .container {
-    padding: 20px;
-    margin: 0;
-    position: absolute;
-    left: 0;
-    top: 0;
-    background: #fff;
-    z-index: 9;
-    width: 100%;
+    flex: 1 1 0;
   }
+  /* 
+  .contInner {
+    padding: 20px;
+  }
+
+  .close {
+    display: inline-block;
+  } */
   /* .filterList li ul {
       display: inline-block;
     }

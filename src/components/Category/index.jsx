@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import all from "../../data/allProducts.json";
 import { categoryURLs } from "../../data/utils";
@@ -10,6 +10,7 @@ import PageNumber from "../PageNumber";
 import ResultsPP from "../ResultsPP";
 import styles from "./Category.module.css";
 import FilterList from "../Filters/FilterList";
+import Button from "../Button";
 // import Price from "../Price";
 // import Error from "../Error"; TODO: error handling
 
@@ -17,12 +18,31 @@ import FilterList from "../Filters/FilterList";
 
 function Category() {
   console.log("Category");
+  const MAX_MOBILE_WIDTH = 650;
+  let showFilterBtnRef = useRef(window.innerWidth < MAX_MOBILE_WIDTH);
   const [initialData, setInitialData] = useState([]);
   const [filtered, setFiltered] = useState(null);
   const [filters, setFilters] = useState({});
   const [paging, setPaging] = useState({ page: 1, pageSize: 40 });
   const [customHeader, setCustomHeader] = useState("");
+  const [mobileView, setMobileView] = useState({
+    filters: !showFilterBtnRef.current,
+    items: true,
+  });
   const { category: urlCategory, variety: urlVariety } = useParams();
+
+  useEffect(() => {
+    const handleResize = () => {
+      const isMobile = window.innerWidth < MAX_MOBILE_WIDTH;
+      if (showFilterBtnRef.current !== isMobile) {
+        showFilterBtnRef.current = isMobile;
+        setMobileView({ filters: isMobile ? false : true, items: true });
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     console.log("Category UE");
@@ -121,6 +141,12 @@ function Category() {
       : setFilters({ ...filters, [val]: null, reset: true });
   };
 
+  const toggleItems = () => {
+    const { filters, items } = mobileView;
+    console.log(filters, items);
+    setMobileView({ filters: !filters, items: !items });
+  };
+
   return (
     <article>
       <section className={styles.categoryBlurb}>
@@ -130,43 +156,57 @@ function Category() {
           customHeader={customHeader}
         />
       </section>
+      {showFilterBtnRef.current && (
+        <div className={styles.smlScreen}>
+          <Button css="filters" onClick={toggleItems}>
+            Filters
+          </Button>
+          {/* <Sort initialData={initialData} setInitialData={setInitialData} /> */}
+        </div>
+      )}
       <div className={styles.category}>
-        <FilterList
-          initialData={data}
-          filters={filters}
-          setFilters={setFilters}
-          urlVariety={urlVariety}
-        />
-        <section className={styles.categoryItems}>
-          <div className={styles.detailsCont}>
-            <Pills filters={filters} removeFilters={removeFilters} />
-            <span className={styles.results}>({data.length}) Available</span>
-            <div className={styles.sort}>Sort:</div>
-            <Sort initialData={initialData} setInitialData={setInitialData} />
-          </div>
-          {data.length > 0 ? (
-            <>
-              <ProductList arr={pagedData} />
-              <div className={styles.categoryFooter}>
-                <div className={styles.pageNumCont}>
-                  <PageNumber
-                    data={data}
-                    paging={paging}
-                    setPaging={setPaging}
-                  />
-                </div>
-                <div className={styles.resultsPPCont}>
-                  <div className={styles.resultsPP}>Results per page:</div>
-                  <div className={styles.resultsPPBtns}>
-                    <ResultsPP paging={paging} setPaging={setPaging} />
+        {mobileView.filters && (
+          <FilterList
+            initialData={data}
+            filters={filters}
+            setFilters={setFilters}
+            urlVariety={urlVariety}
+            mobileView={mobileView}
+            setMobileView={setMobileView}
+          />
+        )}
+        {mobileView.items && (
+          <section className={styles.categoryItems}>
+            <div className={styles.detailsCont}>
+              <Pills filters={filters} removeFilters={removeFilters} />
+              <span className={styles.results}>({data.length}) Available</span>
+              <div className={styles.sort}>Sort:</div>
+              <Sort initialData={initialData} setInitialData={setInitialData} />
+            </div>
+            {data.length > 0 ? (
+              <>
+                <ProductList arr={pagedData} />
+                <div className={styles.categoryFooter}>
+                  <div className={styles.pageNumCont}>
+                    <PageNumber
+                      data={data}
+                      paging={paging}
+                      setPaging={setPaging}
+                    />
+                  </div>
+                  <div className={styles.resultsPPCont}>
+                    <div className={styles.resultsPP}>Results per page:</div>
+                    <div className={styles.resultsPPBtns}>
+                      <ResultsPP paging={paging} setPaging={setPaging} />
+                    </div>
                   </div>
                 </div>
-              </div>
-            </>
-          ) : (
-            <div className={styles.noResults}>Sorry, no results:</div> // TODO:
-          )}
-        </section>
+              </>
+            ) : (
+              <div className={styles.noResults}>Sorry, no results:</div> // TODO:
+            )}
+          </section>
+        )}
       </div>
     </article>
   );
