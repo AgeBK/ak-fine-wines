@@ -1,11 +1,6 @@
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import {
-  hyphenate,
-  deHyphenate,
-  randomProducts,
-  productPageCarouselProducts,
-} from "../../data/utils";
+import { randomProducts, productPageCarouselProducts } from "../../data/utils";
 import all from "../../data/allProducts.json";
 import { blurb, reviews } from "../../data/appData.json";
 import { checkDeals } from "../../data/utils";
@@ -16,6 +11,7 @@ import PriceDrop from "../PriceDrop";
 import ProductInfo from "../ProductInfo";
 import Carousel from "../Carousel";
 
+// TODO: haven't used useMemo or useCallback anywhere??
 // import Price from "../Price";
 import styles from "./Product.module.css";
 
@@ -24,14 +20,14 @@ function Product() {
   const { category: urlCategory, variety: urlVariety, id: urlId } = useParams();
   console.log(urlCategory, urlVariety, urlId);
 
+  const product = all.find(({ id }) => id === urlId);
+
+  let deal = checkDeals(twoFor, tenFor, percentOff);
+
   const sameVariety = randomProducts(
     all.filter(({ variety }) => variety.toLowerCase() === urlVariety)
   ).slice(0, 4);
   console.log(sameVariety);
-
-  console.log(productPageCarouselProducts(all, urlVariety, 12));
-
-  const product = all.find(({ id }) => id === urlId);
 
   const {
     id,
@@ -47,8 +43,6 @@ function Product() {
     promotion: { calloutText },
   } = product;
 
-  const onSpecial = current !== normal ? current : null;
-
   const Chevron = () => (
     <span className={styles.chevronCont}>
       <span className={styles.chevron}></span>
@@ -56,15 +50,11 @@ function Product() {
     </span>
   );
 
-  const handleCount = ({ target: { textContent } }) => {
-    console.log(textContent);
+  const handleCount = ({ target: { textContent } }) =>
     textContent === "+" ? setCount(count + 1) : setCount(count - 1);
-  };
 
   const CartDeal = () =>
     twoFor ? <div className={styles.cartTwoFor}>{calloutText}</div> : null;
-
-  let deal = checkDeals(twoFor, tenFor, percentOff);
 
   return (
     <article>
@@ -97,20 +87,13 @@ function Product() {
               imageStyle="productMain"
               imageAlt="AK Fine Wines"
             />
-            {/*    {calloutText ||
-              (onSpecial && (
-                <PriceDrop calloutText={calloutText} onSpecial={onSpecial} /> // TODO:  check this
-              ))}
-            {twoFor && <div className={styles.twoFor}>{calloutText}</div>} */}
           </div>
-
           <div className={styles.productMeta}>
             <h1 className={styles.brand}>{brand}</h1>
             <h2 className={styles.shortName}>{shortName}</h2>
             <div className={styles.productBlurb}>
               {blurb[urlVariety] || blurb[urlCategory]}
             </div>
-
             {average && Math.round(average) > 2 ? (
               <>
                 <Img

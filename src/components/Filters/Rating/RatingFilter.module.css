@@ -2,6 +2,7 @@
   margin-bottom: 10px;
 }
 
+/* TODO: SHOULD I USE THIS?? */
 .star {
   --star-color: orange;
   margin: 1em auto;
@@ -16,6 +17,7 @@
   transform: rotate(35deg);
   font-size: 8px;
 }
+
 .star:before {
   border-bottom: 0.8em solid var(--star-color);
   border-left: 0.3em solid transparent;
@@ -29,6 +31,7 @@
   content: "";
   transform: rotate(-35deg);
 }
+
 .star:after {
   position: absolute;
   display: block;
@@ -57,11 +60,4 @@
 .radio {
   vertical-align: top;
   display: inline-block;
-  /* margin: 4px 4px 0 0; */
 }
-
-/* .rating {
-  background-image: url(/src/assets/img/error/sad.png);
-  display: inline-block;
-  width: 50px;
-} */

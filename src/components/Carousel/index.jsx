@@ -2,14 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import ProductItem from "../ProductItem";
 import Button from "../Button";
 import styles from "./Carousel.module.css";
-import all from "../../data/allProducts.json";
 
 function Carousel({ arr }) {
-  console.log("Carousel");
-  console.log(arr);
-
-  // const [arr, setProductListArr] = useState([]);
-  const [test, setTest] = useState(0);
   const [pageIndex, setPageIndex] = useState(0);
   const [items, setItems] = useState(0);
   const ref = useRef(0);
@@ -36,7 +30,7 @@ function Carousel({ arr }) {
       } else if (offsetWidth >= 420) {
         items = 2;
       } else {
-        items = 0;
+        items = 1;
       }
       setItems(items);
     }
@@ -45,7 +39,7 @@ function Carousel({ arr }) {
   useEffect(() => {
     calculateItems();
 
-    // check for resized window
+    // TODO: have resize event on Category page?? hook expected?
     window.addEventListener("resize", calculateItems);
     return () => window.removeEventListener("resize", calculateItems);
   }, [arr]);

@@ -1,5 +1,7 @@
 # React + Vite
 
+redux, responsive, multi filter, sorting, paging, items per page, MUI autocomplete,
+
 https://www.flaticon.com/search?word=wine&type=animated-icon
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

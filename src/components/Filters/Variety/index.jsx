@@ -1,21 +1,12 @@
-import { useState, useEffect } from "react";
 import styles from "./VarietyFilter.module.css";
 
-function VarietyFilter({ setFilters, filters, reset, initialData }) {
+function VarietyFilter({ updateFilters, filters, initialData }) {
   console.log("VarietyFilter");
   console.log(initialData);
   console.log(filters);
 
-  const [varietyFilter, setVarietyFilter] = useState(null);
-
-  const handleChange = ({ target: { value } }) => {
-    setVarietyFilter(value);
-    setFilters({ ...filters, variety: value, reset: false }); // TODO: reset?
-  };
-
-  useEffect(() => {
-    reset && setVarietyFilter(null);
-  }, [reset]);
+  const handleChange = ({ target: { value } }) =>
+    updateFilters({ variety: value });
 
   let varietys = initialData.reduce((acc, { variety }) => {
     acc[variety] = (acc[variety] || 0) + 1;
@@ -26,7 +17,6 @@ function VarietyFilter({ setFilters, filters, reset, initialData }) {
 
   return (
     <>
-    {}
       <h3 className={styles.hdr}>Variety:</h3>
       {sortedArr.length > 0 ? (
         <ul className={styles.list}>
@@ -37,7 +27,7 @@ function VarietyFilter({ setFilters, filters, reset, initialData }) {
                 id={variety}
                 name="variety"
                 value={variety}
-                checked={varietyFilter === variety}
+                checked={filters.variety === variety}
                 className={styles.radio}
                 onChange={handleChange}
               />

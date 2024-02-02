@@ -1,20 +1,14 @@
-import { useState, useEffect } from "react";
 import styles from "./RatingFilter.module.css";
 
-function RatingFilter({ setFilters, filters, reset }) {
-  const [ratingFilter, setRatingFilter] = useState(null);
-
-  const ratingfilter = [
+function RatingFilter({ filters, updateFilters }) {
+  const ratingArr = [
     { value: "3", text: "3 star rating" },
     { value: "4", text: "4 star rating" },
     { value: "5", text: "5 star rating" },
   ];
 
-  const handleChange = ({ target: { value } }) => {
-    console.log("handleChange");
-    setRatingFilter(value);
-    setFilters({ ...filters, rating: value, reset: false }); // TODO: reset?
-  };
+  const handleChange = ({ target: { value } }) =>
+    updateFilters({ rating: value });
 
   const Stars = ({ value }) => {
     let html = [];
@@ -24,31 +18,24 @@ function RatingFilter({ setFilters, filters, reset }) {
     return html;
   };
 
-  useEffect(() => {
-    reset && setRatingFilter(null);
-  }, [reset]);
-
   return (
     <>
       <h3 className={styles.hdr}>Rating:</h3>
       <ul className={styles.list}>
-        {ratingfilter.map(({ value, text }) => (
+        {ratingArr.map(({ value, text }) => (
           <li key={value}>
-            <label
-              htmlFor={`rating${value}`}
-              className={styles.visuallyHiddenTODO}
-            >
-              <input
-                type="radio"
-                id={`rating${value}`}
-                name="rating"
-                value={value}
-                checked={ratingFilter === value}
-                className={styles.radio}
-                onChange={handleChange}
-              />{" "}
-              <Stars value={value} />
-              <span className={styles.rating}></span>
+            <input
+              type="radio"
+              id={`rating${value}`}
+              name="rating"
+              value={value}
+              checked={filters.rating === value}
+              className={styles.radio}
+              onChange={handleChange}
+            />
+            <Stars value={value} />
+            <label htmlFor={`rating${value}`} className={styles.visuallyHidden}>
+              {text}
             </label>
           </li>
         ))}

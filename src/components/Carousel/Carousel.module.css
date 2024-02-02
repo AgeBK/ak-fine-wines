@@ -36,6 +36,13 @@
   overflow: hidden;
 }
 
+@media screen and (max-width: 500px) {
+  .carouselPaging input[type="radio"] {
+    height: 16px;
+    width: 16px;
+  }
+}
+
 /* .item:nth-child(2n) {
   background-color: red;
   color: #fff;

@@ -134,6 +134,8 @@ function Category() {
     paging.page * paging.pageSize
   );
 
+  const updateFilters = (filter) => setFilters({ ...filters, ...filter });
+
   const removeFilters = (val) => {
     console.log(val);
     val === "all"
@@ -141,7 +143,7 @@ function Category() {
       : setFilters({ ...filters, [val]: null, reset: true });
   };
 
-  const toggleItems = () => {
+  const toggleFilter = () => {
     const { filters, items } = mobileView;
     console.log(filters, items);
     setMobileView({ filters: !filters, items: !items });
@@ -158,10 +160,13 @@ function Category() {
       </section>
       {showFilterBtnRef.current && (
         <div className={styles.smlScreen}>
-          <Button css="filters" onClick={toggleItems}>
-            Filters
+          <Button css="filters" onClick={toggleFilter}>
+            {mobileView.filters ? (
+              <span className={styles.close}>X</span>
+            ) : (
+              "Filters"
+            )}
           </Button>
-          {/* <Sort initialData={initialData} setInitialData={setInitialData} /> */}
         </div>
       )}
       <div className={styles.category}>
@@ -171,8 +176,7 @@ function Category() {
             filters={filters}
             setFilters={setFilters}
             urlVariety={urlVariety}
-            mobileView={mobileView}
-            setMobileView={setMobileView}
+            updateFilters={updateFilters}
           />
         )}
         {mobileView.items && (

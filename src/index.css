@@ -22,10 +22,8 @@ hr {
   padding: 0;
 }
 
-/* TODO */
-/* TODO: height of page isn't 100%, look at comp store */
 article {
-  padding-top: 150px;
+  padding-top: 145px;
 }
 
 h1,
@@ -45,14 +43,8 @@ button {
   outline: inherit;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 900px) {
   article {
-    padding-top: 150px;
-  }
-}
-
-@media screen and (max-width: 380px) {
-  article {
-    padding-top: 142px;
+    padding-top: 125px;
   }
 }
