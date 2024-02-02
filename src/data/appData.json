@@ -26,5 +26,16 @@
     "red": "Aromas of rich dark currants, nectarine skins, sun-baked blackberries, hints of imported tobacco, low-lying soil, pungent aniseed, smashed minerals and metal. Medium-bodied and saucy but racy acidity stabilises the wine nicely with the robust tannins. Think of ripe cherries, laden with mocha, terracotta, air fryed giblets, pencil shavings and brand name worcestershire sauce.",
     "sparkling": "Light to mid straw-yellow colour, with spice and bath bubble bubble aromas showing some adolecent development and almost muscaty touches, some traces of burnt raison toast, while the palate is firmly tart and there's some cardboard-like, possibly oxidative development too. A marvel marriage of a warm year with hints of a westerly breeze."
   },
-  "errorMsg": "Something has gone wrong"
+  "errorMsg": "Something has gone wrong",
+  "priceArr": [
+    { "text": "Less than $10", "value": "0-10" },
+    { "text": "$10-$20", "value": "10-19" },
+    { "text": "$20-$30", "value": "20-29" },
+    { "text": "$30 plus", "value": "30-1000" }
+  ],
+  "ratingArr": [
+    { "value": "3", "text": "3 star rating" },
+    { "value": "4", "text": "4 star rating" },
+    { "value": "5", "text": "5 star rating" }
+  ]
 }

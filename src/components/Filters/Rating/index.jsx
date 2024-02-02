@@ -1,22 +1,9 @@
 import styles from "./RatingFilter.module.css";
+import { ratingArr } from "../../../data/appData.json";
 
 function RatingFilter({ filters, updateFilters }) {
-  const ratingArr = [
-    { value: "3", text: "3 star rating" },
-    { value: "4", text: "4 star rating" },
-    { value: "5", text: "5 star rating" },
-  ];
-
   const handleChange = ({ target: { value } }) =>
     updateFilters({ rating: value });
-
-  const Stars = ({ value }) => {
-    let html = [];
-    for (let i = 0; i < Number(value); i++) {
-      html.push(<span className={styles.star} key={`star${value}${i}`}></span>);
-    }
-    return html;
-  };
 
   return (
     <>
@@ -33,8 +20,10 @@ function RatingFilter({ filters, updateFilters }) {
               className={styles.radio}
               onChange={handleChange}
             />
-            <Stars value={value} />
-            <label htmlFor={`rating${value}`} className={styles.visuallyHidden}>
+            <label
+              htmlFor={`rating${value}`}
+              className={`${styles[`rating${value}`]} ${styles.rating}`}
+            >
               {text}
             </label>
           </li>

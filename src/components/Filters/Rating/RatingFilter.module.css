@@ -2,7 +2,6 @@
   margin-bottom: 10px;
 }
 
-/* TODO: SHOULD I USE THIS?? */
 .star {
   --star-color: orange;
   margin: 1em auto;
@@ -55,6 +54,23 @@
   padding: 0;
   position: absolute;
   width: 1px;
+}
+
+.rating {
+  background-repeat: no-repeat;
+  color: transparent;
+}
+
+.rating3 {
+  background-image: url(/src/assets/img/bg/3star.jpg);
+}
+
+.rating4 {
+  background-image: url(/src/assets/img/bg/4star.jpg);
+}
+
+.rating5 {
+  background-image: url(/src/assets/img/bg/5star.jpg);
 }
 
 .radio {

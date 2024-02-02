@@ -52,3 +52,13 @@
   font-size: 1.1rem;
   color: #000; */
 }
+
+@media screen and (max-width: 650px) {
+  .mobileView {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+  }
+}

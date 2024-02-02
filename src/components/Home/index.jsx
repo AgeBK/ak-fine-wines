@@ -3,9 +3,11 @@ import Carousel from "../Carousel";
 import { Link } from "react-router-dom";
 import Img from "../Image";
 import styles from "./Home.module.css";
-import all from "../../data/allProducts.json"; // TODO: JSONBin
+import { useGetWinesQuery } from "../../services/API";
 
 function Home() {
+  const { data } = useGetWinesQuery();
+
   return (
     <article>
       <h2 className={styles.slogan}>
@@ -24,7 +26,7 @@ function Home() {
         />
       </Link>
       <h2 className={styles.topOffers}>Top offers of the week</h2>
-      <Carousel arr={homePageCarouselProducts(all)} />
+      <Carousel arr={homePageCarouselProducts(data)} />
       <div className={styles.campaign}>
         <a href="/ten-percent-off">
           <h2 className={styles.tenOff}>10% OFF</h2>

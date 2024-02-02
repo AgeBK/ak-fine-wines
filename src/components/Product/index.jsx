@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { randomProducts, productPageCarouselProducts } from "../../data/utils";
-import all from "../../data/allProducts.json";
+import { useGetWinesQuery } from "../../services/API";
 import { blurb, reviews } from "../../data/appData.json";
 import { checkDeals } from "../../data/utils";
 import AddToCart from "../AddToCart";
@@ -11,21 +11,19 @@ import PriceDrop from "../PriceDrop";
 import ProductInfo from "../ProductInfo";
 import Carousel from "../Carousel";
 
-// TODO: haven't used useMemo or useCallback anywhere??
+// TODO: haven't used useMemo or useCdataback anywhere??
 // import Price from "../Price";
 import styles from "./Product.module.css";
 
 function Product() {
   const [count, setCount] = useState(1);
   const { category: urlCategory, variety: urlVariety, id: urlId } = useParams();
-  console.log(urlCategory, urlVariety, urlId);
+  const { data } = useGetWinesQuery();
 
-  const product = all.find(({ id }) => id === urlId);
-
-  let deal = checkDeals(twoFor, tenFor, percentOff);
+  const product = data.find(({ id }) => id === urlId);
 
   const sameVariety = randomProducts(
-    all.filter(({ variety }) => variety.toLowerCase() === urlVariety)
+    data.filter(({ variety }) => variety.toLowerCase() === urlVariety)
   ).slice(0, 4);
   console.log(sameVariety);
 
@@ -40,7 +38,7 @@ function Product() {
     unitOfMeasureLabel,
     ratings: { average, total },
     price: { current, normal, twoFor, percentOff, tenFor },
-    promotion: { calloutText },
+    promotion: { cdataoutText },
   } = product;
 
   const Chevron = () => (
@@ -54,7 +52,9 @@ function Product() {
     textContent === "+" ? setCount(count + 1) : setCount(count - 1);
 
   const CartDeal = () =>
-    twoFor ? <div className={styles.cartTwoFor}>{calloutText}</div> : null;
+    twoFor ? <div className={styles.cartTwoFor}>{cdataoutText}</div> : null;
+
+  let deal = checkDeals(twoFor, tenFor, percentOff);
 
   return (
     <article>
@@ -174,7 +174,7 @@ function Product() {
 
         <section className={styles.similar}>
           <h2>Similar Products:</h2>
-          <Carousel arr={productPageCarouselProducts(all, urlVariety)} />
+          <Carousel arr={productPageCarouselProducts(data, urlVariety)} />
           {/* <ProductList arr={sameVariety} /> */}
         </section>
       </div>

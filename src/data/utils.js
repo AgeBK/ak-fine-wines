@@ -1,3 +1,5 @@
+const MAX_CAROUSEL_PRODUCTS = 12;
+
 const hyphenate = (text) =>
   typeof text === "string" && text.toLowerCase().replace(/ /gi, "-");
 
@@ -7,18 +9,18 @@ const deHyphenate = (text) =>
 const randomProducts = (arr) => arr.sort(() => 0.5 - Math.random());
 
 const homePageCarouselProducts = (arr) => {
-  console.log(arr);
-  const products = randomProducts(arr)
+  const products = arr
     .filter(({ price: { current, normal } }) => current !== normal)
-    .slice(0, 12);
-  return products;
+    .slice(0, MAX_CAROUSEL_PRODUCTS);
+
+  return randomProducts(products);
 };
 
 const productPageCarouselProducts = (arr, wineVariety) => {
-  const products = randomProducts(arr)
+  const products = arr
     .filter(({ variety }) => variety.toLowerCase() === wineVariety)
-    .slice(0, 12);
-  return products;
+    .slice(0, MAX_CAROUSEL_PRODUCTS);
+  return randomProducts(products);
 };
 
 const checkDeals = (twoFor, tenFor, percentOff) => {

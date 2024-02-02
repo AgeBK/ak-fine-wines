@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-// import { fetchCart } from "./cartAPI"; ??
+import { checkDiscountCode, checkMultiBuys } from "./cartUtils";
 
 const initialState = {
   cart: {},
@@ -8,53 +8,9 @@ const initialState = {
   promotionCode: "",
 };
 
-const checkDiscountCode = (cart, promotionCode) => {
-  for (const cartItem in cart) {
-    const item = cart[cartItem];
-    const {
-      price,
-      discountCode,
-      deal: { percentOff },
-    } = item;
-    
-    if (discountCode) {
-      if (discountCode.toLowerCase() === promotionCode.toLowerCase()) {
-        item.dealPrice = ((price / 100) * (100 - percentOff)).toFixed(2);
-      } else if (
-        discountCode.toLowerCase() !== promotionCode.toLowerCase() &&
-        item.dealPrice
-      ) {
-        delete item.dealPrice;
-      }
-    }
-  }
-
-  return cart;
-};
-
-const checkMultiBuys = (cart, deal, isRemove, items) => {
-  console.log("checkMultiBuys");
-  const dealType = Object.keys(deal)[0];
-  const dealPrice = Object.values(deal)[0];
-
-  for (const cartItem in cart) {
-    const item = cart[cartItem];
-    const currentDeal = item.deal;
-    if (currentDeal) {
-      const currentDealType = Object.keys(currentDeal)[0];
-      const currentDealPrice = Object.values(currentDeal)[0];
-      if (currentDealType === dealType && currentDealPrice === dealPrice) {
-        isRemove ? delete item.dealPrice : (item.dealPrice = dealPrice / items);
-      }
-    }
-  }
-  return cart;
-};
-
 export const cartSlice = createSlice({
   name: "cart",
   initialState,
-  // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
     increment: (state, action) => {
       console.log("incremement");
@@ -81,7 +37,7 @@ export const cartSlice = createSlice({
         discountCode
       );
 
-      const { cart, twoForDeals, tenForDeals, promotionCode } = state;
+      const { cart, twoForDeals, promotionCode } = state;
       let qty = cart[id] ? cart[id].qty + quantity : quantity;
 
       state.cart[id] = {
@@ -165,9 +121,6 @@ export const cartSlice = createSlice({
 export const { increment, decrement, selectCount, applyDiscountCode } =
   cartSlice.actions;
 
-// The function below is called a selector and allows us to select a value from
-// the state. Selectors can also be defined inline where they're used instead of
-// in the slice file. For example: `useSelector((state: RootState) => state.cart.value)`
 export const selectCart = (state) => state.cart.cart;
 
 export default cartSlice.reducer;

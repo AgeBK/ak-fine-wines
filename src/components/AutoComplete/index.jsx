@@ -62,7 +62,7 @@ function AutoComplete() {
         }}
         onKeyDown={handleKeyDown}
         getOptionLabel={(option) => option.name}
-        className={styles.autoComplete}
+        className={`${styles.autoComplete} ${overlay ? styles.mobileView : ""}`}
         options={data}
         filterOptions={createFilterOptions({
           limit: 7,

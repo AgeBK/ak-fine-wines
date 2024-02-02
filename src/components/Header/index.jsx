@@ -6,6 +6,8 @@ import Cart from "../Cart";
 import styles from "./Header.module.css";
 
 const Header = () => {
+  console.log("Header");
+
   return (
     <header className={styles.header}>
       <div className={styles.headerRow}>

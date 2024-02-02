@@ -1,6 +1,5 @@
 import { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
-import all from "../../data/allProducts.json";
 import { categoryURLs } from "../../data/utils";
 import ProductList from "../ProductList";
 import Sort from "../Sort";
@@ -11,13 +10,11 @@ import ResultsPP from "../ResultsPP";
 import styles from "./Category.module.css";
 import FilterList from "../Filters/FilterList";
 import Button from "../Button";
-// import Price from "../Price";
+import { useGetWinesQuery } from "../../services/API";
 // import Error from "../Error"; TODO: error handling
-
 // TODO: incorrect URL,what happens http://localhost:5173/Blue ?? zero results
 
 function Category() {
-  console.log("Category");
   const MAX_MOBILE_WIDTH = 650;
   let showFilterBtnRef = useRef(window.innerWidth < MAX_MOBILE_WIDTH);
   const [initialData, setInitialData] = useState([]);
@@ -30,6 +27,7 @@ function Category() {
     items: true,
   });
   const { category: urlCategory, variety: urlVariety } = useParams();
+  const { data } = useGetWinesQuery();
 
   useEffect(() => {
     const handleResize = () => {
@@ -52,11 +50,11 @@ function Category() {
 
     if (urlVariety) {
       // filter by wine variety or wine brand
-      arr = categoryURLs["urlVariety"](all, urlVariety);
+      arr = categoryURLs["urlVariety"](data, urlVariety);
     } else if (sp.has("search")) {
       // filter by search param
       const query = sp.get("search");
-      arr = categoryURLs["search"](all, query);
+      arr = categoryURLs["search"](data, query);
       header = `results: ${query}`;
     } else if (
       // filter by 2 for XX deals
@@ -64,33 +62,33 @@ function Category() {
       urlCategory !== "two-for-deals"
     ) {
       const price = Number(urlCategory.split("-")[2]);
-      arr = categoryURLs["two-for-price"](all, price);
+      arr = categoryURLs["two-for-price"](data, price);
       header = `2 for $${price}`;
     } else {
       switch (urlCategory) {
         case "two-for-deals":
-          arr = categoryURLs["two-for-deals"](all);
+          arr = categoryURLs["two-for-deals"](data);
           header = "2 for Deals";
           break;
         case "ten-percent-off":
-          arr = categoryURLs["ten-percent-off"](all);
+          arr = categoryURLs["ten-percent-off"](data);
           header = "10% OFF";
           break;
         case "10-and-less":
-          arr = categoryURLs["ten-and-less"](all);
+          arr = categoryURLs["ten-and-less"](data);
           header = "$10 and less";
           break;
         case "ten-for-100":
-          arr = categoryURLs["ten-for-100"](all);
+          arr = categoryURLs["ten-for-100"](data);
           header = "10 for $100";
           break;
         case "price-drop":
-          arr = categoryURLs["price-drop"](all);
+          arr = categoryURLs["price-drop"](data);
           break;
         case "white":
         case "red":
         case "sparkling":
-          arr = arr = categoryURLs["category"](all, urlCategory);
+          arr = arr = categoryURLs["category"](data, urlCategory);
           break;
         default:
           break;
@@ -102,7 +100,7 @@ function Category() {
     setFilters({ reset: true });
     setPaging({ page: 1, pageSize: 40 });
     setInitialData(arr);
-  }, [urlCategory, urlVariety]);
+  }, [urlCategory, urlVariety, data]);
 
   useEffect(() => {
     const { price, rating, variety } = filters;
@@ -128,8 +126,7 @@ function Category() {
     setFiltered(arr);
   }, [filters, initialData]);
 
-  let data = filtered || initialData;
-  const pagedData = data.slice(
+  const pagedData = (filtered || initialData).slice(
     (paging.page - 1) * paging.pageSize,
     paging.page * paging.pageSize
   );
@@ -138,7 +135,7 @@ function Category() {
 
   const removeFilters = (val) => {
     console.log(val);
-    val === "all"
+    val === "data"
       ? setFilters({ reset: true })
       : setFilters({ ...filters, [val]: null, reset: true });
   };
