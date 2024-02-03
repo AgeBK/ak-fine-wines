@@ -1,10 +1,14 @@
 import { useState } from "react";
 import { Autocomplete, TextField } from "@mui/material";
 import { createFilterOptions } from "@mui/material/Autocomplete";
+import InputAdornment from "@mui/material/InputAdornment";
+import SearchIcon from "@mui/icons-material/Search";
 import { hyphenate } from "../../data/utils";
+import { MAX_MOBILE_WIDTH } from "../../data/appData.json";
 import parse from "autosuggest-highlight/parse";
 import match from "autosuggest-highlight/match";
 import all from "../../data/allProducts.json";
+import useMobileView from "../../hooks/useMobileView";
 import { useNavigate } from "react-router-dom";
 import Img from "../../components/Image";
 import styles from "./AutoComplete.module.css";
@@ -12,6 +16,8 @@ import styles from "./AutoComplete.module.css";
 function AutoComplete() {
   const [overlay, setOverlay] = useState(false);
   const [open, setOpen] = useState(false);
+  const isMobileView = useMobileView(MAX_MOBILE_WIDTH);
+
   const navigate = useNavigate();
 
   let data = all.map(({ name, id, category, variety, packaging }) => {
@@ -98,10 +104,25 @@ function AutoComplete() {
         }}
         renderInput={(params) => (
           <TextField
-            label="What are you looking for?"
+            label={isMobileView ? "Search" : "What are you looking for?"}
             {...params}
+            // sx={{
+            //   color: "success.main",
+            //   "& .MuiTextField-root": {
+            //     marginTop: "10px",
+            //   },
+            // }}
+            className={styles.tf}
             onClick={handleClick}
             onBlur={handleBlur}
+            InputProps={{
+              ...params.InputProps,
+              endAdornment: (
+                <InputAdornment position="end">
+                  <SearchIcon />
+                </InputAdornment>
+              ),
+            }}
           />
         )}
       ></Autocomplete>

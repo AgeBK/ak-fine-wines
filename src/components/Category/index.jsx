@@ -1,9 +1,9 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { useGetWinesQuery } from "../../services/API";
 import { useParams } from "react-router-dom";
 import useMobileView from "../../hooks/useMobileView";
-// import data from "../../data/dataProducts.json";
-import { categoryURLs, categoryPageData } from "../../data/utils";
+import { categoryPageData } from "../../data/utils";
+import { MAX_MOBILE_WIDTH } from "../../data/appData.json";
 import ProductList from "../ProductList";
 import Sort from "../Sort";
 import Pills from "../Pills";
@@ -13,7 +13,6 @@ import ResultsPP from "../ResultsPP";
 import styles from "./Category.module.css";
 import FilterList from "../Filters/FilterList";
 import Button from "../Button";
-console.log(useGetWinesQuery);
 // import Price from "../Price";
 // import Error from "../Error"; TODO: error handling
 
@@ -29,7 +28,6 @@ function Category() {
   const [customHeader, setCustomHeader] = useState("");
   const [mobileView, setMobileView] = useState({});
   const { category: urlCategory, variety: urlVariety } = useParams();
-  const MAX_MOBILE_WIDTH = 650;
   const isMobileView = useMobileView(MAX_MOBILE_WIDTH);
 
   useEffect(() => {

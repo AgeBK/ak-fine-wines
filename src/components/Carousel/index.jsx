@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import ProductItem from "../ProductItem";
 import Button from "../Button";
 import styles from "./Carousel.module.css";
@@ -7,48 +7,48 @@ function Carousel({ arr }) {
   const [pageIndex, setPageIndex] = useState(0);
   const [items, setItems] = useState(0);
   const ref = useRef(0);
-  const listLength = 12;
+  const LIST_LENGTH = 12; // TODO: Uppercase constants??
 
   const handleClick = (val) => setPageIndex((prev) => prev + val);
 
   const handleChange = ({ target: { value } }) => setPageIndex(Number(value));
 
-  const calculateItems = () => {
+  const calculateItems = useCallback(() => {
+    console.log("calculateItems");
     if (ref.current && ref.current.offsetWidth) {
       const {
         current: { offsetWidth },
       } = ref;
       console.log(offsetWidth);
 
-      let items = 0;
+      let currentItems = 0;
       if (offsetWidth >= 1200) {
-        items = 6;
+        currentItems = 6;
       } else if (offsetWidth >= 875) {
-        items = 4;
+        currentItems = 4;
       } else if (offsetWidth >= 650) {
-        items = 3;
+        currentItems = 3;
       } else if (offsetWidth >= 420) {
-        items = 2;
+        currentItems = 2;
       } else {
-        items = 1;
+        currentItems = 1;
       }
-      setItems(items);
+      if (currentItems !== items) setItems(currentItems);
     }
-  };
+  }, [items]);
 
   useEffect(() => {
     calculateItems();
-
     // TODO: have resize event on Category page?? hook expected?
     window.addEventListener("resize", calculateItems);
     return () => window.removeEventListener("resize", calculateItems);
-  }, [arr]);
+  }, [calculateItems]);
 
   const CarouselPaging = () => {
     if (items) {
       let html = [];
       const totalPages = arr.length / items - 1;
-      for (let i = 0; i < listLength / items; i++) {
+      for (let i = 0; i < LIST_LENGTH / items; i++) {
         const id = `CarouselPaging${i}`;
         html.push(
           <span key={id}>

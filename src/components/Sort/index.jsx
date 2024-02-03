@@ -23,8 +23,6 @@ function Sort({ currentData, setInitialData }) {
       ({ price: { normal, current } }) => normal !== current
     ));
 
-  // const salesItemsFirst = () => sortedArr.sort((a) => (a.sale ? -1 : 1));
-
   const sortDDL = ({ target: { value } }) => {
     switch (value) {
       case "a-z":

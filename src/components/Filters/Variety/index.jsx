@@ -1,10 +1,6 @@
 import styles from "./VarietyFilter.module.css";
 
 function VarietyFilter({ updateFilters, filters, currentData }) {
-  console.log("VarietyFilter");
-  console.log(currentData);
-  console.log(filters);
-
   const handleChange = ({ target: { value } }) =>
     updateFilters({ variety: value });
 

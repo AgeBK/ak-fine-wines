@@ -1,6 +1,6 @@
 # React + Vite
 
-RTK, responsive, multi filter, sorting, paging, items per page, MUI autocomplete, custom hooks
+RTK, responsive, multi filter, sorting, paging, items per page, MUI autocomplete, custom hooks, 2 carousel items
 
 https://www.flaticon.com/search?word=wine&type=animated-icon
 
