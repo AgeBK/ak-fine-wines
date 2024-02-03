@@ -1,6 +1,6 @@
 # React + Vite
 
-redux, responsive, multi filter, sorting, paging, items per page, MUI autocomplete,
+RTK, responsive, multi filter, sorting, paging, items per page, MUI autocomplete, custom hooks
 
 https://www.flaticon.com/search?word=wine&type=animated-icon
 

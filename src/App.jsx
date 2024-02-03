@@ -6,7 +6,6 @@ import Product from "./components/Product";
 import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
-  console.log("App");
   return (
     <Router>
       <MainContainer>

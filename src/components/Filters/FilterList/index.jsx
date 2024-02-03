@@ -1,11 +1,10 @@
 import PriceFilter from "../Price";
 import RatingFilter from "../Rating";
 import VarietyFilter from "../Variety";
-import Button from "../../Button";
 import styles from "./FilterList.module.css";
 
 const FilterList = ({
-  initialData,
+  currentData,
   filters,
   setFilters,
   urlVariety,
@@ -42,7 +41,7 @@ const FilterList = ({
               <VarietyFilter
                 updateFilters={updateFilters}
                 filters={filters}
-                initialData={initialData}
+                currentData={currentData}
               />
             </li>
           )}

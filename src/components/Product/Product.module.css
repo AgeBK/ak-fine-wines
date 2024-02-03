@@ -1,10 +1,7 @@
 .container {
-  padding: 1rem;
+  padding: 15px;
 }
 
-.breadCrumb {
-  text-align: left;
-}
 
 .productCont {
   display: flex;
@@ -18,16 +15,6 @@
   position: relative;
 }
 
-/* .twoFor {
-  background-color: #000;
-  color: #fff;
-  font-size: 1.3rem;
-  position: absolute;
-  top: 0;
-  right: 0;
-  border-radius: 20px;
-} */
-
 .productMeta {
   position: relative;
   margin-right: 40px;
@@ -37,10 +24,6 @@
   position: absolute;
   bottom: 0;
   width: 95%;
-  /* border: 1px solid #d3d3d3;
-  text-align: center;
-  font-size: 1.1rem; */
-  /* margin-right: 20px; */
 }
 
 .cartTable {
@@ -51,7 +34,6 @@
   border: 1px solid #d3d3d3;
   text-align: center;
   font-size: 1.1rem;
-  /* margin-right: 20px; */
 }
 
 .cartTable > div {
@@ -95,16 +77,6 @@
   margin-bottom: 20px;
 }
 
-.chevronCont {
-  margin: 0 3px;
-}
-
-.chevron:after {
-  content: "\203A";
-  font-size: 24px;
-  font-weight: bold;
-  color: #d3d3d3;
-}
 
 .listInfo {
   display: flex;

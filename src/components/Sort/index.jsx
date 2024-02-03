@@ -1,10 +1,10 @@
 import { useState } from "react";
 import styles from "./Sort.module.css";
 
-function Sort({ initialData, setInitialData }) {
+function Sort({ currentData, setInitialData }) {
   const [selected, setSelected] = useState("");
   const choicesArr = ["Relevance", "A-Z", "Z-A", "$", "$$$", "Sale"];
-  let sortedArr = [...initialData];
+  let sortedArr = [...currentData];
 
   const alphabetically = (reverseOrder) => {
     sortedArr.sort((a, b) =>

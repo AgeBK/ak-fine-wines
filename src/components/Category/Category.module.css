@@ -58,14 +58,14 @@
 }
 
 .select {
-  margin-left: 0.5rem;
+  margin-left: 10px;
 }
 
 .product {
   flex: 1;
-  margin: 0.5rem;
+  margin: 10px;
   border: 1px solid #d3d3d3;
-  padding: 0.8rem;
+  padding: 15px;
   min-width: 200px;
   width: 80%;
   position: relative;
@@ -105,16 +105,12 @@
 }
 
 .description {
-  margin: 0.5rem 0;
+  margin: 10px 0;
   text-align: left;
 }
 
 .close {
-  /* position: absolute;
-  top: 2px;
-  right: 7px; */
-  display: inline-block;
-  margin-left: 5px;
+  font-size: 1.3rem;
 }
 
 /* TODO */

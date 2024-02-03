@@ -2,7 +2,7 @@
   background-color: #fff;
   z-index: 1;
   width: auto;
-  margin-right: 1rem;
+  margin-right: 15px;
   position: relative;
   display: flex;
 }
@@ -31,8 +31,8 @@
 }
 
 .cartImg {
-  height: 2rem;
-  width: 2rem;
+  height: 30px;
+  width: 30px;
 }
 
 .cartClosedQty {

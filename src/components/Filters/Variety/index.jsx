@@ -1,14 +1,14 @@
 import styles from "./VarietyFilter.module.css";
 
-function VarietyFilter({ updateFilters, filters, initialData }) {
+function VarietyFilter({ updateFilters, filters, currentData }) {
   console.log("VarietyFilter");
-  console.log(initialData);
+  console.log(currentData);
   console.log(filters);
 
   const handleChange = ({ target: { value } }) =>
     updateFilters({ variety: value });
 
-  let varietys = initialData.reduce((acc, { variety }) => {
+  let varietys = currentData.reduce((acc, { variety }) => {
     acc[variety] = (acc[variety] || 0) + 1;
     return acc;
   }, {});

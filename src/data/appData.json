@@ -37,5 +37,6 @@
     { "value": "3", "text": "3 star rating" },
     { "value": "4", "text": "4 star rating" },
     { "value": "5", "text": "5 star rating" }
-  ]
+  ],
+  "productSource": "<i>Source *Wine Monthly: August 2023 </i> - {variety} blends from   South Eastern Austraila"
 }

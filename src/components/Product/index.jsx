@@ -1,18 +1,17 @@
 import { useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import { randomProducts, productPageCarouselProducts } from "../../data/utils";
+import { useParams } from "react-router-dom";
+import { productPageCarouselProducts } from "../../data/utils";
 import { useGetWinesQuery } from "../../services/API";
-import { blurb, reviews } from "../../data/appData.json";
+import { blurb, reviews, productSource } from "../../data/appData.json";
 import { checkDeals } from "../../data/utils";
 import AddToCart from "../AddToCart";
 import Img from "../Image";
 import Button from "../Button";
-import PriceDrop from "../PriceDrop";
 import ProductInfo from "../ProductInfo";
 import Carousel from "../Carousel";
+import BreadCrumb from "../BreadCrumb";
 
-// TODO: haven't used useMemo or useCdataback anywhere??
-// import Price from "../Price";
+// TODO: haven't used useMemo or useCallback anywhere??
 import styles from "./Product.module.css";
 
 function Product() {
@@ -21,11 +20,6 @@ function Product() {
   const { data } = useGetWinesQuery();
 
   const product = data.find(({ id }) => id === urlId);
-
-  const sameVariety = randomProducts(
-    data.filter(({ variety }) => variety.toLowerCase() === urlVariety)
-  ).slice(0, 4);
-  console.log(sameVariety);
 
   const {
     id,
@@ -41,13 +35,6 @@ function Product() {
     promotion: { cdataoutText },
   } = product;
 
-  const Chevron = () => (
-    <span className={styles.chevronCont}>
-      <span className={styles.chevron}></span>
-      <span className={styles.chevron}></span>
-    </span>
-  );
-
   const handleCount = ({ target: { textContent } }) =>
     textContent === "+" ? setCount(count + 1) : setCount(count - 1);
 
@@ -59,27 +46,12 @@ function Product() {
   return (
     <article>
       <div className={styles.container}>
-        <div className={styles.breadCrumb}>
-          <Link to="/" className={styles.category}>
-            <Img
-              image={`icons/home.png`}
-              imageStyle=""
-              imageAlt="AK Fine Wines"
-            />
-            Home
-          </Link>
-          <Chevron />
-          <Link to={`/${urlCategory}`} className={styles.category}>
-            {category}
-          </Link>
-          <Chevron />
-          <Link
-            to={`/${urlCategory}/${urlVariety}`}
-            className={styles.category}
-          >
-            {variety}
-          </Link>
-        </div>
+        <BreadCrumb
+          urlCategory={urlCategory}
+          urlVariety={urlVariety}
+          category={category}
+          variety={variety}
+        />
         <section className={styles.productCont}>
           <div className={styles.productImg}>
             <Img
@@ -105,11 +77,9 @@ function Product() {
               </>
             ) : null}
 
-            {/* <Price current={current} normal={normal} css="product" /> */}
             <div className={styles.cartTableCont}>
               <div className={styles.cartTable}>
                 <div className={styles.cartBottle}>
-                  {/* <div className={styles.packaging}>{packaging}</div> */}
                   <div className={styles.price}>
                     ${current}/{packaging}
                   </div>
@@ -166,16 +136,14 @@ function Product() {
         <div className={styles.reviews}>
           <h2>Product Review:</h2>
           {reviews[urlCategory]}
-          <div className={styles.source}>
-            <i>Source *Wine Monthly: August 2023 </i> - {variety} blends from
-            South Eastern Austraila
-          </div>
+          <div
+            className={styles.source}
+            dangerouslySetInnerHTML={{ __html: productSource }}
+          ></div>
         </div>
-
         <section className={styles.similar}>
           <h2>Similar Products:</h2>
           <Carousel arr={productPageCarouselProducts(data, urlVariety)} />
-          {/* <ProductList arr={sameVariety} /> */}
         </section>
       </div>
     </article>

@@ -76,6 +76,60 @@ const categoryURLs = {
   },
 };
 
+const categoryPageData = (data, urlCategory, urlVariety) => {
+  const sp = new URLSearchParams(location.pathname.substring(1));
+  let arr = [];
+  let header = "";
+
+  if (urlVariety) {
+    // filter by wine variety or wine brand
+    arr = categoryURLs["urlVariety"](data, urlVariety);
+  } else if (sp.has("search")) {
+    // filter by search param
+    const query = sp.get("search");
+    arr = categoryURLs["search"](data, query);
+    header = `results: ${query}`;
+  } else if (
+    // filter by 2 for XX deals
+    urlCategory.startsWith("two-for") &&
+    urlCategory !== "two-for-deals"
+  ) {
+    const price = Number(urlCategory.split("-")[2]);
+    arr = categoryURLs["two-for-price"](data, price);
+    header = `2 for $${price}`;
+  } else {
+    switch (urlCategory) {
+      case "two-for-deals":
+        arr = categoryURLs["two-for-deals"](data);
+        header = "2 for Deals";
+        break;
+      case "ten-percent-off":
+        arr = categoryURLs["ten-percent-off"](data);
+        header = "10% OFF";
+        break;
+      case "10-and-less":
+        arr = categoryURLs["ten-and-less"](data);
+        header = "$10 and less";
+        break;
+      case "ten-for-100":
+        arr = categoryURLs["ten-for-100"](data);
+        header = "10 for $100";
+        break;
+      case "price-drop":
+        arr = categoryURLs["price-drop"](data);
+        break;
+      case "white":
+      case "red":
+      case "sparkling":
+        arr = arr = categoryURLs["category"](data, urlCategory);
+        break;
+      default:
+        break;
+    }
+  }
+  return [arr, header];
+};
+
 export {
   hyphenate,
   deHyphenate,
@@ -84,6 +138,7 @@ export {
   productPageCarouselProducts,
   checkDeals,
   categoryURLs,
+  categoryPageData,
 };
 
 // // remove unused properties

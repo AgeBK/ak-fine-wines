@@ -8,36 +8,35 @@
 }
 
 .iconWhite {
-  height: 1rem;
-  width: 1rem;
+  height: 15px;
+  width: 15px;
   background-color: #fff;
-  color: red; /* TODO:  */
 }
 
 .home,
 .category {
-  width: 13rem;
-  height: 13rem;
+  width: 200px;
+  height: 200px;
 }
 
 .product {
-  width: 19rem;
-  height: 19rem;
+  width: 320px;
+  height: 320px;
 }
 
 .logo {
-  width: 5rem;
-  height: 5rem;
+  width: 80px;
+  height: 80px;
 }
 
 .cart {
-  width: 2rem;
-  height: 2rem;
+  width: 30px;
+  height: 30px;
 }
 
 .scroll {
-  width: 2rem;
-  height: 2rem;
+  width: 30px;
+  height: 30px;
 }
 
 .iBlock {
@@ -45,12 +44,12 @@
 }
 
 .packaging {
-  height: 3rem;
-  width: 1.5rem;
+  height: 50px;
+  width: 22px;
 }
 
 .cartOpen {
-  height: 5rem;
+  height: 80px;
 }
 
 .cartOpenBtn {
@@ -86,8 +85,8 @@
 
 @media screen and (max-width: 500px) {
   .product {
-    width: 14rem;
-    height: 14rem;
+    width: 200px;
+    height: 200px;
   }
 
   .productMain {
