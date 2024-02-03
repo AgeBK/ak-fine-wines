@@ -15,11 +15,9 @@ import FilterList from "../Filters/FilterList";
 import Button from "../Button";
 // import Price from "../Price";
 // import Error from "../Error"; TODO: error handling
-
 // TODO: incorrect URL,what happens http://localhost:5173/Blue ?? zero results
 
 function Category() {
-  console.log("Category");
   const { data } = useGetWinesQuery();
   const [initialData, setInitialData] = useState([]);
   const [filtered, setFiltered] = useState(null);
@@ -82,7 +80,6 @@ function Category() {
   const scroll = () => window.scrollTo(0, 0);
 
   const updatePaging = ({ page, pageSize }) => {
-    console.log(page, pageSize);
     scroll();
     setPaging({ page, pageSize });
   };

@@ -11,7 +11,6 @@
   padding: 30px 10px;
   min-width: 200px;
   position: relative;
-  /* padding-bottom: 20px; */
   text-align: center;
   height: 370px;
 }
@@ -22,10 +21,6 @@
 
 .productMeta {
   min-height: 135px;
-  /* display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  justify-content: space-between; */
 }
 
 .itemCont {
@@ -73,8 +68,3 @@
   min-width: 13%;
   width: 13%;
 }
-
-/* .carousel .product :nth-child(2n) {
-  background-color: red;
-  color: #fff;
-} */

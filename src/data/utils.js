@@ -1,4 +1,4 @@
-const MAX_CAROUSEL_PRODUCTS = 12;
+import { MAX_CAROUSEL_PRODUCTS } from "../data/appData.json";
 
 const hyphenate = (text) =>
   typeof text === "string" && text.toLowerCase().replace(/ /gi, "-");
@@ -18,7 +18,7 @@ const homePageCarouselProducts = (arr) => {
 
 const productPageCarouselProducts = (arr, wineVariety) => {
   const products = arr
-    .filter(({ variety }) => variety.toLowerCase() === wineVariety)
+    .filter(({ variety }) => hyphenate(variety) === wineVariety)
     .slice(0, MAX_CAROUSEL_PRODUCTS);
   return randomProducts(products);
 };

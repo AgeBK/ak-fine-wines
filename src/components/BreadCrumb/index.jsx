@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import Img from "../Image";
-
 import styles from "./BreadCrumb.module.css";
 
 const BreadCrumb = ({ urlCategory, urlVariety, category, variety }) => {

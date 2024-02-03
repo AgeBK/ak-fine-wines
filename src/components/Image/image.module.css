@@ -2,15 +2,8 @@
   height: 200px;
 }
 
-/* TODO: check just setting by height?? */
 .campaignMini {
   height: 150px;
-}
-
-.iconWhite {
-  height: 15px;
-  width: 15px;
-  background-color: #fff;
 }
 
 .home,

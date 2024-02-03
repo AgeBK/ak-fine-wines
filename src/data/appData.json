@@ -1,4 +1,7 @@
 {
+  "MAX_MOBILE_WIDTH": 650,
+  "MAX_CAROUSEL_PRODUCTS": 12,
+  "errorMsg": "Something has gone wrong",
   "blurb": {
     "white": "Feeling like a crisp white wine, but not sure where to start? There are many different white wine styles and labels to pick from in Australia and further abroad. We're sure you'll find your next favourite among our carefully curated selection.",
     "red": "Traditional winemaking techniques and an eye to modern styles allow us to create wines that are synonymous with the regions they are from. Rich, honest wines that showcase the regions in their most natural light. Rich red in colour with purple hues, this wine displays aromas of blackberries and plums with hints of pepper and spice. ",
@@ -26,7 +29,6 @@
     "red": "Aromas of rich dark currants, nectarine skins, sun-baked blackberries, hints of imported tobacco, low-lying soil, pungent aniseed, smashed minerals and metal. Medium-bodied and saucy but racy acidity stabilises the wine nicely with the robust tannins. Think of ripe cherries, laden with mocha, terracotta, air fryed giblets, pencil shavings and brand name worcestershire sauce.",
     "sparkling": "Light to mid straw-yellow colour, with spice and bath bubble bubble aromas showing some adolecent development and almost muscaty touches, some traces of burnt raison toast, while the palate is firmly tart and there's some cardboard-like, possibly oxidative development too. A marvel marriage of a warm year with hints of a westerly breeze."
   },
-  "errorMsg": "Something has gone wrong",
   "priceArr": [
     { "text": "Less than $10", "value": "0-10" },
     { "text": "$10-$20", "value": "10-19" },
@@ -39,5 +41,19 @@
     { "value": "5", "text": "5 star rating" }
   ],
   "productSource": "<i>Source *Wine Monthly: August 2023 </i> - {variety} blends from   South Eastern Austraila",
-  "MAX_MOBILE_WIDTH": 650
+
+  "navObj": {
+    "White": [
+      "https://cdn-icons-png.flaticon.com/128/11626/11626148.png",
+      "https://cdn-icons-gif.flaticon.com/11626/11626148.gif"
+    ],
+    "Red": [
+      "https://cdn-icons-png.flaticon.com/128/11626/11626130.png",
+      "https://cdn-icons-gif.flaticon.com/11626/11626130.gif"
+    ],
+    "Sparkling": [
+      "https://cdn-icons-png.flaticon.com/128/13121/13121461.png",
+      "https://cdn-icons-gif.flaticon.com/13121/13121461.gif"
+    ]
+  }
 }

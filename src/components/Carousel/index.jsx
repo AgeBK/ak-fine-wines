@@ -1,13 +1,13 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import ProductItem from "../ProductItem";
 import Button from "../Button";
+import { MAX_CAROUSEL_PRODUCTS } from "../../data/appData.json";
 import styles from "./Carousel.module.css";
 
 function Carousel({ arr }) {
   const [pageIndex, setPageIndex] = useState(0);
   const [items, setItems] = useState(0);
   const ref = useRef(0);
-  const LIST_LENGTH = 12; // TODO: Uppercase constants??
 
   const handleClick = (val) => setPageIndex((prev) => prev + val);
 
@@ -48,7 +48,7 @@ function Carousel({ arr }) {
     if (items) {
       let html = [];
       const totalPages = arr.length / items - 1;
-      for (let i = 0; i < LIST_LENGTH / items; i++) {
+      for (let i = 0; i < MAX_CAROUSEL_PRODUCTS / items; i++) {
         const id = `CarouselPaging${i}`;
         html.push(
           <span key={id}>
