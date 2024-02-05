@@ -4,6 +4,7 @@
   max-width: 1400px;
   overflow: hidden;
   justify-content: start;
+  position: relative;
 }
 
 .itemInner {
@@ -27,6 +28,21 @@
   height: 1px;
   width: 1px;
   overflow: hidden;
+}
+
+.arrow {
+  position: absolute;
+  z-index: 1;
+  top: 42%;
+  cursor: pointer;
+}
+
+.arrowLeft {
+  left: 15px;
+}
+
+.arrowRight {
+  right: 15px;
 }
 
 @media screen and (max-width: 500px) {

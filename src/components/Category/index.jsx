@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import useMobileView from "../../hooks/useMobileView";
 import { categoryPageData } from "../../data/utils";
 import { MAX_MOBILE_WIDTH } from "../../data/appData.json";
+import { Link } from "react-router-dom";
 import ProductList from "../ProductList";
 import Sort from "../Sort";
 import Pills from "../Pills";
@@ -13,8 +14,6 @@ import ResultsPP from "../ResultsPP";
 import styles from "./Category.module.css";
 import FilterList from "../Filters/FilterList";
 import Button from "../Button";
-// import Price from "../Price";
-// import Error from "../Error"; TODO: error handling
 // TODO: incorrect URL,what happens http://localhost:5173/Blue ?? zero results
 
 function Category() {
@@ -149,7 +148,13 @@ function Category() {
                 </div>
               </>
             ) : (
-              <div className={styles.noResults}>Sorry, no results:</div> // TODO:
+              <div className={styles.noResults}>
+                Sorry, no results:
+                <br />
+                <Link to="/" className={styles.link}>
+                  Back to homepage
+                </Link>
+              </div> // TODO:
             )}
           </section>
         )}

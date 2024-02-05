@@ -65,8 +65,8 @@ const ProductInfo = ({
           </span>
         </li>
         <li>
-          <span>Food Pair TODO</span>
-          <span>Desserts</span>
+          <span>Food Pair</span>
+          <span>{category === "Red" ? "Meat" : "Chicken/Fish"}</span>
         </li>
         <li>
           <span>Region</span>

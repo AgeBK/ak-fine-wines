@@ -1,37 +1,44 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import ProductItem from "../ProductItem";
 import Button from "../Button";
-import { MAX_CAROUSEL_PRODUCTS } from "../../data/appData.json";
+import Img from "../Image";
+import {
+  MAX_CAROUSEL_PRODUCTS,
+  SIX_CAROUSEL_ITEMS,
+  FOUR_CAROUSEL_ITEMS,
+  THREE_CAROUSEL_ITEMS,
+  TWO_CAROUSEL_ITEMS,
+  ONE_CAROUSEL_ITEM,
+} from "../../data/appData.json";
 import styles from "./Carousel.module.css";
 
 function Carousel({ arr }) {
   const [pageIndex, setPageIndex] = useState(0);
   const [items, setItems] = useState(0);
   const ref = useRef(0);
+  const totalPages = arr.length / items - 1;
 
   const handleClick = (val) => setPageIndex((prev) => prev + val);
 
   const handleChange = ({ target: { value } }) => setPageIndex(Number(value));
 
   const calculateItems = useCallback(() => {
-    console.log("calculateItems");
     if (ref.current && ref.current.offsetWidth) {
       const {
         current: { offsetWidth },
       } = ref;
-      console.log(offsetWidth);
 
       let currentItems = 0;
       if (offsetWidth >= 1200) {
-        currentItems = 6;
+        currentItems = SIX_CAROUSEL_ITEMS;
       } else if (offsetWidth >= 875) {
-        currentItems = 4;
+        currentItems = FOUR_CAROUSEL_ITEMS;
       } else if (offsetWidth >= 650) {
-        currentItems = 3;
+        currentItems = THREE_CAROUSEL_ITEMS;
       } else if (offsetWidth >= 420) {
-        currentItems = 2;
+        currentItems = TWO_CAROUSEL_ITEMS;
       } else {
-        currentItems = 1;
+        currentItems = ONE_CAROUSEL_ITEM;
       }
       if (currentItems !== items) setItems(currentItems);
     }
@@ -39,7 +46,7 @@ function Carousel({ arr }) {
 
   useEffect(() => {
     calculateItems();
-    // TODO: have resize event on Category page?? hook expected?
+
     window.addEventListener("resize", calculateItems);
     return () => window.removeEventListener("resize", calculateItems);
   }, [calculateItems]);
@@ -47,7 +54,6 @@ function Carousel({ arr }) {
   const CarouselPaging = () => {
     if (items) {
       let html = [];
-      const totalPages = arr.length / items - 1;
       for (let i = 0; i < MAX_CAROUSEL_PRODUCTS / items; i++) {
         const id = `CarouselPaging${i}`;
         html.push(
@@ -90,6 +96,19 @@ function Carousel({ arr }) {
   return (
     <>
       <div className={styles.carousel} ref={ref}>
+        <div className={`${styles.arrow} ${styles.arrowLeft}`}>
+          <Button
+            css="carousel"
+            onClick={() => handleClick(-1)}
+            disabled={pageIndex <= 0}
+          >
+            <Img
+              image={`icons/arrowLeft.png`}
+              imageStyle="carousel"
+              imageAlt="previous"
+            />
+          </Button>
+        </div>
         {arr.map(
           (
             {
@@ -130,6 +149,19 @@ function Carousel({ arr }) {
             }
           }
         )}
+        <div className={`${styles.arrow} ${styles.arrowRight}`}>
+          <Button
+            css="carousel"
+            onClick={() => handleClick(1)}
+            disabled={pageIndex >= totalPages}
+          >
+            <Img
+              image={`icons/arrowRight.png`}
+              imageStyle="carousel"
+              imageAlt="next"
+            />
+          </Button>
+        </div>
       </div>
       <CarouselPaging />
     </>
@@ -137,28 +169,3 @@ function Carousel({ arr }) {
 }
 
 export default Carousel;
-
-// useEffect(() => {
-//   // const id = setInterval(() => {
-//   //   if (pageIndex + length < arr.length) {
-//   //     console.log(pageIndex);
-//   //     setPageIndex((prev) => prev + 1);
-//   //   } else {
-//   //     setPageIndex(0);
-//   //   }
-//   // }, 8000);
-//   // return () => clearInterval(id);
-// }, [pageIndex, arr]);
-
-// const arr = all
-//   .filter(
-//     ({ isBundle, price: { current, normal } }) =>
-//       current !== normal && isBundle === false
-//   )
-//   .sort(() => 0.5 - Math.random())
-//   .slice(0, 12);
-//   let pageIndex = 0;
-// const length = 4;
-
-// const arr2 = [1, 2, 3, 4, 5, 6, 7];
-// let arr = useMemo(() => [...arr], [arr]);

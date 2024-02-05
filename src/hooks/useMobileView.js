@@ -7,8 +7,6 @@ const useMobileView = (threshold) => {
 
   useEffect(() => {
     const handleResize = () => {
-      console.log("hr");
-      console.log(window.innerWidth);
       const mobileView = window.innerWidth < threshold;
       if (isMobileView !== mobileView) {
         setIsMobileView(mobileView);

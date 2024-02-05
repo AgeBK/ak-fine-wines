@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useLocation } from "react-router-dom";
 import Img from "../Image";
 import Button from "../Button";
@@ -8,10 +8,13 @@ function ScrollToTop() {
   const [isVisible, setIsVisible] = useState(false);
   const scroll = () => window.scrollTo(0, 0);
 
-  const handleScroll = () => {
-    console.log("handleScroll"); // TODO: expensive?
-    window.scrollY > 0 ? setIsVisible(true) : setIsVisible(false);
-  };
+  const handleScroll = useCallback(() => {
+    if (window.scrollY === 0) {
+      setIsVisible(false);
+    } else if (!isVisible) {
+      setIsVisible(true);
+    }
+  }, [isVisible]);
 
   useEffect(() => {
     scroll();
@@ -20,14 +23,14 @@ function ScrollToTop() {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [pathname]);
+  }, [pathname, handleScroll]);
 
   return (
     <>
       {isVisible && (
         <Button css="scroll" onClick={scroll}>
           <Img
-            image={`icons/top.png`}
+            image={`icons/up.png`}
             imageStyle="scroll"
             imageAlt="Back to Top"
           />

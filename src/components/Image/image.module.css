@@ -65,6 +65,15 @@
   width: 35px;
 }
 
+.carousel {
+  width: 30px;
+  opacity: 0.2;
+}
+
+.carousel:hover {
+  opacity: 0.5;
+}
+
 @media screen and (max-width: 900px) {
   .logo {
     width: 60px;

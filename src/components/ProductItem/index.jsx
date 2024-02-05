@@ -25,13 +25,7 @@ const ProductItem = ({ props, css }) => {
     discountCode,
   } = props;
 
-  // console.log(twoFor, percentOff, tenFor);
-
   let deal = checkDeals(twoFor, tenFor, percentOff);
-
-  // console.log(deal);
-
-  // console.log(css); // TODO: lots of undefined?
 
   const onSpecial = current !== normal ? current : null;
 
@@ -51,11 +45,6 @@ const ProductItem = ({ props, css }) => {
           imageStyle="campaignMini"
           imageAlt="AK Fine Wines"
         />
-
-        {/* // TODO:  */}
-        {/* {urlCategory === "two-for-deals" && (
-            <h2 className={styles.deals}>{calloutText}</h2>
-         )} */}
         <div className={styles.productMeta}>
           <h2 className={styles.brand}>{brand}</h2>
           <h3 className={styles.shortName}>{shortName}</h3>
