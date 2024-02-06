@@ -1,24 +1,27 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useGetWinesQuery } from "../../services/API";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import useMobileView from "../../hooks/useMobileView";
-import { categoryPageData } from "../../data/utils";
+import {
+  categoryPageData,
+  sortCategoryPageData,
+  filterCategoryPageData,
+} from "../../data/utils";
 import { MAX_MOBILE_WIDTH } from "../../data/appData.json";
-import { Link } from "react-router-dom";
 import ProductList from "../ProductList";
 import Sort from "../Sort";
 import Pills from "../Pills";
 import Blurb from "../Blurb";
 import PageNumber from "../PageNumber";
 import ResultsPP from "../ResultsPP";
-import styles from "./Category.module.css";
 import FilterList from "../Filters/FilterList";
 import Button from "../Button";
+import styles from "./Category.module.css";
 
 function Category() {
   const { data } = useGetWinesQuery();
-  const [initialData, setInitialData] = useState([]);
-  const [filtered, setFiltered] = useState(null);
+  const [pageData, setPageData] = useState([]);
+  const [sortName, setSortName] = useState("");
   const [filters, setFilters] = useState({});
   const [paging, setPaging] = useState({ page: 1, pageSize: 40 });
   const [customHeader, setCustomHeader] = useState("");
@@ -33,38 +36,30 @@ function Category() {
   useEffect(() => {
     const [arr, header] = categoryPageData(data, urlCategory, urlVariety);
     arr.sort((a, b) => (a.ratings.average > b.ratings.average ? -1 : 1));
+
     setCustomHeader(header);
+    setSortName("");
     setFilters({});
     setPaging({ page: 1, pageSize: 40 });
-    setInitialData(arr);
+    setPageData(arr);
   }, [urlCategory, urlVariety, data]);
 
-  useEffect(() => {
-    const { price, rating, variety } = filters;
-    let arr = [...initialData];
+  const currentData = useMemo(() => {
+    console.log("useMemo");
+    let arr = [...pageData];
+    if (arr.length) {
+      if (Object.keys(filters).length) {
+        arr = filterCategoryPageData(arr, filters);
+      }
 
-    if (price) {
-      const [min, max] = price.split("-");
-      arr = arr.filter(
-        ({ price: { current } }) => current >= min && current < max
-      );
+      if (sortName) {
+        arr = sortCategoryPageData(arr, sortName);
+      }
     }
+    return arr;
+  }, [filters, pageData, sortName]);
 
-    if (rating) {
-      arr = arr.filter(
-        ({ ratings: { average } }) => Math.round(average) === Number(rating)
-      );
-    }
-
-    if (variety) {
-      arr = arr.filter(({ variety: wineType }) => wineType === variety);
-    }
-
-    setFiltered(arr);
-  }, [filters, initialData]);
-
-  const currentData = filtered || initialData;
-  const pagedData = currentData.slice(
+  const pagedData = currentData?.slice(
     (paging.page - 1) * paging.pageSize,
     paging.page * paging.pageSize
   );
@@ -75,14 +70,13 @@ function Category() {
     val === "all" ? setFilters({}) : setFilters({ ...filters, [val]: null });
   };
 
-  const scroll = () => window.scrollTo(0, 0);
-
   const updatePaging = ({ page, pageSize }) => {
-    scroll();
+    window.scrollTo(0, 0);
     setPaging({ page, pageSize });
   };
 
-  const toggleFilter = () => {
+  const togglePageItems = () => {
+    // either show filters or items on small screen
     const { filters, items } = mobileView;
     setMobileView({ filters: !filters, items: !items });
   };
@@ -98,7 +92,7 @@ function Category() {
       </section>
       {isMobileView && (
         <div className={styles.smlScreen}>
-          <Button css="filters" onClick={toggleFilter}>
+          <Button css="filters" onClick={togglePageItems}>
             {mobileView.filters ? (
               <span className={styles.close}>X</span>
             ) : (
@@ -125,7 +119,7 @@ function Category() {
                 ({currentData.length}) Available
               </span>
               <div className={styles.sort}>Sort:</div>
-              <Sort currentData={currentData} setInitialData={setInitialData} />
+              <Sort sortName={sortName} setSortName={setSortName} />
             </div>
             {currentData.length > 0 ? (
               <>

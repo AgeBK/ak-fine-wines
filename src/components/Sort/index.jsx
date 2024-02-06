@@ -1,51 +1,11 @@
-import { useState } from "react";
 import styles from "./Sort.module.css";
 
-function Sort({ currentData, setInitialData }) {
-  const [selected, setSelected] = useState("");
+function Sort({ sortName, setSortName }) {
   const choicesArr = ["Relevance", "A-Z", "Z-A", "$", "$$$", "Sale"];
-  let sortedArr = [...currentData];
 
-  const alphabetically = (reverseOrder) => {
-    sortedArr.sort((a, b) =>
-      a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1
-    );
-    reverseOrder && sortedArr.reverse();
-  };
-
-  const financially = (reverseOrder) => {
-    sortedArr.sort((a, b) => (a.price.current < b.price.current ? -1 : 1));
-    reverseOrder && sortedArr.reverse();
-  };
-
-  const salesItems = () =>
-    (sortedArr = sortedArr.filter(
-      ({ price: { normal, current } }) => normal !== current
-    ));
-
-  const sortDDL = ({ target: { value } }) => {
-    switch (value) {
-      case "a-z":
-        alphabetically(false);
-        break;
-      case "z-a":
-        alphabetically(true);
-        break;
-      case "$":
-        financially(false);
-        break;
-      case "$$$":
-        financially(true);
-        break;
-      case "sale":
-      case "relevance":
-        salesItems();
-        break;
-      default:
-        break;
-    }
-    setInitialData(sortedArr);
-    setSelected(value);
+  const update = (e) => {
+    console.log(e);
+    setSortName(e.target.value);
   };
 
   return (
@@ -54,13 +14,13 @@ function Sort({ currentData, setInitialData }) {
         <select
           id="sort"
           name="filters"
-          onChange={sortDDL}
+          onChange={(e) => update(e)}
           className={styles.select}
           aria-labelledby="lblSort"
-          value={selected}
+          value={sortName}
         >
-          {choicesArr.map((val, ind) => (
-            <option value={val.toLowerCase()} key={ind}>
+          {choicesArr.map((val) => (
+            <option value={val.toLowerCase()} key={val}>
               {val}
             </option>
           ))}
