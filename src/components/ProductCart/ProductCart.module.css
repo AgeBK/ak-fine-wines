@@ -1,0 +1,50 @@
+.cartTableCont {
+  position: absolute;
+  bottom: 0;
+  width: 95%;
+}
+
+.cartTable {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #d3d3d3;
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+.cartTable > div {
+  flex: 1;
+  border-right: 1px solid #d3d3d3;
+}
+
+.cartTable > div:last-child {
+  border-right: 0;
+}
+
+.cartBottle > div {
+  margin-bottom: 10px;
+}
+
+.cartTwoFor {
+  background-color: #000;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.count {
+  font-size: 1.4rem;
+  display: inline-block;
+  margin: 0 15px;
+}
+
+.totalPrice {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+  margin-right: 15px;
+}

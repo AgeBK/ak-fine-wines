@@ -7,7 +7,7 @@ import {
   sortCategoryPageData,
   filterCategoryPageData,
 } from "../../data/utils";
-import { MAX_MOBILE_WIDTH, initialPaging } from "../../data/appData.json";
+import { MAX_MOBILE_WIDTH, pagingSettings } from "../../data/appData.json";
 import ProductList from "../ProductList";
 import Sort from "../Sort";
 import Pills from "../Pills";
@@ -22,7 +22,7 @@ function Category() {
   const { data } = useGetWinesQuery();
   const [sortName, setSortName] = useState("");
   const [filters, setFilters] = useState({});
-  const [paging, setPaging] = useState(initialPaging);
+  const [paging, setPaging] = useState(pagingSettings);
   const [mobileView, setMobileView] = useState({});
   const { category: urlCategory, variety: urlVariety } = useParams();
   const isMobileView = useMobileView(MAX_MOBILE_WIDTH);
@@ -44,13 +44,12 @@ function Category() {
     // reset page
     setSortName("");
     setFilters({});
-    setPaging(initialPaging);
+    setPaging(pagingSettings);
     dataRef.current = [];
     headerRef.current = "";
   }, [urlCategory, urlVariety]);
 
   const currentData = useMemo(() => {
-    console.log("useMemo");
     let arr = [...dataRef.current];
     if (arr.length) {
       if (Object.keys(filters).length) {

@@ -1,24 +1,19 @@
-import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { productPageCarouselProducts } from "../../data/utils";
 import { useGetWinesQuery } from "../../services/API";
 import { blurb, reviews, productSource } from "../../data/appData.json";
-import { checkDeals } from "../../data/utils";
-import AddToCart from "../AddToCart";
+import ProductCart from "../ProductCart";
 import Img from "../Image";
-import Button from "../Button";
 import ProductInfo from "../ProductInfo";
 import Carousel from "../Carousel";
 import BreadCrumb from "../BreadCrumb";
-
-// TODO: haven't used useMemo or useCallback anywhere??
 import styles from "./Product.module.css";
 
+// TODO: haven't really used useMemo or useCallback anywhere??
+
 function Product() {
-  const [count, setCount] = useState(1);
   const { category: urlCategory, variety: urlVariety, id: urlId } = useParams();
   const { data } = useGetWinesQuery();
-
   const product = data.find(({ id }) => id === urlId);
 
   const {
@@ -32,16 +27,8 @@ function Product() {
     unitOfMeasureLabel,
     ratings: { average, total },
     price: { current, normal, twoFor, percentOff, tenFor },
-    promotion: { cdataoutText },
+    promotion: { calloutText },
   } = product;
-
-  const handleCount = ({ target: { textContent } }) =>
-    textContent === "+" ? setCount(count + 1) : setCount(count - 1);
-
-  const CartDeal = () =>
-    twoFor ? <div className={styles.cartTwoFor}>{cdataoutText}</div> : null;
-
-  let deal = checkDeals(twoFor, tenFor, percentOff);
 
   return (
     <article>
@@ -76,49 +63,18 @@ function Product() {
                 <div className={styles.totalRate}>{total} Reviews</div>
               </>
             ) : null}
-
-            <div className={styles.cartTableCont}>
-              <div className={styles.cartTable}>
-                <div className={styles.cartBottle}>
-                  <div className={styles.price}>
-                    ${current}/{packaging}
-                  </div>
-                  <div className={styles.packImg}>
-                    <Img
-                      image={`icons/wineSil.png`}
-                      imageStyle="packaging"
-                      imageAlt={packaging}
-                    />
-                  </div>
-                </div>
-                <div className={styles.cartAmt}>
-                  <div className={styles.totalPrice}>${current * count}</div>
-                  <Button
-                    css="cartLge"
-                    onClick={handleCount}
-                    disabled={count < 2}
-                  >
-                    -
-                  </Button>
-                  <span className={styles.count}>{count}</span>
-                  <Button css="cartLge" onClick={handleCount}>
-                    +
-                  </Button>
-                </div>
-                <div className={styles.cartAdd}>
-                  <AddToCart
-                    id={id}
-                    name={name}
-                    brand={brand}
-                    shortName={shortName}
-                    price={current}
-                    quantity={count}
-                    deal={deal}
-                  />
-                </div>
-              </div>
-              <CartDeal />
-            </div>
+            <ProductCart
+              twoFor={twoFor}
+              tenFor={tenFor}
+              percentOff={percentOff}
+              current={current}
+              packaging={packaging}
+              calloutText={calloutText}
+              id={id}
+              name={name}
+              brand={brand}
+              shortName={shortName}
+            />
           </div>
         </section>
         <ProductInfo
