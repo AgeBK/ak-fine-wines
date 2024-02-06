@@ -31,7 +31,7 @@
   },
   "reviews": {
     "white": "Very pale straw-yellow in colour. A pungent nose of cut grass and confected lemon peel. The palate is bright out of the gate yet boldens approaching the final turn, with a hint of veteran stable hand, sweetness takes over and remains a lingering presence on the finish.",
-    "red": "Aromas of rich dark currants, nectarine skins, sun-baked blackberries, hints of imported tobacco, low-lying soil, pungent aniseed, smashed minerals and metal. Medium-bodied and saucy but racy acidity stabilises the wine nicely with the robust tannins. Think of ripe cherries, laden with mocha, terracotta, air fryed giblets, pencil shavings and brand name worcestershire sauce.",
+    "red": "Aromas of rich dark currants, nectarine skins, sun-baked blackberries, hints of imported tobacco, low-lying soil, pungent aniseed, smashed minerals and metal. Medium-bodied and saucy but the racy acidity stabilises the wine nicely with the robust tannins. Think of ripe cherries, bin laden with mocha, terracotta, air fryed giblets, pencil shavings and English worcestershire sauce.",
     "sparkling": "Light to mid straw-yellow colour, with spice and bath bubble bubble aromas showing some adolecent development and almost muscaty touches, some traces of burnt raison toast, while the palate is firmly tart and there's some cardboard-like, possibly oxidative development too. A marvel marriage of a warm year with hints of a westerly breeze."
   },
   "priceArr": [
@@ -45,20 +45,7 @@
     { "value": "4", "text": "4 star rating" },
     { "value": "5", "text": "5 star rating" }
   ],
+  "navArr": ["White", "Red", "Sparkling"],
   "productSource": "<i>Source *Wine Monthly: August 2023 </i> - {variety} blends from   South Eastern Austraila",
-  "filtersArr": ["price", "rating", "variety"],
-  "navObj": {
-    "White": [
-      "https://cdn-icons-png.flaticon.com/128/11626/11626148.png",
-      "https://cdn-icons-gif.flaticon.com/11626/11626148.gif"
-    ],
-    "Red": [
-      "https://cdn-icons-png.flaticon.com/128/11626/11626130.png",
-      "https://cdn-icons-gif.flaticon.com/11626/11626130.gif"
-    ],
-    "Sparkling": [
-      "https://cdn-icons-png.flaticon.com/128/13121/13121461.png",
-      "https://cdn-icons-gif.flaticon.com/13121/13121461.gif"
-    ]
-  }
+  "filtersArr": ["price", "rating", "variety"]
 }
