@@ -51,7 +51,6 @@ function Category() {
       if (Object.keys(filters).length) {
         arr = filterCategoryPageData(arr, filters);
       }
-
       if (sortName) {
         arr = sortCategoryPageData(arr, sortName);
       }
@@ -67,7 +66,12 @@ function Category() {
   const updateFilters = (filter) => setFilters({ ...filters, ...filter });
 
   const removeFilters = (val) => {
-    val === "all" ? setFilters({}) : setFilters({ ...filters, [val]: null });
+    if (val === "all") {
+      setFilters({});
+    } else {
+      delete filters[val];
+      setFilters({ ...filters });
+    }
   };
 
   const updatePaging = ({ page, pageSize }) => {

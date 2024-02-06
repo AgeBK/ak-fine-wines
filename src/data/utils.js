@@ -143,8 +143,8 @@ const financially = (arr, reverseOrder) => {
   return arr;
 };
 
-const salesItems = (arr) => {
-  arr.filter(({ price: { normal, current } }) => normal !== current);
+const saleItemsFirst = (arr) => {
+  arr.sort(({ price: { current, normal } }) => (current < normal ? -1 : 1));
   return arr;
 };
 
@@ -164,7 +164,7 @@ const sortCategoryPageData = (arr, value) => {
       break;
     case "sale":
     case "relevance":
-      arr = salesItems(arr);
+      arr = saleItemsFirst(arr);
       break;
     default:
       break;
