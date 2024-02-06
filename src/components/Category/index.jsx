@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, useRef } from "react";
 import { useGetWinesQuery } from "../../services/API";
 import { useParams, Link } from "react-router-dom";
 import useMobileView from "../../hooks/useMobileView";
@@ -7,7 +7,7 @@ import {
   sortCategoryPageData,
   filterCategoryPageData,
 } from "../../data/utils";
-import { MAX_MOBILE_WIDTH } from "../../data/appData.json";
+import { MAX_MOBILE_WIDTH, initialPaging } from "../../data/appData.json";
 import ProductList from "../ProductList";
 import Sort from "../Sort";
 import Pills from "../Pills";
@@ -20,33 +20,38 @@ import styles from "./Category.module.css";
 
 function Category() {
   const { data } = useGetWinesQuery();
-  const [pageData, setPageData] = useState([]);
   const [sortName, setSortName] = useState("");
   const [filters, setFilters] = useState({});
-  const [paging, setPaging] = useState({ page: 1, pageSize: 40 });
-  const [customHeader, setCustomHeader] = useState("");
+  const [paging, setPaging] = useState(initialPaging);
   const [mobileView, setMobileView] = useState({});
   const { category: urlCategory, variety: urlVariety } = useParams();
   const isMobileView = useMobileView(MAX_MOBILE_WIDTH);
+  const dataRef = useRef([]);
+  const headerRef = useRef("");
 
   useEffect(() => {
     setMobileView({ filters: !isMobileView, items: true });
   }, [isMobileView]);
 
-  useEffect(() => {
+  if (dataRef.current.length === 0) {
     const [arr, header] = categoryPageData(data, urlCategory, urlVariety);
     arr.sort((a, b) => (a.ratings.average > b.ratings.average ? -1 : 1));
+    dataRef.current = arr;
+    headerRef.current = header;
+  }
 
-    setCustomHeader(header);
+  useEffect(() => {
+    // reset page
     setSortName("");
     setFilters({});
-    setPaging({ page: 1, pageSize: 40 });
-    setPageData(arr);
-  }, [urlCategory, urlVariety, data]);
+    setPaging(initialPaging);
+    dataRef.current = [];
+    headerRef.current = "";
+  }, [urlCategory, urlVariety]);
 
   const currentData = useMemo(() => {
     console.log("useMemo");
-    let arr = [...pageData];
+    let arr = [...dataRef.current];
     if (arr.length) {
       if (Object.keys(filters).length) {
         arr = filterCategoryPageData(arr, filters);
@@ -56,9 +61,9 @@ function Category() {
       }
     }
     return arr;
-  }, [filters, pageData, sortName]);
+  }, [filters, sortName]);
 
-  const pagedData = currentData?.slice(
+  const pagedData = dataRef.current?.slice(
     (paging.page - 1) * paging.pageSize,
     paging.page * paging.pageSize
   );
@@ -91,7 +96,7 @@ function Category() {
         <Blurb
           urlCategory={urlCategory}
           urlVariety={urlVariety}
-          customHeader={customHeader}
+          header={headerRef.current}
         />
       </section>
       {isMobileView && (

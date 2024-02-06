@@ -1,9 +1,9 @@
 import Button from "../Button";
-import { filtersArr } from "../../data/appData.json";
+import { pillsArr } from "../../data/appData.json";
 import styles from "./Pills.module.css";
 
 const Pills = ({ filters, removeFilters }) => {
-  const html = filtersArr.reduce(
+  const html = pillsArr.reduce(
     (acc, val) =>
       filters[val]
         ? (acc = [
@@ -15,8 +15,6 @@ const Pills = ({ filters, removeFilters }) => {
         : acc,
     []
   );
-
-  console.log(html);
 
   return (
     <>

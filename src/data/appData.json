@@ -6,6 +6,7 @@
   "THREE_CAROUSEL_ITEMS": 3,
   "TWO_CAROUSEL_ITEMS": 2,
   "ONE_CAROUSEL_ITEM": 1,
+  "initialPaging": { "page": 1, "pageSize": 40 },
   "errorMsg": "Something has gone wrong",
   "blurb": {
     "white": "Feeling like a crisp white wine, but not sure where to start? There are many different white wine styles and labels to pick from in Australia and further abroad. We're sure you'll find your next favourite among our carefully curated selection.",
@@ -47,5 +48,5 @@
   ],
   "navArr": ["White", "Red", "Sparkling"],
   "productSource": "<i>Source *Wine Monthly: August 2023 </i> - {variety} blends from   South Eastern Austraila",
-  "filtersArr": ["price", "rating", "variety"]
+  "pillsArr": ["price", "rating", "variety"]
 }
