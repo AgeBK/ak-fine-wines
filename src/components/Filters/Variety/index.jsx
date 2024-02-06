@@ -21,13 +21,13 @@ function VarietyFilter({ updateFilters, filters, currentData }) {
               <input
                 type="radio"
                 id={variety}
-                name="variety"
+                name="variety"  
                 value={variety}
                 checked={filters.variety === variety}
                 className={styles.radio}
                 onChange={handleChange}
               />
-              <label htmlFor={variety} className={styles.visuallyHiddenTODO}>
+              <label htmlFor={variety}>
                 {variety} <span className={styles.amount}> ({amount})</span>
               </label>
             </li>

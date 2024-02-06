@@ -14,7 +14,6 @@ import ResultsPP from "../ResultsPP";
 import styles from "./Category.module.css";
 import FilterList from "../Filters/FilterList";
 import Button from "../Button";
-// TODO: incorrect URL,what happens http://localhost:5173/Blue ?? zero results
 
 function Category() {
   const { data } = useGetWinesQuery();
@@ -154,7 +153,7 @@ function Category() {
                 <Link to="/" className={styles.link}>
                   Back to homepage
                 </Link>
-              </div> // TODO:
+              </div>
             )}
           </section>
         )}
