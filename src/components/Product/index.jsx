@@ -58,7 +58,7 @@ function Product() {
                 <Img
                   image={`bg/${Math.round(average)}starLge.png`}
                   imageStyle=" "
-                  imageAlt="AK Fine Wines"
+                  imageAlt={`${Math.round(average)} star rating`}
                 />
                 <div className={styles.totalRate}>{total} Reviews</div>
               </>

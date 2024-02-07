@@ -28,6 +28,8 @@ function Carousel({ arr }) {
         current: { offsetWidth },
       } = ref;
 
+      console.log("calculate");
+
       let currentItems = 0;
       if (offsetWidth >= 1200) {
         currentItems = SIX_CAROUSEL_ITEMS;
