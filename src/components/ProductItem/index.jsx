@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
-import { hyphenate } from "../../data/utils";
-import { checkDeals } from "../../data/utils";
+import { hyphenate, checkDeals } from "../../data/utils";
 import AddToCart from "../AddToCart";
 import Img from "../Image";
 import PriceDrop from "../PriceDrop";
@@ -12,7 +11,7 @@ const ProductItem = ({ props, css }) => {
     id,
     category,
     variety,
-    name,
+    
     shortName,
     brand,
     average,
@@ -25,7 +24,7 @@ const ProductItem = ({ props, css }) => {
     discountCode,
   } = props;
 
-  let deal = checkDeals(twoFor, tenFor, percentOff);
+  const deal = checkDeals(twoFor, tenFor, percentOff);
 
   const onSpecial = current !== normal ? current : null;
 

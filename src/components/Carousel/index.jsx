@@ -12,6 +12,8 @@ import {
 } from "../../data/appData.json";
 import styles from "./Carousel.module.css";
 
+// TODO: added tenfor at bottom, ts picked up it was missing?
+
 function Carousel({ arr }) {
   const [pageIndex, setPageIndex] = useState(0);
   const [items, setItems] = useState(0);
@@ -29,6 +31,7 @@ function Carousel({ arr }) {
       } = ref;
 
       console.log("calculate");
+      console.log(offsetWidth);
 
       let currentItems = 0;
       if (offsetWidth >= 1200) {
@@ -42,6 +45,7 @@ function Carousel({ arr }) {
       } else {
         currentItems = ONE_CAROUSEL_ITEM;
       }
+      console.log(currentItems);
       if (currentItems !== items) setItems(currentItems);
     }
   }, [items]);
@@ -53,9 +57,10 @@ function Carousel({ arr }) {
     return () => window.removeEventListener("resize", calculateItems);
   }, [calculateItems]);
 
+  // TODO: i think this is bad form?
   const CarouselPaging = () => {
     if (items) {
-      let html = [];
+      const html = [];
       for (let i = 0; i < MAX_CAROUSEL_PRODUCTS / items; i++) {
         const id = `CarouselPaging${i}`;
         html.push(
@@ -81,6 +86,7 @@ function Carousel({ arr }) {
           >
             &lt;
           </Button>
+          {console.log(html)}
           {html}
           <Button
             css="pageNumber"
@@ -121,7 +127,7 @@ function Carousel({ arr }) {
               shortName,
               brand,
               ratings: { average },
-              price: { current, normal, twoFor, percentOff },
+              price: { current, normal, twoFor, tenFor, percentOff },
               promotion: { calloutText, discountCode },
             },
             ind
@@ -140,6 +146,7 @@ function Carousel({ arr }) {
                     current,
                     normal,
                     twoFor,
+                    tenFor,
                     percentOff,
                     calloutText,
                     discountCode,

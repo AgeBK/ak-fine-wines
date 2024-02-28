@@ -1,13 +1,10 @@
 import { Link } from "react-router-dom";
 import styles from "./PriceDrop.module.css";
 
-function PriceDrop({ calloutText, onSpecial }) {
-  // console.log(calloutText);
-  // console.log(onSpecial);
-  // console.log("=========");
-
+function PriceDrop({ calloutText }) {
+  // TODO: numToWord
   const numToWord = { 2: "two", 6: "six", 10: "ten" };
-  let arr = [];
+  let arr: string[] = [];
   let amount = "";
   let price = 0;
   let isTenPercent = false;

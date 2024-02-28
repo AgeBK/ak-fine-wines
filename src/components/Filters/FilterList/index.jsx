@@ -3,13 +3,7 @@ import RatingFilter from "../Rating";
 import VarietyFilter from "../Variety";
 import styles from "./FilterList.module.css";
 
-const FilterList = ({
-  currentData,
-  filters,
-  setFilters,
-  urlVariety,
-  updateFilters,
-}) => {
+const FilterList = ({ currentData, filters, urlVariety, updateFilters }) => {
   console.log("FilterList");
 
   const filterArr = [
@@ -19,7 +13,6 @@ const FilterList = ({
       key="PriceFilter"
     />,
     <RatingFilter
-      setFilters={setFilters}
       filters={filters}
       updateFilters={updateFilters}
       key="RatingFilter"

@@ -4,7 +4,7 @@ function VarietyFilter({ updateFilters, filters, currentData }) {
   const handleChange = ({ target: { value } }) =>
     updateFilters({ variety: value });
 
-  let varietys = currentData.reduce((acc, { variety }) => {
+  const varietys = currentData.reduce((acc, { variety }) => {
     acc[variety] = (acc[variety] || 0) + 1;
     return acc;
   }, {});
@@ -21,7 +21,7 @@ function VarietyFilter({ updateFilters, filters, currentData }) {
               <input
                 type="radio"
                 id={variety}
-                name="variety"  
+                name="variety"
                 value={variety}
                 checked={filters.variety === variety}
                 className={styles.radio}

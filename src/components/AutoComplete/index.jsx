@@ -20,14 +20,14 @@ function AutoComplete() {
 
   const navigate = useNavigate();
 
-  let data = all.map(({ name, id, category, variety, packaging }) => {
+  const data = all.map(({ name, id, category, variety, packaging }) => {
     return { name, id, category, variety, packaging };
   });
 
   const handleClick = () => setOverlay(true);
 
   const handleBlur = () => setOverlay(false);
-
+  // TODO: what is handleChange doing
   const handleChange = (e, val) => {
     if (val) {
       const { category, variety, id } = val;
@@ -38,6 +38,7 @@ function AutoComplete() {
   };
 
   const handleKeyDown = (e) => {
+    console.log(e.key, e.target.value);
     const {
       key,
       target: { value },

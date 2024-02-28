@@ -20,6 +20,8 @@ function CartOpen({
   const dispatch = useDispatch();
   const cart = useSelector(selectCart);
 
+  console.log(cart);
+
   const CartPrice = ({ price, dealPrice, qty }) => {
     const cartPrice = (dealPrice || price) * qty;
     return <div className={styles.price}>${cartPrice.toFixed(2)}</div>;

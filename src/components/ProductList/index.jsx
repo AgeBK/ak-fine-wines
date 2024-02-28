@@ -1,8 +1,7 @@
 import ProductItem from "../ProductItem";
-import Error from "../Error";
 import styles from "./ProductList.module.css";
 
-const ProductList = ({ arr, css }) => (
+const ProductList = ({ arr }) => (
   <div className={styles.products}>
     {arr?.map(
       ({
@@ -41,8 +40,5 @@ const ProductList = ({ arr, css }) => (
     )}
   </div>
 );
-// : (
-//   <Error message="Your search returned no results or an error has occured" />
-// );
 
 export default ProductList;

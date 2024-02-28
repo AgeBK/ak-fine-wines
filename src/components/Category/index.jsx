@@ -114,7 +114,6 @@ function Category() {
           <FilterList
             currentData={currentData}
             filters={filters}
-            setFilters={setFilters}
             urlVariety={urlVariety}
             updateFilters={updateFilters}
           />

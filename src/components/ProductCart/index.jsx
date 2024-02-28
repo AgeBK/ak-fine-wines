@@ -25,7 +25,7 @@ const ProductCart = ({
   const handleCount = ({ target: { textContent } }) =>
     textContent === "+" ? setCount(count + 1) : setCount(count - 1);
 
-  let deal = checkDeals(twoFor, tenFor, percentOff);
+  const deal = checkDeals(twoFor, tenFor, percentOff);
 
   return (
     <div className={styles.cartTableCont}>

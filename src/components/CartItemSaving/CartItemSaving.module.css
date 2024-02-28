@@ -1,0 +1,23 @@
+.savings {
+  background-color: #04a004;
+  color: #fff;
+  text-align: center;
+  padding: 5px;
+  font-weight: bold;
+  position: relative;
+  margin-bottom: 5px;
+}
+
+.triangle {
+  content: "";
+  display: block;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid #04a004;
+  left: 50%;
+  margin-left: -15px;
+  position: absolute;
+  top: -9px;
+}

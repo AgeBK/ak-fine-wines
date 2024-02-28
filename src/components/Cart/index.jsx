@@ -14,7 +14,7 @@ function Cart() {
   const cart = useSelector(selectCart);
   const [ref, isOpen, handleClose] = useCartState();
 
-  // console.log(cart);
+  console.log([{ ...cart }]);
 
   const cartDetails = Object.values(cart).reduce(
     (acc, { qty, price, dealPrice }) => {
