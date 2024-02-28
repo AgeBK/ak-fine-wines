@@ -5,7 +5,7 @@
 
 .normal {
   position: relative;
-  color: gray;
+  color: rgb(95, 93, 93);
   font-size: 1.2rem;
   display: inline-block;
   margin-right: 20px;
@@ -26,8 +26,10 @@
 
 .product .current {
   font-size: 2.5rem;
+  border: 1px solid red;
 }
 
 .product .normal {
   font-size: 2rem;
+  border: 1px solid red;
 }

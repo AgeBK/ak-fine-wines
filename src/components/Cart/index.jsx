@@ -1,25 +1,20 @@
 import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { increment, selectCart } from "../../slices/cartSlice";
+import { useSelector } from "react-redux";
+import { selectCart } from "../../slices/cartSlice";
 import useCartState from "../../hooks/useCartState";
 import CartOpen from "../CartOpen";
 import CartClosed from "../CartClosed";
 import styles from "./Cart.module.css";
 
-function Cart() {
+const Cart = () => {
   const [discountCode, setDiscountCode] = useState("");
-
-  console.log("Cart");
-  // const [isOpen, setIsOpen] = useState(false);
   const cart = useSelector(selectCart);
   const [ref, isOpen, handleClose] = useCartState();
 
-  console.log([{ ...cart }]);
-
-  const cartDetails = Object.values(cart).reduce(
-    (acc, { qty, price, dealPrice }) => {
-      acc.totalQty += qty;
-      acc.totalPrice += (dealPrice || price) * qty;
+  const CartQtyPrice = Object.values(cart).reduce(
+    (acc, { quantity, price, dealPrice }) => {
+      acc.totalQty += quantity;
+      acc.totalPrice += (dealPrice || price) * quantity;
       return acc;
     },
     {
@@ -28,8 +23,7 @@ function Cart() {
     }
   );
 
-  const { totalPrice, totalQty } = cartDetails;
-  console.log(totalPrice, totalQty);
+  const { totalPrice, totalQty } = CartQtyPrice;
 
   return (
     <div className={styles.cartOuterContainer} ref={ref}>
@@ -48,6 +42,6 @@ function Cart() {
       </div>
     </div>
   );
-}
+};
 
 export default Cart;

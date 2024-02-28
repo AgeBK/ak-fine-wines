@@ -3,10 +3,12 @@ import { navArr } from "../../data/appData.json";
 import styles from "./Nav.module.css";
 
 function Nav() {
+  const arr = navArr;
+
   return (
     <nav>
       <ul className={styles.nav}>
-        {navArr.map((val) => {
+        {arr.map((val) => {
           const valLC = val.toLowerCase();
           return (
             <li className={styles.navItem} key={val}>

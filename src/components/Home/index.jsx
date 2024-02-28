@@ -1,72 +1,74 @@
 import { homePageCarouselProducts } from "../../data/utils";
-import Carousel from "../Carousel";
+import { useGetWinesQuery } from "../../services/API";
+import { HOME_10_100_IMG, campaingMini } from "../../data/appData.json";
+import usePageWidth from "../../hooks/usePageWidth";
 import { Link } from "react-router-dom";
+import Carousel from "../Carousel";
 import Img from "../Image";
 import styles from "./Home.module.css";
-import { useGetWinesQuery } from "../../services/API";
 
 function Home() {
   const { data } = useGetWinesQuery();
+  const isSmallScreen = usePageWidth(HOME_10_100_IMG);
 
-  return (
-    <article>
-      <h2 className={styles.slogan}>
-        All of your fine wine needs at the best prices guaranteed!!
-      </h2>
-      <Link to="/ten-for-100">
-        <Img
-          image={"promotion/tenFor100.jpg"}
-          imageStyle="tenFor100"
-          imageAlt="AK Fine Wines"
-        />
-        <Img
-          image={"promotion/tenFor100Sml1.jpg"}
-          imageStyle="tenFor100sml"
-          imageAlt="AK Fine Wines"
-        />
-      </Link>
-      <h2 className={styles.topOffers}>Top offers of the week</h2>
-      <Carousel arr={homePageCarouselProducts(data)} />
-      <div className={styles.campaign}>
-        <a href="/ten-percent-off">
-          <h2 className={styles.tenOff}>10% OFF</h2>
-          <h2 className={styles.selected}>Huge range of selected wines</h2>
-          <h2 className={styles.shopNow}>SHOP NOW</h2>
-          <div className={styles.finePrint}>(Ends Sunday, 5pm)</div>
-        </a>
-      </div>
-      <div className={styles.campaignMini}>
-        <div className={styles.offer}>
-          <Link to="/two-for-deals">
-            <h3 className={styles.hdr}>2 for Deals</h3>
-            <div className={styles.twoForBlurb}>2 great bottles</div>
-            <div className={styles.twoForBlurb}>1 amazing price</div>
-            <Img
-              image={"promotion/twoBotBlk1.jpg"}
-              imageStyle="campaignMini"
-              imageAlt="two for deals"
-            />
-            <h3 className={styles.shopNow}>SHOP NOW</h3>
+  if (data) {
+    return (
+      <article>
+        <h2 className={styles.slogan}>
+          All of your fine wine needs at the best prices guaranteed!!
+        </h2>
+        <Link to="/ten-for-100">
+          <Img
+            image={
+              isSmallScreen
+                ? "promotion/tenFor100Sml1.jpg"
+                : "promotion/tenFor100.jpg"
+            }
+            imageStyle="tenFor100"
+            imageAlt="10 for 100"
+          />
+        </Link>
+        <h2 className={styles.topOffers}>Top offers of the week</h2>
+        <Carousel arr={homePageCarouselProducts(data)} />
+        <div className={styles.campaign}>
+          <Link to="/ten-percent-off">
+            <h2 className={styles.tenOff}>10% OFF</h2>
+            <h2 className={styles.selected}>Huge range of selected wines</h2>
+            <h2 className={styles.shopNow}>SHOP NOW</h2>
+            <div className={styles.finePrint}>(Ends Sunday, 5pm)</div>
           </Link>
         </div>
-        <div className={styles.offer}>
-          <Link to="/10-and-less">
-            <h3 className={styles.hdr}>Get Down</h3>
-            <div className={styles.twoForBlurb}>$10 and less</div>
-            <div className={styles.twoForBlurb}>
-              Don&apos;t miss out on these
-            </div>
-            <Img
-              image={"promotion/multiBot.jpg"}
-              imageStyle="campaignMini"
-              imageAlt="AK Fine Wines"
-            />
-            <h3 className={styles.shopNow}>SHOP NOW</h3>
+        <div className={styles.campaignMini}>
+          {campaingMini.map(
+            ({ id, link, hdr, blurb1, blurb2, imgSrc, imgAlt }) => (
+              <div className={styles.offer} key={id}>
+                <Link to={link}>
+                  <h3 className={styles.hdr}>{hdr}</h3>
+                  <div className={styles.twoForBlurb}>{blurb1}</div>
+                  <div className={styles.twoForBlurb}>{blurb2}</div>
+                  <Img
+                    image={imgSrc}
+                    imageStyle="campaignMini"
+                    imageAlt={imgAlt}
+                  />
+                  <h3 className={styles.shopNow}>SHOP NOW</h3>
+                </Link>
+              </div>
+            )
+          )}
+        </div>
+        <div className={styles.campaign}>
+          <Link to="/price-drop">
+            <h2 className={styles.tenOff}>WEEKLY SPECIALS</h2>
+            <h2 className={styles.selected}>100s of discounted wines</h2>
+            <h2 className={styles.shopNow}>SHOP NOW</h2>
+            <div className={styles.finePrint}>(Ends Sunday, 5pm)</div>
           </Link>
         </div>
-      </div>
-    </article>
-  );
+      </article>
+    );
+  }
+  return null;
 }
 
 export default Home;

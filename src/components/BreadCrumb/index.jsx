@@ -2,14 +2,14 @@ import { Link } from "react-router-dom";
 import Img from "../Image";
 import styles from "./BreadCrumb.module.css";
 
-const BreadCrumb = ({ urlCategory, urlVariety, category, variety }) => {
-  const Chevron = () => (
-    <span className={styles.chevronCont}>
-      <span className={styles.chevron}></span>
-      <span className={styles.chevron}></span>
-    </span>
-  );
+const Chevron = () => (
+  <span className={styles.chevronCont}>
+    <span className={styles.chevron}></span>
+    <span className={styles.chevron}></span>
+  </span>
+);
 
+const BreadCrumb = ({ urlCategory, urlVariety, category, variety }) => {
   return (
     <div className={styles.breadCrumb}>
       <Link to="/" className={styles.category}>

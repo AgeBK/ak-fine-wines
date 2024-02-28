@@ -1,0 +1,20 @@
+.carouselPaging {
+  text-align: center;
+}
+
+.carouselPaging input[type="radio"] {
+  height: 18px;
+  width: 18px;
+  cursor: pointer;
+}
+
+.carouselPaging label {
+  position: absolute;
+  clip: rect(1px 1px 1px 1px);
+  border: 0;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+}
+
+

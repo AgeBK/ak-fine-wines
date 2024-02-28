@@ -1,18 +1,13 @@
 import Img from "../Image";
 import styles from "./CartClosed.module.css";
 
-function CartClosed({ totalPrice, totalQty }) {
+
+const CartClosed = ({ totalPrice, totalQty }) => {
   const notEmpty = totalQty > 0 && totalPrice > 0;
   const cartImage = notEmpty ? "cartNotEmpty" : "cartEmpty";
 
   return (
-    <div
-      className={styles.cartClosedCont}
-      // onClick={notEmpty ? handleIsOpen : null}
-      // onKeyDown={notEmpty ? handleKeyDown : null}
-      // role="button"
-      // tabIndex={0}
-    >
+    <div className={styles.cartClosedCont}>
       <span
         className={`${styles.cartClosedQty} ${
           totalQty ? styles.cartClosedContQty : ""
@@ -26,6 +21,6 @@ function CartClosed({ totalPrice, totalQty }) {
       )}
     </div>
   );
-}
+};
 
 export default CartClosed;

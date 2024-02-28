@@ -1,0 +1,20 @@
+.container {
+  font-size: 1.1rem;
+}
+
+.container > * {
+  margin: 0 5px;
+}
+
+.container button {
+  margin: 0;
+}
+
+.pageCurrent {
+  border: 1px solid #555;
+  padding: 10px;
+}
+
+.pageNumCont {
+  margin: 0 20px;
+}

@@ -1,0 +1,52 @@
+.productCont {
+  display: flex;
+  margin-top: 50px;
+}
+
+.productImg {
+  flex: 0 0 25%;
+  text-align: right;
+  margin: 5px 80px 0 0;
+  position: relative;
+}
+
+.productMeta {
+  position: relative;
+  margin-right: 10%;
+}
+
+.brand {
+  font-size: 4rem;
+  line-height: 4rem;
+  margin-bottom: 20px;
+}
+
+.shortName {
+  font-size: 2rem;
+  line-height: 2rem;
+  margin-bottom: 20px;
+}
+
+@media screen and (max-width: 600px) {
+  .productImg {
+    margin: 0 20px;
+    text-align: left;
+    flex: 0;
+  }
+
+  .brand {
+    font-size: 3rem;
+    line-height: 3rem;
+    margin-bottom: 15px;
+  }
+
+  .shortName {
+    font-size: 1.5rem;
+    line-height: 1.5rem;
+    margin-bottom: 10px;
+  }
+
+  .productMeta {
+    margin-right: 20px;
+  }
+}

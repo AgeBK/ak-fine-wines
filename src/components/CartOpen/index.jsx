@@ -1,73 +1,34 @@
-import { useSelector, useDispatch } from "react-redux";
-import {
-  increment,
-  decrement,
-  selectCart,
-  applyDiscountCode,
-} from "../../slices/cartSlice";
-import Img from "../Image";
-// import Price from "../Price";
-import Button from "../Button";
-import styles from "./CartOpen.module.css";
+import { useState } from "react"
+import { useDispatch } from "react-redux"
+import { applyDiscountCode } from "../../slices/cartSlice"
+import CartItem from "../CartItem"
+import Button from "../Button"
+import styles from "./CartOpen.module.css"
 
-function CartOpen({
+const CartOpen = ({
   totalPrice,
   totalQty,
   handleClose,
   discountCode,
-  setDiscountCode,
-}) {
-  const dispatch = useDispatch();
-  const cart = useSelector(selectCart);
+  setDiscountCode
+}) => {
+  const dispatch = useDispatch()
+  const [codeEntered, setCodeEntered] = useState(false)
 
-  console.log(cart);
+  const handleKeyDown = ({ key }) => {
+    if (key === "Enter") {
+      dispatchDiscountCode()
+    } else if (codeEntered === true) {
+      setCodeEntered(false)
+    }
+  }
 
-  const CartPrice = ({ price, dealPrice, qty }) => {
-    const cartPrice = (dealPrice || price) * qty;
-    return <div className={styles.price}>${cartPrice.toFixed(2)}</div>;
-  };
+  const handleChange = ({ target: { value } }) => setDiscountCode(value)
 
-  const ItemSavings = ({ price, dealPrice, qty }) =>
-    dealPrice ? (
-      <div className={styles.savings}>
-        <span className={styles.triangle}></span>
-        You save: ${((price - dealPrice) * qty).toFixed(2)}
-      </div>
-    ) : null;
-
-  const handleKeyDown = ({ key }) => key === "Enter" && dispatchDiscountCode();
-
-  const handleChange = ({ target: { value } }) => setDiscountCode(value);
-
-  const dispatchDiscountCode = () => dispatch(applyDiscountCode(discountCode));
-
-  const removeFromCart = (id, all) => dispatch(decrement({ id, all }));
-
-  const addToCart = ({
-    id,
-    name,
-    brand,
-    shortName,
-    price,
-    quantity = 1,
-    deal,
-    dealPrice,
-    discountCode,
-  }) => {
-    dispatch(
-      increment({
-        id,
-        name,
-        brand,
-        shortName,
-        price,
-        quantity,
-        deal,
-        dealPrice,
-        discountCode,
-      })
-    );
-  };
+  const dispatchDiscountCode = () => {
+    setCodeEntered(true)
+    dispatch(applyDiscountCode(discountCode))
+  }
 
   return (
     <section className={styles.cart}>
@@ -78,76 +39,7 @@ function CartOpen({
           X
         </Button>
       </div>
-      <ul className={styles.list}>
-        {Object.entries(cart).map(
-          ([id, { name, brand, shortName, qty, price, deal, dealPrice }]) => (
-            <li className={styles.itemCont} key={id} value={name}>
-              <div className={styles.item}>
-                <div className={styles.cartImg}>
-                  <Img
-                    image={`wine/${id}.jpg`}
-                    imageStyle="cartOpen"
-                    imageAlt={name}
-                  />
-                </div>
-                <div className={styles.cartProd}>
-                  <h3 className={styles.hdr}>{brand}</h3>
-                  <div className={styles.shortName}>{shortName}</div>
-                  <div className={styles.buttons}>
-                    <span className={styles.oneItem}>
-                      <Button
-                        onClick={() => {
-                          removeFromCart(id, false);
-                        }}
-                        css="cartMinus"
-                      ></Button>
-                      <span className={styles.amount}>{qty}</span>
-                      <Button
-                        onClick={() => {
-                          addToCart({
-                            id,
-                            name,
-                            brand,
-                            shortName,
-                            price,
-                            deal,
-                            dealPrice,
-                            discountCode,
-                          });
-                        }}
-                        css="cartAdd"
-                      ></Button>
-                    </span>
-                  </div>
-                </div>
-                <div className={styles.details}>
-                  <Button
-                    onClick={() => {
-                      removeFromCart(id, true);
-                    }}
-                    css="noStyle"
-                  >
-                    <Img
-                      image={`btn/remove.png`}
-                      imageStyle="cartOpenBtn"
-                      imageAlt={name}
-                    />
-                  </Button>
-                  <CartPrice qty={qty} price={price} dealPrice={dealPrice} />
-                </div>
-              </div>
-              <div className={styles.itemSavings}>
-                <ItemSavings
-                  price={price}
-                  // deal={deal}
-                  dealPrice={dealPrice}
-                  qty={qty}
-                />
-              </div>
-            </li>
-          )
-        )}
-      </ul>
+      <CartItem />
       <div className={styles.discountCode}>
         <input
           className={styles.inputCode}
@@ -161,7 +53,7 @@ function CartOpen({
           Apply
         </Button>
       </div>
-
+      {codeEntered && <div className={styles.codeEntered}>Code entered:</div>}
       <div className={styles.total}>
         <span>
           Total Items: <b>{totalQty}</b>
@@ -171,7 +63,7 @@ function CartOpen({
         </span>
       </div>
     </section>
-  );
+  )
 }
 
-export default CartOpen;
+export default CartOpen

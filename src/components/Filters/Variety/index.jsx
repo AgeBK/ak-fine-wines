@@ -1,6 +1,11 @@
 import styles from "./VarietyFilter.module.css";
 
-function VarietyFilter({ updateFilters, filters, currentData }) {
+
+const VarietyFilter = ({
+  updateFilters,
+  filters,
+  currentData,
+}) => {
   const handleChange = ({ target: { value } }) =>
     updateFilters({ variety: value });
 
@@ -15,7 +20,7 @@ function VarietyFilter({ updateFilters, filters, currentData }) {
     <>
       <h3 className={styles.hdr}>Variety:</h3>
       {sortedArr.length > 0 ? (
-        <ul className={styles.list}>
+        <ul>
           {sortedArr.map(([variety, amount]) => (
             <li key={variety}>
               <input
@@ -38,6 +43,6 @@ function VarietyFilter({ updateFilters, filters, currentData }) {
       )}
     </>
   );
-}
+};
 
 export default VarietyFilter;

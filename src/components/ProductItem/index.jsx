@@ -11,7 +11,7 @@ const ProductItem = ({ props, css }) => {
     id,
     category,
     variety,
-    
+    name,
     shortName,
     brand,
     average,
@@ -25,13 +25,13 @@ const ProductItem = ({ props, css }) => {
   } = props;
 
   const deal = checkDeals(twoFor, tenFor, percentOff);
-
   const onSpecial = current !== normal ? current : null;
+  const avg = Math.round(average);
 
   return (
     <div className={`${styles.product} ${css ? styles[css] : ""}`} key={id}>
       {calloutText || onSpecial ? (
-        <PriceDrop calloutText={calloutText} onSpecial={onSpecial} />
+        <PriceDrop calloutText={calloutText} />
       ) : null}
       <Link
         to={`/${category.toLowerCase()}/${hyphenate(
@@ -42,16 +42,16 @@ const ProductItem = ({ props, css }) => {
         <Img
           image={`wine/${id}.jpg`}
           imageStyle="campaignMini"
-          imageAlt="AK Fine Wines"
+          imageAlt={name}
         />
         <div className={styles.productMeta}>
           <h2 className={styles.brand}>{brand}</h2>
           <h3 className={styles.shortName}>{shortName}</h3>
-          {average && Math.round(average) > 2 ? (
+          {avg && avg > 2 ? (
             <Img
-              image={`bg/${Math.round(average)}star.jpg`}
+              image={`bg/${avg}star.jpg`}
               imageStyle="block"
-              imageAlt="AK Fine Wines"
+              imageAlt={`${avg} star`}
             />
           ) : null}
         </div>

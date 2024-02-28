@@ -47,12 +47,12 @@
   margin-left: 30px;
 }
 
-.mobileView > div {
+.pageWidth > div {
   margin-top: 10px;
 }
 
 @media screen and (max-width: 650px) {
-  .mobileView {
+  .pageWidth {
     position: absolute;
     top: 0;
     left: 0;

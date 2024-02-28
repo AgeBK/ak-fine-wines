@@ -1,17 +1,18 @@
 {
-  "MAX_MOBILE_WIDTH": 650,
+  "MAX_SMALLSCREEN": 650,
+  "HOME_10_100_IMG": 500,
   "MAX_CAROUSEL_PRODUCTS": 12,
   "SIX_CAROUSEL_ITEMS": 6,
   "FOUR_CAROUSEL_ITEMS": 4,
   "THREE_CAROUSEL_ITEMS": 3,
   "TWO_CAROUSEL_ITEMS": 2,
   "ONE_CAROUSEL_ITEM": 1,
-  "pagingSettings": { "page": 1, "pageSize": 40 },
   "errorMsg": "Something has gone wrong",
+  "imgPath": "/src/assets/img/",
   "blurb": {
     "white": "Feeling like a crisp white wine, but not sure where to start? There are many different white wine styles and labels to pick from in Australia and further abroad. We're sure you'll find your next favourite among our carefully curated selection.",
-    "red": "Traditional winemaking techniques and an eye to modern styles allow us to create wines that are synonymous with the regions they are from. Rich, honest wines that showcase the regions in their most natural light. Rich red in colour with purple hues, this wine displays aromas of blackberries and plums with hints of pepper and spice. ",
-    "sparkling": "Sparkling wine is the wine style of celebrations; bubbly, fruity and always delicious. It should always be at hand for that sudden get together with friends or family. Whether it be your first sparkling wine or in search of a new favourite, we have that perfect bottle for you.",
+    "red": "Traditional winemaking techniques and an eye to modern styles allow us to create wines that are synonymous with the regions they are from. Rich, honest wines that showcase the regions in their most natural light. Rich red in colour with purple hues. ",
+    "sparkling": "Sparkling wine is the wine style of celebrations; bubbly, fruity and always delicious. It should always be at hand for that sudden get together with friends or family. Whether it be your first sparkling wine or in search of a new favourite, we have that perfect bottle.",
     "port": "Rich, velvet texture with intense cassis, blackberry, blueberry, dark chocolate, and smoky oak flavours supported by soft, silken tannins that contribute toward the wine's surprisingly lengthy finish. Very classy port with some evidence of age",
     "shiraz": "Known as Australia's most popular red, the Shiraz is full bodied with flavours of dark berries on the palate. We stock many, but the St Huberts and Jacob's Creek are our best sellers and a great choice for a dinner party. Match it with grilled meats such as spare ribs.",
     "cabernet-sauvignon": "The aroma of Cabernet Sauvignon makes it one of the most popular red wines. Our classic range of Cabernet Sauvignon is produced with quality dark grapes, creating a rich and intense aroma and its well-rounded structure attracts the palate with a fresh and juicy taste of berries and tannins. Our range of Cabernet Sauvignon is sourced from Coonawarra, Barossa Valley, Margaret River and more.",
@@ -42,11 +43,40 @@
     { "text": "$30 plus", "value": "30-10000" }
   ],
   "ratingArr": [
-    { "value": "3", "text": "3 star rating" },
-    { "value": "4", "text": "4 star rating" },
-    { "value": "5", "text": "5 star rating" }
+    { "text": "3 star rating", "value": "3" },
+    { "text": "4 star rating", "value": "4" },
+    { "text": "5 star rating", "value": "5" }
+  ],
+  "pagingSettings": { "page": 1, "pageSize": 40 },
+  "numberToWord": {
+    "2": "two",
+    "6": "six",
+    "10": "ten"
+  },
+  "campaingMini": [
+    {
+      "id" :1,
+      "link": "/two-for-deals",
+      "hdr": "2 for Deals",
+      "blurb1": "2 great bottles",
+      "blurb2": "1 amazing price",
+      "imgSrc": "promotion/twoBotBlk1.jpg",
+      "imgAlt": "Two for Deals"
+    },
+    {
+      "id" :2,
+      "link": "/10-and-less",
+      "hdr": "Get Down",
+      "blurb1": "$10 and less",
+      "blurb2": "Don't miss out on these",
+      "imgSrc": "promotion/multiBot.jpg",
+      "imgAlt": "$10 and Less"
+    }
   ],
   "navArr": ["White", "Red", "Sparkling"],
-  "productSource": "<i>Source *Wine Monthly: August 2023 </i> - {variety} blends from   South Eastern Austraila",
-  "pillsArr": ["price", "rating", "variety"]
+  "productSource": "<i>Source *Wine Monthly: August 2023 </i> - [variety] blends from   South Eastern Austraila",
+  "pillsArr": ["price", "rating", "variety"],
+  "sortNameArr": ["Relevance", "A-Z", "Z-A", "$", "$$$", "Sale"],
+  "paymentArr": ["amex", "applePay", "mc", "paypal", "visa", "zip", "afterPay"],
+  "pageSizes": [20, 40, 60, 80]
 }

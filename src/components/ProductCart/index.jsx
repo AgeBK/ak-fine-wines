@@ -6,24 +6,28 @@ import { checkDeals } from "../../data/utils";
 import styles from "./ProductCart.module.css";
 
 const ProductCart = ({
+  id,
+  name,
+  brand,
+  shortName,
   twoFor,
   tenFor,
   percentOff,
   current,
   packaging,
   calloutText,
-  id,
-  name,
-  brand,
-  shortName,
+  discountCode,
 }) => {
   const [count, setCount] = useState(1);
 
-  const CartDeal = () =>
-    twoFor ? <div className={styles.cartTwoFor}>{calloutText}</div> : null;
-
-  const handleCount = ({ target: { textContent } }) =>
-    textContent === "+" ? setCount(count + 1) : setCount(count - 1);
+  const handleCount = (e) => {
+    const { textContent } = e.currentTarget;
+    if (textContent === "+") {
+      setCount(count + 1);
+    } else {
+      setCount(count - 1);
+    }
+  };
 
   const deal = checkDeals(twoFor, tenFor, percentOff);
 
@@ -36,7 +40,11 @@ const ProductCart = ({
           </div>
           <div className={styles.packImg}>
             <Img
-              image={`icons/wineSil.png`}
+              image={
+                packaging === "Bottle"
+                  ? `icons/wineSil.png`
+                  : `icons/barrelSil.png`
+              }
               imageStyle="packaging"
               imageAlt={packaging}
             />
@@ -61,10 +69,13 @@ const ProductCart = ({
             price={current}
             quantity={count}
             deal={deal}
+            discountCode={discountCode}
           />
         </div>
       </div>
-      <CartDeal />
+      {twoFor || tenFor || percentOff ? (
+        <div className={styles.cartTwoFor}>{calloutText}</div>
+      ) : null}
     </div>
   );
 };

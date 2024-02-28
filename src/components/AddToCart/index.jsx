@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { increment } from "../../slices/cartSlice";
 import Button from "../Button";
 
-function AddToCart({
+const AddToCart = ({
   id,
   name,
   brand,
@@ -11,9 +11,10 @@ function AddToCart({
   quantity,
   deal,
   discountCode,
-}) {
+}) => {
   const dispatch = useDispatch();
-  const handleClick = () =>
+
+  const handleClick = () => {
     dispatch(
       increment({
         id,
@@ -26,11 +27,13 @@ function AddToCart({
         discountCode,
       })
     );
+  };
+
   return (
     <Button css="cart" onClick={handleClick}>
       Buy
     </Button>
   );
-}
+};
 
 export default AddToCart;

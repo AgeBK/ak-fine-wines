@@ -8,7 +8,7 @@
 
 .chevron:after {
   content: "\203A";
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: bold;
   color: #d3d3d3;
 }

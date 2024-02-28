@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
-import { apiSlice } from "../src/services/API.js";
-import cartReducer from "../src/slices/cartSlice.js";
+import { apiSlice } from "./services/API.js";
+import cartReducer from "./slices/cartSlice.js";
 
 export const store = configureStore({
   reducer: {
@@ -9,7 +9,10 @@ export const store = configureStore({
     cart: cartReducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(apiSlice.middleware),
+    getDefaultMiddleware({
+      immutableCheck: false,
+      serializableCheck: false,
+    }).concat(apiSlice.middleware),
 });
 
 setupListeners(store.dispatch);

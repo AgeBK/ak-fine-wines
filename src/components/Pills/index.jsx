@@ -3,7 +3,8 @@ import { pillsArr } from "../../data/appData.json";
 import styles from "./Pills.module.css";
 
 const Pills = ({ filters, removeFilters }) => {
-  const html = pillsArr.reduce(
+  const arr = pillsArr;
+  const html = arr.reduce(
     (acc, val) =>
       filters[val]
         ? (acc = [

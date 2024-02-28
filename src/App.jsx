@@ -11,10 +11,10 @@ function App() {
       <MainContainer>
         <ScrollToTop />
         <Routes>
-          <Route exact path="/" element={<Home />} />
-          <Route exact path="/:category" element={<Category />} />
-          <Route exact path="/:category/:variety" element={<Category />} />
-          <Route exact path="/:category/:variety/:id" element={<Product />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/:category" element={<Category />} />
+          <Route path="/:category/:variety" element={<Category />} />
+          <Route path="/:category/:variety/:id" element={<Product />} />
         </Routes>
       </MainContainer>
     </Router>

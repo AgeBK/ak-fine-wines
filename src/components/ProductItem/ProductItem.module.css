@@ -9,10 +9,9 @@
   margin: 10px;
   border: 1px solid #d3d3d3;
   padding: 30px 10px;
-  min-width: 200px;
+  min-width: 170px;
   position: relative;
   text-align: center;
-  height: 370px;
 }
 
 .product:hover {
@@ -34,7 +33,7 @@
 
 .itemCont .shortName {
   line-height: 20px;
-  font-size: 18px;
+  font-size: 1.1rem;
   color: #333;
   margin-bottom: 20px;
 }

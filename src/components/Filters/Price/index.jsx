@@ -1,15 +1,16 @@
 import styles from "./PriceFilter.module.css";
 import { priceArr } from "../../../data/appData.json";
 
-function PriceFilter({ updateFilters, filters }) {
+const PriceFilter = ({ updateFilters, filters }) => {
   const handleChange = ({ target: { value } }) =>
     updateFilters({ price: value });
+  const arr = priceArr;
 
   return (
     <>
       <h3 className={styles.hdr}>Price:</h3>
-      <ul className={styles.list}>
-        {priceArr.map(({ text, value }) => (
+      <ul>
+        {arr.map(({ text, value }) => (
           <li key={value}>
             <input
               type="radio"
@@ -28,6 +29,6 @@ function PriceFilter({ updateFilters, filters }) {
       </ul>
     </>
   );
-}
+};
 
 export default PriceFilter;

@@ -1,15 +1,17 @@
 import styles from "./RatingFilter.module.css";
 import { ratingArr } from "../../../data/appData.json";
 
-function RatingFilter({ filters, updateFilters }) {
+const RatingFilter = ({ filters, updateFilters }) => {
   const handleChange = ({ target: { value } }) =>
     updateFilters({ rating: value });
+
+  const arr = ratingArr;
 
   return (
     <>
       <h3 className={styles.hdr}>Rating:</h3>
-      <ul className={styles.list}>
-        {ratingArr.map(({ value, text }) => (
+      <ul>
+        {arr.map(({ text, value }) => (
           <li key={value}>
             <input
               type="radio"
@@ -31,6 +33,6 @@ function RatingFilter({ filters, updateFilters }) {
       </ul>
     </>
   );
-}
+};
 
 export default RatingFilter;

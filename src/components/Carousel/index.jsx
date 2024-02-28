@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import ProductItem from "../ProductItem";
+import CarouselPaging from "../CarouselPaging";
 import Button from "../Button";
 import Img from "../Image";
 import {
-  MAX_CAROUSEL_PRODUCTS,
   SIX_CAROUSEL_ITEMS,
   FOUR_CAROUSEL_ITEMS,
   THREE_CAROUSEL_ITEMS,
@@ -12,26 +12,20 @@ import {
 } from "../../data/appData.json";
 import styles from "./Carousel.module.css";
 
-// TODO: added tenfor at bottom, ts picked up it was missing?
-
-function Carousel({ arr }) {
+const Carousel = ({ arr }) => {
   const [pageIndex, setPageIndex] = useState(0);
   const [items, setItems] = useState(0);
-  const ref = useRef(0);
-  const totalPages = arr.length / items - 1;
+  const ref = useRef(null);
+  const totalPages = arr && arr.length / items - 1;
 
-  const handleClick = (val) => setPageIndex((prev) => prev + val);
-
-  const handleChange = ({ target: { value } }) => setPageIndex(Number(value));
+  const handleClick = (val) =>
+    setPageIndex((prev) => prev + val);
 
   const calculateItems = useCallback(() => {
     if (ref.current && ref.current.offsetWidth) {
       const {
         current: { offsetWidth },
       } = ref;
-
-      console.log("calculate");
-      console.log(offsetWidth);
 
       let currentItems = 0;
       if (offsetWidth >= 1200) {
@@ -40,66 +34,20 @@ function Carousel({ arr }) {
         currentItems = FOUR_CAROUSEL_ITEMS;
       } else if (offsetWidth >= 650) {
         currentItems = THREE_CAROUSEL_ITEMS;
-      } else if (offsetWidth >= 420) {
+      } else if (offsetWidth >= 380) {
         currentItems = TWO_CAROUSEL_ITEMS;
       } else {
         currentItems = ONE_CAROUSEL_ITEM;
       }
-      console.log(currentItems);
       if (currentItems !== items) setItems(currentItems);
     }
   }, [items]);
 
   useEffect(() => {
     calculateItems();
-
     window.addEventListener("resize", calculateItems);
     return () => window.removeEventListener("resize", calculateItems);
   }, [calculateItems]);
-
-  // TODO: i think this is bad form?
-  const CarouselPaging = () => {
-    if (items) {
-      const html = [];
-      for (let i = 0; i < MAX_CAROUSEL_PRODUCTS / items; i++) {
-        const id = `CarouselPaging${i}`;
-        html.push(
-          <span key={id}>
-            <label htmlFor={id}>{`page ${i + 1}`}</label>
-            <input
-              type="radio"
-              name="carouselPaging"
-              id={id}
-              value={i}
-              onChange={handleChange}
-              checked={i === pageIndex}
-            />
-          </span>
-        );
-      }
-      return (
-        <div className={styles.carouselPaging}>
-          <Button
-            css="pageNumber"
-            onClick={() => handleClick(-1)}
-            disabled={pageIndex <= 0}
-          >
-            &lt;
-          </Button>
-          {console.log(html)}
-          {html}
-          <Button
-            css="pageNumber"
-            onClick={() => handleClick(1)}
-            disabled={pageIndex >= totalPages}
-          >
-            &gt;
-          </Button>
-        </div>
-      );
-    }
-    return null;
-  };
 
   return (
     <>
@@ -156,6 +104,7 @@ function Carousel({ arr }) {
                 />
               );
             }
+            return null;
           }
         )}
         <div className={`${styles.arrow} ${styles.arrowRight}`}>
@@ -172,9 +121,14 @@ function Carousel({ arr }) {
           </Button>
         </div>
       </div>
-      <CarouselPaging />
+      <CarouselPaging
+        items={items}
+        pageIndex={pageIndex}
+        setPageIndex={setPageIndex}
+        handleClick={handleClick}
+      />
     </>
   );
-}
+};
 
 export default Carousel;

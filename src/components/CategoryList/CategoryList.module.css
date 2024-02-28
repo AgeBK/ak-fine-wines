@@ -1,0 +1,4 @@
+.categoryList {
+  display: flex;
+  flex-wrap: wrap;
+}

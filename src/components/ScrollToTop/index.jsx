@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import Img from "../Image";
 import Button from "../Button";
 
-function ScrollToTop() {
+const ScrollToTop = () => {
   const { pathname } = useLocation();
   const [isVisible, setIsVisible] = useState(false);
   const scroll = () => window.scrollTo(0, 0);
@@ -38,6 +38,6 @@ function ScrollToTop() {
       )}
     </>
   );
-}
+};
 
 export default ScrollToTop;

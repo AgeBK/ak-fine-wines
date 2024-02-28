@@ -1,13 +1,11 @@
 import AutoComplete from "../AutoComplete";
 import { Link } from "react-router-dom";
 import Nav from "../Nav";
-import Img from "../../components/Image";
+import Img from "../Image";
 import Cart from "../Cart";
 import styles from "./Header.module.css";
 
 const Header = () => {
-  console.log("Header");
-
   return (
     <header className={styles.header}>
       <div className={styles.headerRow}>

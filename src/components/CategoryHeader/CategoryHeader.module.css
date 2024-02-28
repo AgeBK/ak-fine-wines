@@ -1,0 +1,11 @@
+.detailsCont {
+  display: flex;
+  padding: 20px 0;
+  text-align: left;
+}
+
+.results {
+  color: #555;
+  flex-grow: 1;
+  margin-left: 10px;
+}

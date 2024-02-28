@@ -1,0 +1,44 @@
+.itemCont {
+  border-bottom: 1px solid #d3d3d3;
+}
+
+.item {
+  display: flex;
+  padding: 15px;
+}
+
+.cartProd {
+  margin: 0 40px;
+  flex-grow: 1;
+}
+
+.hdr {
+  text-align: center;
+  margin: 0;
+  display: inline-block;
+}
+
+.details {
+  margin-bottom: 10px;
+}
+
+.shortName {
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+}
+
+.oneItem {
+  display: flex;
+  align-items: start;
+  justify-content: space-evenly;
+  border: 1px solid #d3d3d3;
+}
+
+.oneItem button {
+  line-height: 12px;
+}
+
+.amount {
+  margin: 0 5px;
+  font-size: 1.3rem;
+}

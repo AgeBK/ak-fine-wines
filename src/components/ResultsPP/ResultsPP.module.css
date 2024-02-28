@@ -1,0 +1,20 @@
+.resultsPPCont {
+  display: flex;
+  font-size: 1.1rem;
+}
+
+.resultsPP,
+.resultsPPBtns {
+  margin-right: 20px;
+}
+
+@media screen and (max-width: 500px) {
+  .resultsPP {
+    display: none;
+  }
+
+  .resultsPP,
+  .resultsPPBtns {
+    margin-right: 0;
+  }
+}

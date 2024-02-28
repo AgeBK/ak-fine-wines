@@ -1,0 +1,29 @@
+.categoryPaging {
+  padding: 15px 0;
+  display: flex;
+  align-items: center;
+}
+
+.pageNumCont {
+  flex-grow: 1;
+}
+
+@media screen and (max-width: 800px) {
+  .categoryPaging {
+    flex-direction: column;
+  }
+
+  .pageNumCont {
+    margin-bottom: 20px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .categoryPaging {
+    flex-direction: column;
+  }
+
+  .pageNumCont {
+    margin-bottom: 20px;
+  }
+}

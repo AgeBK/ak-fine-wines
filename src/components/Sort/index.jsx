@@ -1,12 +1,8 @@
+import { sortNameArr } from "../../data/appData.json";
 import styles from "./Sort.module.css";
 
 function Sort({ sortName, setSortName }) {
-  const choicesArr = ["Relevance", "A-Z", "Z-A", "$", "$$$", "Sale"];
-
-  const update = (e) => {
-    console.log(e);
-    setSortName(e.target.value);
-  };
+  const handleSelect = ({ target: { value } }) => setSortName(value);
 
   return (
     <div className={styles.container}>
@@ -14,12 +10,12 @@ function Sort({ sortName, setSortName }) {
         <select
           id="sort"
           name="filters"
-          onChange={(e) => update(e)}
+          onChange={(e) => handleSelect(e)}
           className={styles.select}
           aria-labelledby="lblSort"
           value={sortName}
         >
-          {choicesArr.map((val) => (
+          {sortNameArr.map((val) => (
             <option value={val.toLowerCase()} key={val}>
               {val}
             </option>

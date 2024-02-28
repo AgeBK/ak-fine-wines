@@ -1,22 +1,25 @@
 import Img from "../Image";
 import styles from "./Footer.module.css";
+import { paymentArr } from "../../data/appData.json";
 
 function Footer() {
-  const paymentArr = [
-    "amex",
-    "applePay",
-    "mc",
-    "paypal",
-    "visa",
-    "zip",
-    "afterPay",
-  ];
   const yr = new Date().getFullYear();
+  const arr = paymentArr;
+
   return (
     <footer className={styles.container}>
-      <div className={styles.ak}>© {yr} AK Fine Wines All rights reserved</div>
+      <div className={styles.ak}>
+        © {yr}{" "}
+        <a
+          href="https://github.com/AgeBK/ak-fine-wine-ts?tab=readme-ov-file#about"
+          target="_blank" rel="noreferrer"
+        >
+          AK Fine Wines
+        </a>{" "}
+        All rights reserved.
+      </div>
       <ul className={styles.list}>
-        {paymentArr.map((val, ind) => (
+        {arr.map((val, ind) => (
           <li key={ind}>
             <Img
               image={`payment/${val}.jpg`}

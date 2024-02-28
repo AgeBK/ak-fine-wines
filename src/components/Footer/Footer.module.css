@@ -10,6 +10,11 @@
   flex: 1;
   color: #555;
 }
+
+.ak a {
+  font-weight: bold;
+}
+
 .list {
   display: flex;
   flex-wrap: wrap;

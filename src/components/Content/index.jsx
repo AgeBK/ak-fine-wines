@@ -1,19 +1,22 @@
-import Loading from "../../components/Loading";
-import Error from "../../components/Error";
+import Loading from "../Loading";
+import Error from "../Error";
 import { useGetWinesQuery } from "../../services/API";
 
-function Content({ children }) {
+const Content = ({ children }) => {
   let content = null;
-  const { error, isLoading } = useGetWinesQuery();
+  const { error, isLoading, data } = useGetWinesQuery();
+  const dataIsArray = Array.isArray(data);
 
   if (error) {
     content = <Error />;
   } else if (isLoading) {
     content = <Loading />;
-  } else {
+  } else if (dataIsArray) {
     content = children;
+  } else {
+    content = <Error />;
   }
   return <main>{content}</main>;
-}
+};
 
 export default Content;

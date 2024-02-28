@@ -4,6 +4,13 @@
   text-align: center;
 }
 
+.topOffers {
+  text-align: center;
+  font-size: 2.5rem;
+  line-height: 40px;
+  margin-bottom: 20px;
+}
+
 .campaign {
   background-color: #000;
   text-align: center;
@@ -75,14 +82,32 @@
   overflow: hidden;
 }
 
-.topOffers {
-  text-align: center;
-  font-size: 40px;
-  margin-bottom: 20px;
-}
-
 @media screen and (max-width: 800px) {
   .campaignMini {
     flex-direction: column;
+  }
+
+  .topOffers {
+    text-align: center;
+    font-size: 2rem;
+    line-height: 30px;
+    margin: 10px 0;
+  }
+
+  .campaign .tenOff {
+    font-size: 3rem;
+  }
+
+  .shopNow {
+    font-size: 1.6rem;
+    margin: 15px 0;
+    border: 3px solid white;
+    display: inline-block;
+    padding: 5px 20px;
+    color: #fff;
+  }
+
+  .campaignMini .hdr {
+    font-size: 2.2rem;
   }
 }
